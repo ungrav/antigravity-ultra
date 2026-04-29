@@ -31,12 +31,14 @@ Every time you start a new AI chat, you lose context. You waste tokens repeating
 │  GEMINI.md ─── Operational rules & safety        │
 │  MEMORY.md ─── Memory system specification       │
 │  .agent/   ─── Live state + knowledge vault      │
-│    ├── current_state.md  (session handoff)        │
-│    └── knowledge/        (durable KIs)           │
-│  PROJECT_HISTORY.md ──── Architectural decisions  │
-│  ERROR_LOG.md ────────── Incident ledger          │
+│    ├── current_state.md   (session handoff)      │
+│    ├── current_state.json (structured state)     │
+│    ├── project_state.json (generated cache)      │
+│    └── knowledge/         (durable KIs)          │
+│  PROJECT_HISTORY.md ──── Architectural decisions │
+│  ERROR_LOG.md ────────── Incident ledger         │
 │                                                  │
-│  Any AI agent reads these files and instantly     │
+│  Any AI agent reads these files and instantly    │
 │  understands your project's rules & history.     │
 └──────────────────────────────────────────────────┘
 ```
@@ -50,7 +52,7 @@ Full details in **[FEATURES_EN.md](./FEATURES_EN.md)**.
 | Feature | Description |
 |---------|-------------|
 | 🧠 **Persistent Memory** | Markdown-based Knowledge Items (KIs) with structured frontmatter |
-| 📐 **Zero Monoliths** | Pushes agents toward small, focused components |
+| 📐 **Zero Monoliths** | Agents edit minimally, patch only the needed surface, and build incrementally |
 | 🔧 **Autofix Skill** | On-demand eval-driven debugging loop |
 | 🕵️ **Adversarial Verification** | Agents must verify with evidence, not assumptions |
 | 📚 **Project Ledgers** | Immutable history of architectural decisions |
@@ -135,11 +137,13 @@ Cada vez que inicias un chat nuevo con IA, pierdes el contexto. Desperdicias tok
 │                memoria                           │
 │  .agent/   ─── Estado en vivo + baúl de          │
 │                conocimiento                      │
-│    ├── current_state.md  (handoff de sesión)      │
-│    └── knowledge/        (KIs duraderos)         │
+│    ├── current_state.md   (handoff de sesión)    │
+│    ├── current_state.json (estado estructurado)  │
+│    ├── project_state.json (caché generado)       │
+│    └── knowledge/         (KIs duraderos)        │
 │  PROJECT_HISTORY.md ──── Decisiones de           │
 │                          arquitectura            │
-│  ERROR_LOG.md ────────── Registro de incidentes   │
+│  ERROR_LOG.md ────────── Registro de incidentes  │
 │                                                  │
 │  Cualquier agente de IA lee estos archivos y     │
 │  entiende al instante las reglas e historia      │
@@ -156,7 +160,7 @@ Detalles completos en **[FEATURES_ES.md](./FEATURES_ES.md)**.
 | Característica | Descripción |
 |---------------|-------------|
 | 🧠 **Memoria Persistente** | Knowledge Items (KIs) en Markdown con frontmatter estructurado |
-| 📐 **Cero Monolitos** | Empuja a los agentes hacia componentes pequeños y enfocados |
+| 📐 **Cero Monolitos** | Los agentes editan mínimamente, parchean solo la superficie necesaria y construyen de forma incremental |
 | 🔧 **Skill de Autofix** | Loop de debugging iterativo guiado por evaluaciones |
 | 🕵️ **Verificación Adversarial** | Los agentes verifican con evidencia, no con suposiciones |
 | 📚 **Historial Permanente** | Registro inmutable de decisiones arquitectónicas |

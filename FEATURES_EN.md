@@ -10,7 +10,14 @@ Never lose your project's context again. Memory is organized into small, focused
 
 ## 📐 Ultra-Modular Architecture (Zero Monoliths)
 
-The kernel instructs agents to structure applications into small, focused components. No monolithic files. Benefits:
+Multiple kernel rules work together to prevent monolithic code:
+
+- **"Edit minimally, verify with evidence"** (`GEMINI.md` §2 Golden Path) — agents touch only target files.
+- **"Patch the needed surface only"** (`GEMINI.md` §4 Safety) — no overwriting unrelated code.
+- **"Build incrementally"** + **"smallest safe textual patch"** (`feature-development-workflow.md`) — changes are granular.
+- **"Giant undifferentiated phases that bundle unrelated work" are prohibited** (`implementation-planning.md`) — scope is bounded to 2-3 file clusters.
+
+Benefits:
 
 1. **Scalable code** — Changes touch small surfaces, not 10,000-line files.
 2. **Precise edits** — Agents modify specific components without overwriting unrelated code.

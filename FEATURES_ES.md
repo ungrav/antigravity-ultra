@@ -10,7 +10,14 @@ Nunca más pierdas el progreso de tu proyecto. La memoria se organiza en **Knowl
 
 ## 📐 Arquitecturas Ultra-Modulares (Cero Monolitos)
 
-El kernel instruye a los agentes a estructurar aplicaciones en componentes pequeños y enfocados. Sin archivos monolíticos. Beneficios:
+Múltiples reglas del kernel trabajan juntas para prevenir código monolítico:
+
+- **"Edit minimally, verify with evidence"** (`GEMINI.md` §2 Golden Path) — los agentes tocan solo archivos objetivo.
+- **"Patch the needed surface only"** (`GEMINI.md` §4 Safety) — sin sobrescribir código no relacionado.
+- **"Build incrementally"** + **"smallest safe textual patch"** (`feature-development-workflow.md`) — cambios granulares.
+- **"Giant undifferentiated phases that bundle unrelated work" están prohibidas** (`implementation-planning.md`) — el alcance se acota a clusters de 2-3 archivos.
+
+Beneficios:
 
 1. **Código escalable** — Los cambios tocan superficies pequeñas, no archivos de 10,000 líneas.
 2. **Ediciones precisas** — Los agentes modifican componentes específicos sin sobrescribir código no relacionado.
