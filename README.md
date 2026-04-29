@@ -44,14 +44,22 @@ The "secret" of Antigravity Ultra lies in just 5 core files:
 3. **🔥 Complete:** *For hardcore users and massive projects.* Installs the entire ecosystem. Adds MCP templates, deep performance evaluations, telemetry, and core testing. An enterprise-level AI dev environment.
 4. **⚙️ Custom:** *You are in control.* Lets you decide step-by-step which modules to install and which to skip.
 
+Simply change the `tier` parameter to match your desired profile:
+
 **macOS / Linux:**
 ```bash
+bash portable-kernel.sh --tier minimal --init
 bash portable-kernel.sh --tier recommended --init
+bash portable-kernel.sh --tier complete --init
+bash portable-kernel.sh --tier custom --init
 ```
 
 **Windows:**
 ```powershell
+.\portable-kernel-windows.ps1 -InstallTier minimal -Init
 .\portable-kernel-windows.ps1 -InstallTier recommended -Init
+.\portable-kernel-windows.ps1 -InstallTier complete -Init
+.\portable-kernel-windows.ps1 -InstallTier custom -Init
 ```
 
 > **Done!** The system will build the hidden `.agent/` folder, inject the initial context, and your favorite AI will be ready to work like a pro from the very first prompt.
@@ -101,14 +109,22 @@ El "secreto" de Antigravity Ultra reside en solo 5 archivos clave:
 3. **🔥 Complete (Completo):** *Para usuarios "Hardcore" y proyectos masivos.* Instala el ecosistema entero. Agrega integraciones con plantillas MCP, evaluaciones de desempeño, telemetría y pruebas. Un entorno de nivel empresarial.
 4. **⚙️ Custom (Personalizado):** *Tú tienes el control.* Te permite decidir paso a paso qué módulos instalar y cuáles omitir para crear tu propio entorno perfecto.
 
+Simplemente cambia el parámetro `tier` para instalar el perfil que desees:
+
 **macOS / Linux:**
 ```bash
+bash portable-kernel.sh --tier minimal --init
 bash portable-kernel.sh --tier recommended --init
+bash portable-kernel.sh --tier complete --init
+bash portable-kernel.sh --tier custom --init
 ```
 
 **Windows:**
 ```powershell
+.\portable-kernel-windows.ps1 -InstallTier minimal -Init
 .\portable-kernel-windows.ps1 -InstallTier recommended -Init
+.\portable-kernel-windows.ps1 -InstallTier complete -Init
+.\portable-kernel-windows.ps1 -InstallTier custom -Init
 ```
 
 > **¡Listo!** El sistema construirá la carpeta oculta `.agent/` y tu IA favorita estará lista para trabajar como un profesional desde el primer prompt.
