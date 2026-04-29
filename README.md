@@ -23,8 +23,8 @@ Antigravity Ultra empuja a los agentes a adoptar las mejores prácticas de ingen
 2. La IA edita partes específicas sin tener que sobreescribir archivos de 10,000 líneas.
 3. Se evita la sobresaturación del contexto, reduciendo drásticamente el gasto de tokens y previniendo "alucinaciones" (errores de código) al programar.
 
-### 🔧 Auto-Fix y Resolución Inteligente (Self-Healing)
-Olvídate de tener que copiar y pegar tediosos logs de errores en el chat. Antigravity Ultra mantiene un registro estructurado local (`ERROR_LOG.md`). Cuando un bug aparece o una prueba falla, la IA es capaz de leer automáticamente los últimos incidentes, diagnosticar la causa raíz y ejecutar un **Autofix** para reparar el código de inmediato. El sistema está diseñado para curarse a sí mismo.
+### 🔧 Skill de Autofix (Loop Eval-Driven)
+Antigravity Ultra soporta un módulo especializado de resolución llamado **Autofix**. En lugar de copiar y pegar tediosos logs de errores en el chat, este *skill* establece un ciclo automático guiado por evaluaciones (*eval-driven loop*). La IA lee los errores locales (`ERROR_LOG.md`) o los resultados de pruebas fallidas, diagnostica la causa raíz, implementa la solución y re-evalúa el código iterativamente hasta que todo pase correctamente. Es una herramienta estructurada para que el proyecto se "cure a sí mismo" frente a los bugs.
 
 ### 🕵️ Verificación Adversarial y "Cero Suposiciones"
 El kernel instruye a la IA a operar bajo una estricta disciplina de "Detección de Ideas Erróneas". Antes de escribir código, la IA verifica sus premisas. Para cambios complejos, el sistema requiere **Verificación Adversarial**: la IA no confía en su propio código a ciegas, debe probarlo y verificarlo basándose en evidencia real antes de dar una tarea por terminada.
