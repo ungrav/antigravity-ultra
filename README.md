@@ -15,7 +15,7 @@ Se acabaron los días de perder el contexto cada vez que inicias un chat nuevo. 
 ### 🧠 Memoria Persistente y Eficiente
 Nunca más pierdas el progreso de tus proyectos. Antigravity Ultra implementa un sistema de memoria estructurado que tu IA aprende a leer de inmediato:
 - **Project DNA**: Contexto central, reglas de negocio y arquitectura inmutable de tu proyecto.
-- **Cero Archivos Monolíticos**: Olvídate de tener un solo archivo gigante de 10,000 líneas que sature la memoria. El estado y el historial se dividen en archivos pequeños, enfocados y modulares (KIs).
+- **Cero Archivos Monolíticos en tus Proyectos**: Antigravity Ultra impulsa arquitecturas modulares. Olvídate de archivos de código gigantes de 10,000 líneas; los agentes estructuran tus aplicaciones en componentes pequeños y enfocados. Esto hace tu código mucho más mantenible, optimiza la lectura por parte de la IA y reduce drásticamente el gasto de tokens al tener que editar partes específicas.
 - **Ahorro masivo de Tokens**: Evita inyectar historiales gigantescos. La IA solo consulta su "memoria" cuando realmente lo necesita. Además, el kernel fuerza **comunicaciones concisas y directas**, eliminando el palabrerío innecesario de la IA para ahorrar tokens en cada mensaje.
 
 ### 🤝 Tu IA Favorita, Sin Barreras
