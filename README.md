@@ -23,6 +23,15 @@ Antigravity Ultra empuja a los agentes a adoptar las mejores prácticas de ingen
 2. La IA edita partes específicas sin tener que sobreescribir archivos de 10,000 líneas.
 3. Se evita la sobresaturación del contexto, reduciendo drásticamente el gasto de tokens y previniendo "alucinaciones" (errores de código) al programar.
 
+### 🔧 Auto-Fix y Resolución Inteligente (Self-Healing)
+Olvídate de tener que copiar y pegar tediosos logs de errores en el chat. Antigravity Ultra mantiene un registro estructurado local (`ERROR_LOG.md`). Cuando un bug aparece o una prueba falla, la IA es capaz de leer automáticamente los últimos incidentes, diagnosticar la causa raíz y ejecutar un **Autofix** para reparar el código de inmediato. El sistema está diseñado para curarse a sí mismo.
+
+### 🕵️ Verificación Adversarial y "Cero Suposiciones"
+El kernel instruye a la IA a operar bajo una estricta disciplina de "Detección de Ideas Erróneas". Antes de escribir código, la IA verifica sus premisas. Para cambios complejos, el sistema requiere **Verificación Adversarial**: la IA no confía en su propio código a ciegas, debe probarlo y verificarlo basándose en evidencia real antes de dar una tarea por terminada.
+
+### 📚 Historial Permanente (Project Ledgers)
+Cuando trabajas con IA durante meses, a veces pierdes el rastro de *por qué* se tomó una decisión arquitectónica hace semanas. Antigravity mantiene un registro inmutable de cambios duraderos en su `PROJECT_HISTORY.md`. Cualquier nuevo agente que entre al proyecto puede leer este "libro mayor" y entender la evolución del código sin que tú tengas que explicarle nada.
+
 ### 💬 Comunicaciones Concisas (Ahorro Extremo de Tokens)
 Cada token cuesta dinero y tiempo. El kernel fuerza a la IA a mantener **comunicaciones concisas, directas y sin rodeos**. Eliminamos los saludos robóticos ("Hola, soy una IA"), las disculpas y los resúmenes repetitivos. Obtienes respuestas directas al grano que aceleran el desarrollo y maximizan la eficiencia de la API.
 
