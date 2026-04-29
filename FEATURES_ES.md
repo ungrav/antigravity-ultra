@@ -1,4 +1,4 @@
-<![CDATA[# Antigravity Ultra: Características y Funciones 🚀
+# Antigravity Ultra: Características y Funciones 🚀
 
 ## 🧠 Memoria Persistente y Estructurada
 
@@ -86,4 +86,3 @@ Todo el sistema se distribuye en 5 archivos. Cópialos en cualquier directorio d
 | `custom` | Elige módulos individualmente |
 
 Multiplataforma: macOS, Linux y Windows PowerShell. Sin dependencias más allá de Bash 4+ o PowerShell 5+.
-]]>

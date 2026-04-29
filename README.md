@@ -1,4 +1,4 @@
-<![CDATA[# Antigravity Ultra 🚀
+# Antigravity Ultra 🚀
 
 🌍 [🇺🇸 English](#-english) | [🇪🇸 Español](#-español)
 
@@ -213,4 +213,3 @@ Antigravity Ultra es open source bajo GPLv3. Issues y PRs son bienvenidos.
 ### ⚖️ Licencia
 
 **GNU GPLv3** — Ver [LICENSE](./LICENSE).
-]]>

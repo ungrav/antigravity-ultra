@@ -1,4 +1,4 @@
-<![CDATA[# Antigravity Ultra: Features & Capabilities 🚀
+# Antigravity Ultra: Features & Capabilities 🚀
 
 ## 🧠 Persistent & Structured Memory
 
@@ -86,4 +86,3 @@ The entire system ships as 5 files. Copy them into any project directory and run
 | `custom` | Pick modules individually |
 
 Cross-platform: macOS, Linux, and Windows PowerShell. No dependencies beyond Bash 4+ or PowerShell 5+.
-]]>
