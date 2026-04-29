@@ -1,105 +1,57 @@
 # Antigravity Ultra 🚀
 
-**Superpoderes para tus Agentes de IA. Cambia las reglas del juego.**
+**Superpowers for your AI Agents. Change the rules of the game.**  
+*Superpoderes para tus Agentes de IA. Cambia las reglas del juego.*
 
-Antigravity Ultra es un kernel portable y ultra-ligero construido como una evolución radical sobre el ecosistema original **Antigravity de Google**. Diseñado para gestionar la identidad, memoria y capacidades operativas de agentes de IA autónomos.
+Antigravity Ultra is a portable, ultra-lightweight kernel built as a radical evolution over the original **Google Antigravity** ecosystem. It is designed to manage the identity, persistent memory, and operational capabilities of autonomous AI agents.  
+*Antigravity Ultra es un kernel portable y ultra-ligero construido como una evolución radical sobre el ecosistema original **Antigravity de Google**. Diseñado para gestionar la identidad, memoria persistente y capacidades operativas de agentes de IA autónomos.*
 
-**Antigravity Ultra** implementa una arquitectura optimizada y reimaginada.
-
-Se acabaron los días de perder el contexto cada vez que inicias un chat nuevo. Se acabó el desperdicio masivo de tokens repitiendo las mismas instrucciones. Con Antigravity Ultra, cada uno de tus proyectos tiene una memoria única, persistente y estructurada.
-
----
-
-## 🌟 Por qué necesitas Antigravity Ultra
-
-### 🧠 Memoria Persistente y Estructurada
-Nunca más pierdas el progreso de tus proyectos. Antigravity Ultra implementa un sistema de memoria diseñado para ser procesado eficientemente por cualquier IA:
-- **Project DNA**: Contexto central, reglas de negocio y arquitectura inmutable de tu proyecto.
-- **Conocimiento Modular (KIs)**: La memoria de Antigravity no es un archivo gigante e ineficiente. Todo se organiza en *Knowledge Items* (KIs) pequeños y enfocados. Gracias a su estricto **Golden Path**, la IA solo lee lo que estrictamente necesita para la tarea actual, ahorrando miles de tokens por conversación.
-
-### 📐 Arquitecturas de Proyecto Ultra-Modulares (Cero Monolitos)
-Antigravity Ultra empuja a los agentes a adoptar las mejores prácticas de ingeniería en los proyectos que construyen. **Cero archivos monolíticos**. Los agentes estructuran tus aplicaciones en componentes pequeños y altamente enfocados. Esto genera tres beneficios masivos:
-1. Código infinitamente más escalable y mantenible.
-2. La IA edita partes específicas sin tener que sobreescribir archivos de 10,000 líneas.
-3. Se evita la sobresaturación del contexto, reduciendo drásticamente el gasto de tokens y previniendo "alucinaciones" (errores de código) al programar.
-
-### 🔧 Skill de Autofix (Loop Eval-Driven)
-Antigravity Ultra soporta un módulo de resolución a demanda llamado **Autofix**. No es una magia autónoma que ocurre sin tu permiso; **tú tienes el control**. Cuando encuentras un bug o algo que mejorar, invocas a la IA indicándole qué arreglar. A partir de ahí, este *skill* toma el control estableciendo un ciclo iterativo guiado por evaluaciones (*eval-driven loop*). La IA lee los errores locales (`ERROR_LOG.md`), diagnostica la causa, implementa la solución y verifica los resultados hasta que el problema que le asignaste quede resuelto. Es tu asistente estructurado de debugging bajo demanda.
-
-### 🕵️ Verificación Adversarial y "Cero Suposiciones"
-El kernel instruye a la IA a operar bajo una estricta disciplina de "Detección de Ideas Erróneas". Antes de escribir código, la IA verifica sus premisas. Para cambios complejos, el sistema requiere **Verificación Adversarial**: la IA no confía en su propio código a ciegas, debe probarlo y verificarlo basándose en evidencia real antes de dar una tarea por terminada.
-
-### 📚 Historial Permanente (Project Ledgers)
-Cuando trabajas con IA durante meses, a veces pierdes el rastro de *por qué* se tomó una decisión arquitectónica hace semanas. Antigravity mantiene un registro inmutable de cambios duraderos en su `PROJECT_HISTORY.md`. Cualquier nuevo agente que entre al proyecto puede leer este "libro mayor" y entender la evolución del código sin que tú tengas que explicarle nada.
-
-### 💬 Comunicaciones Concisas (Ahorro Extremo de Tokens)
-Cada token cuesta dinero y tiempo. El kernel fuerza a la IA a mantener **comunicaciones concisas, directas y sin rodeos**. Eliminamos los saludos robóticos ("Hola, soy una IA"), las disculpas y los resúmenes repetitivos. Obtienes respuestas directas al grano que aceleran el desarrollo y maximizan la eficiencia de la API.
-
-### 🤝 Tu IA Favorita, Sin Barreras
-Empieza tus proyectos con Antigravity. Al operar sobre la infraestructura universal de Antigravity Ultra, puedes arrancar la arquitectura base con **Gemini**, realizar una auditoría de seguridad implacable con **Claude**, y tirar líneas de código complejas con **Codex**. Cualquier agente de IA que conectes entenderá de inmediato las reglas de tu proyecto, su historial y qué hacer a continuación. 
-
-### ⚡ Automatiza lo Aburrido
-Evita quemar tokens en tareas repetitivas y ceremoniales. Antigravity Ultra te permite ejecutar flujos de trabajo (*workflows*) automatizados y pruebas (testing) para que tu agente se enfoque en la arquitectura y toma de decisiones importantes, en lugar de gastar contexto ejecutando comandos rutinarios.
-
-### 🛠️ Instala Superpoderes (Skills) de Forma Automática
-No reinventes la rueda. Al usar Antigravity Ultra, el descubrimiento e integración de superpoderes es **automático**. El sistema busca herramientas y *skills* pre-entrenadas a través de su motor `skills.sh` de forma dinámica, operando con una filosofía modular inspirada en los altos estándares de la industria (como la eficiencia del ecosistema de **Vercel**).
-- ¿Necesitas diseño premium? El sistema autoconecta el skill `impeccable`.
-- ¿Auditoría de seguridad profunda? Detecta y utiliza `ghost-scan-code`.
-Las habilidades se inyectan bajo demanda, dándole herramientas de nivel experto a tu IA al instante, sin configuraciones complejas por tu parte.
-
-### 🛡️ Seguridad Primero y Borrado Seguro
-Antigravity Ultra diferencia drásticamente entre código seguro y operaciones destructivas:
-- **Borrado Seguro (Safe Delete):** Los agentes nunca eliminan archivos permanentemente de tu proyecto. En su lugar, los mueven a una papelera de reciclaje (`_DEPRECATED_TRASH`), protegiendo tu trabajo de accidentes causados por la IA.
-- **Control de Permisos:** Tú tienes el control absoluto. Dependiendo de los permisos que le otorgues a tus agentes, ciertas tareas repetitivas se harán en automático, pero los cambios importantes (como despliegues, modificaciones de arquitectura o comandos críticos) requerirán estrictamente de tu confirmación humana.
-
-### 🌐 Elige tu Idioma
-El sistema se adapta a ti. Puedes configurar tu perfil para que la IA se comunique contigo en tu idioma nativo (como el español), manteniendo su "razonamiento interno" en inglés para maximizar sus capacidades cognitivas lógicas sin fricción.
+No more losing context every time you start a new chat. No more wasting massive amounts of tokens repeating the same instructions. With Antigravity Ultra, every single project gets a unique, persistent, and highly structured memory.  
+*Se acabaron los días de perder el contexto cada vez que inicias un chat nuevo. Se acabó el desperdicio masivo de tokens repitiendo las mismas instrucciones. Con Antigravity Ultra, cada uno de tus proyectos tiene una memoria única, persistente y estructurada.*
 
 ---
 
-## 📂 ¿Qué hace cada archivo? (El Kit Portable)
+## 🌟 Features / Características
 
-El "secreto" de Antigravity Ultra reside en solo 5 archivos clave que actúan como tu kit de superpoderes:
+We've completely re-engineered how AI interacts with your projects. Read the full details of all Antigravity Ultra superpowers in our **[FEATURES.md](./FEATURES.md)** guide.  
+*Hemos rediseñado por completo cómo la IA interactúa con tus proyectos. Lee todos los detalles de los superpoderes de Antigravity Ultra en nuestra guía **[FEATURES.md](./FEATURES.md)**.*
 
-1. **`GEMINI.md` (El Cerebro):** Es el "Reglamento de Operaciones". Le dice a la IA quién es, cómo debe comportarse, y le marca los límites de seguridad. Cuando la IA lee esto, deja de ser un simple chatbot y se convierte en un ingeniero de software de élite.
-2. **`MEMORY.md` (El Hipocampo):** Es el manual que le enseña a la IA cómo crear, guardar y leer recuerdos estructurados de tu proyecto. Define cómo la IA debe tomar notas para nunca olvidar las decisiones arquitectónicas importantes.
-3. **`GEMINI_BLUEPRINTS.md` (El ADN y Botiquín):** Contiene las plantillas base y todo lo necesario para "revivir" o restaurar el sistema si llegas a borrar algo por accidente. Es el archivo de rescate maestro.
-4. **`portable-kernel.sh` (El Motor para Mac/Linux):** Es el instalador inteligente.
-5. **`portable-kernel-windows.ps1` (El Motor para Windows):** Igual que el anterior, pero diseñado específicamente para PowerShell.
+**Highlights / Puntos Clave:**
+- 🧠 Persistent & Structured Memory / *Memoria Persistente y Estructurada*
+- 📐 Zero Monoliths Architecture / *Arquitectura Cero Monolitos*
+- 🔧 On-demand Autofix Skill / *Skill de Autofix a Demanda*
+- 🕵️ Adversarial Verification / *Verificación Adversarial*
+- 📚 Permanent Project Ledgers / *Historial Permanente*
+- 🛠️ Automatic Skill Discovery / *Instalación Automática de Skills*
 
 ---
 
-## 🚀 Instalación y Perfiles a Tu Medida
+## 📂 The Portable Kit / El Kit Portable
 
-**Olvídate de mover archivos manualmente a carpetas específicas.** El motor instalador de Antigravity Ultra es completamente autónomo: el script `portable-kernel` se encarga automáticamente de crear las carpetas, ubicar los archivos y configurar las rutas exactas según tu sistema operativo y tu entorno de usuario.
+The "secret" of Antigravity Ultra lies in just 5 core files:  
+*El "secreto" de Antigravity Ultra reside en solo 5 archivos clave:*
 
-La instalación se adapta exactamente a lo que necesitas. Al instalar, puedes elegir entre 4 **Perfiles de Instalación (Tiers)**, dependiendo de si quieres un entorno rápido o un ecosistema completo:
+1. **`GEMINI.md` (The Brain / El Cerebro):** The operational rulebook. It tells the AI who it is and defines safety boundaries. / *El "Reglamento de Operaciones". Le dice a la IA quién es y le marca límites.*
+2. **`MEMORY.md` (The Hippocampus / El Hipocampo):** Teaches the AI how to create and read structured project memories. / *El manual que enseña a la IA cómo crear y leer recuerdos estructurados.*
+3. **`GEMINI_BLUEPRINTS.md` (The DNA / El ADN):** The master rescue file containing templates to restore the system. / *El archivo de rescate maestro para restaurar el sistema si algo falla.*
+4. **`portable-kernel.sh`:** Smart installer for macOS/Linux. / *Instalador inteligente para macOS/Linux.*
+5. **`portable-kernel-windows.ps1`:** Smart installer for Windows PowerShell. / *Instalador inteligente para Windows.*
 
-1. **🌱 Minimal (Minimalista):**
-   *Ideal para proyectos pequeños o pruebas rápidas.* 
-   Instala solo el motor básico, el estado en vivo y el baúl de memoria. Lo justo y necesario para que la IA tenga contexto sin cargar herramientas extra.
-2. **⭐ Recommended (Recomendado):**
-   *El punto dulce para la mayoría de desarrolladores.*
-   Incluye todo lo del perfil Minimal, pero le suma **Workflows Avanzados** y **Herramientas de Auditoría**. Perfecto para automatizar tareas repetitivas y mantener la alta calidad del código.
-3. **🔥 Complete (Completo):**
-   *Para los usuarios "Hardcore" y proyectos masivos.*
-   Te instala el ecosistema entero. Agrega integraciones con plantillas MCP, evaluaciones de desempeño profundo, telemetría y pruebas (tests) de núcleo. Es un entorno de desarrollo de IA de nivel empresarial.
-4. **⚙️ Custom (Personalizado):**
-   *Tú tienes el control.*
-   Te permite decidir paso a paso qué módulos instalar y cuáles omitir para crear tu propio entorno perfecto.
+---
 
-### ¿Cómo instalar?
+## 🚀 Quick Install / Instalación Rápida
 
-Simplemente descarga el instalador (los 5 archivos del kit portable en tu carpeta deseada) y ejecútalo. El motor portátil hará todo el enrutamiento y copiado por ti.
+**Forget about manually moving files.** The Antigravity Ultra engine is completely autonomous. Download the 5 portable files to your desired folder and run the installer. You can choose between 4 **Tiers**: `minimal`, `recommended`, `complete`, or `custom`.  
+*Olvídate de mover archivos manualmente. El motor es completamente autónomo. Descarga los 5 archivos portables a tu carpeta y ejecuta el instalador. Puedes elegir entre 4 **Perfiles**: `minimal`, `recommended`, `complete`, o `custom`.*
 
-**En macOS / Linux:**
+**macOS / Linux:**
 ```bash
 bash portable-kernel.sh --tier recommended --init
 ```
 
-**En Windows:**
+**Windows:**
 ```powershell
 .\portable-kernel-windows.ps1 -InstallTier recommended -Init
 ```
 
-> **¡Listo!** El sistema construirá la carpeta oculta `.agent/`, inyectará el contexto inicial y tu IA favorita estará lista para trabajar como un profesional desde el primer prompt.
+> **Done! / ¡Listo!** The system will build the hidden `.agent/` folder, inject the initial context, and your favorite AI will be ready to work like a pro from the very first prompt. / *El sistema construirá la carpeta oculta `.agent/` y tu IA favorita estará lista para trabajar como un profesional desde el primer prompt.*
