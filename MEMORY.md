@@ -1,5 +1,5 @@
-# MEMORY TECHNICAL SPEC: v8.24 - SIMPLE MARKDOWN MEMORY
-*Last updated: 2026-04-27*
+# MEMORY TECHNICAL SPEC: v8.26 - STRUCTURED MARKDOWN MEMORY
+*Last updated: 2026-04-29*
 
 ## Purpose
 Memory exists to preserve durable project knowledge without making normal agents study the kernel. The active model is simple:
@@ -8,7 +8,7 @@ Memory exists to preserve durable project knowledge without making normal agents
 - `.agent/knowledge/.project_dna.md` as a compact project digest.
 - `PROJECT_HISTORY.md` for durable changes.
 - `ERROR_LOG.md` for incidents and fixes.
-- Targeted selection by task keywords, `tenant_domain`, entities, status, and optional `cognitive_weight`.
+- Targeted selection by task keywords, `tenant_domain`, entities, status, and recency.
 
 No derived scoring system is part of the active contract. Agents and scripts must not require generated ranking artifacts or calculated memory scores.
 
@@ -18,6 +18,7 @@ No derived scoring system is part of the active contract. Agents and scripts mus
 - `MEMORY.md` is loaded only for memory/kernel changes or audits.
 - The selector should return a small set of paths plus a plain reason.
 - If selector tooling is unavailable, use targeted grep over active Markdown notes.
+- Memory scripts are helpers for consistency and verification, not a required detour for obvious native Markdown edits.
 
 ## KI Shape
 KIs are Markdown files under `.agent/knowledge/`:
@@ -41,7 +42,6 @@ status: "active"
 timestamp: 1775200000
 tenant_domain: "kernel"
 entities: ["resolver", "memory"]
-cognitive_weight: 0.7
 related_kis: []
 ---
 ```
@@ -51,7 +51,6 @@ Required behavior:
 - `status: active` is the normal selectable state.
 - `status: superseded` or `archived` stays out of normal retrieval unless explicitly requested.
 - `tenant_domain`, `entities`, and `kind` guide targeted selection.
-- `cognitive_weight` is a simple manual priority, not a calculated score.
 
 ## Selection
 Selection should be boring and inspectable:
@@ -59,12 +58,12 @@ Selection should be boring and inspectable:
 - Start from `.project_dna.md` for memory-heavy work.
 - Prefer notes matching the task's `tenant_domain`, entities, and keywords.
 - Prefer `status: active`.
-- Break ties with `cognitive_weight`, recency, and direct entity match.
+- Break ties with recency and direct entity match.
 - Return at most 5 notes or about 1200 tokens.
 - Revalidate repo/runtime facts before treating a note as current truth.
 
 ## Capture
-Use `scripts/capture-ki.sh` instead of hand-picking folders.
+Prefer `scripts/capture-ki.sh` for standard/deep closeout when state-derived suggestions are useful.
 
 Normal closeout:
 
@@ -77,6 +76,8 @@ Write only when the suggestion is durable:
 ```bash
 scripts/capture-ki.sh --suggest-from-current-state --json --write
 ```
+
+Native KI edits are acceptable for explicit memory/kernel work when the durable lesson is clear, frontmatter is valid, and the note follows the exclusion rules below.
 
 Capture only durable decisions, reusable patterns, verified bug fixes, API/config/schema contracts, important research, or handoff-worthy constraints.
 
@@ -106,9 +107,10 @@ Limits:
 It is regenerated from active notes when memory maintenance is explicitly requested. It is not a transcript and does not replace live state.
 
 ## Live State Boundary
-- `.agent/current_state.json` is machine truth for the active session.
-- `.agent/current_state.md` is the rendered agent-readable view.
+- `.agent/current_state.json` is the structured source used by renderers.
+- `.agent/current_state.md` is the operational view agents read first.
 - `.agent/project_state.json` is generated cache.
+- If these views disagree, treat live state as stale, revalidate repo/runtime facts, update the structured state, and rerender the Markdown/cache views.
 - `context_state` KIs are durable handoff summaries only; they do not replace live state.
 
 ## Implementation Plan Persistence Boundary
@@ -141,7 +143,7 @@ Demote or expire global knowledge when it becomes project-specific, contradicted
 - promote valid inbox drafts if that workflow is explicitly used
 - archive invalid drafts
 - regenerate `.project_dna.md`
-- consolidate only when active KI count is too high
+- consolidate when active KI count exceeds 15 for this personal kernel profile; use 30 only when operating it as a product/framework with CI coverage
 
 Maintenance must not create generated ranking artifacts.
 

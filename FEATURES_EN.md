@@ -1,38 +1,89 @@
-# Antigravity Ultra: Features & Capabilities 🚀
+<![CDATA[# Antigravity Ultra: Features & Capabilities 🚀
 
-### 🧠 Persistent & Structured Memory
-Never lose your project's context again. Antigravity Ultra implements a memory system designed for efficient AI processing:
-- **Project DNA**: Core context, business rules, and immutable architecture of your project.
-- **Modular Knowledge (KIs)**: Memory is organized into small, focused *Knowledge Items* (KIs). Thanks to the strict **Golden Path**, the AI only reads what it strictly needs, saving thousands of tokens per conversation.
+## 🧠 Persistent & Structured Memory
 
-### 📐 Ultra-Modular Architecture (Zero Monoliths)
-Antigravity Ultra pushes agents to adopt engineering best practices. **Zero monolithic files**. Agents structure your applications into small, highly focused components. Benefits:
-1. Infinitely more scalable code.
-2. AI edits specific parts without overwriting 10,000-line files.
-3. Prevents context oversaturation, reducing token cost and preventing hallucinations.
+Never lose your project's context again. Memory is organized into small, focused **Knowledge Items (KIs)** — Markdown files with structured YAML frontmatter.
 
-### 🔧 Autofix Skill (Eval-Driven Loop)
-Antigravity Ultra supports an on-demand resolution module called **Autofix**. It is not autonomous magic; **you are in control**. When you find a bug, you invoke the AI to fix it. The skill then takes over via an iterative *eval-driven loop*. The AI reads local errors (`ERROR_LOG.md`), diagnoses, implements, and verifies until the issue is resolved. It is your structured, on-demand debugging assistant.
+- **Project DNA:** A compact digest of your project's core context, active risks, and key references. Capped at 50 lines to stay lean.
+- **Golden Path Routing:** Agents don't load the entire memory vault. They follow a strict routing table — normal tasks read only target files, bugs check `ERROR_LOG.md`, architecture work reads `PROJECT_HISTORY.md`. This saves thousands of tokens per conversation.
+- **Selective Loading:** At most 5 KIs (~1200 tokens) are loaded per task. The selector matches by `tenant_domain`, `entities`, and task keywords.
 
-### 🕵️ Adversarial Verification & "Zero Assumptions"
-The kernel instructs the AI to operate under strict "Misconception Detection". Before writing code, the AI verifies its premises. For complex changes, the system requires **Adversarial Verification**: the AI cannot blindly trust its code; it must test and verify it against real evidence before completing a task.
+## 📐 Ultra-Modular Architecture (Zero Monoliths)
 
-### 📚 Permanent History (Project Ledgers)
-Antigravity Ultra maintains an immutable ledger of durable changes in `PROJECT_HISTORY.md`. Any new agent joining the project months later can read this ledger to understand *why* architectural decisions were made without you having to explain.
+The kernel instructs agents to structure applications into small, focused components. No monolithic files. Benefits:
 
-### 💬 Concise Communications (Extreme Token Savings)
-Tokens equal time and money. The kernel forces the AI to maintain **concise, direct communications**. No robotic greetings ("Hello, I am an AI") or repetitive summaries. You get straight-to-the-point answers that accelerate development.
+1. **Scalable code** — Changes touch small surfaces, not 10,000-line files.
+2. **Precise edits** — Agents modify specific components without overwriting unrelated code.
+3. **Lower token cost** — Smaller files mean less context to load, fewer hallucinations.
 
-### 🤝 Your Favorite AI, Unbound
-Start your projects with Antigravity. By operating on the universal Antigravity Ultra infrastructure, you can bootstrap with **Gemini**, run security audits with **Claude**, and write complex code with **Codex**. Any AI agent will instantly understand your project's rules, history, and what to do next.
+## 🔧 Autofix Skill (Eval-Driven Loop)
 
-### 🛠️ Automatic Skill Discovery
-Don't reinvent the wheel. Antigravity Ultra features dynamic tool discovery via `skills.sh`. 
-- Need premium design? It autoconnects the `impeccable` skill.
-- Deep security audit? It uses `ghost-scan-code`.
-Skills are injected on demand, giving your AI expert-level tools instantly.
+An on-demand debugging assistant, not autonomous magic. **You invoke it, you control it.**
 
-### 🛡️ Security First & Safe Delete
-Antigravity Ultra separates safe code from destructive operations:
-- **Safe Delete:** Agents never permanently delete files. They move them to `_DEPRECATED_TRASH`, protecting your work from AI accidents.
-- **Permission Control:** Depending on the permissions you grant, routine tasks run automatically, but critical changes (deployments, architecture shifts) strictly require your human confirmation.
+1. You identify a bug and point the agent to it.
+2. The agent reads the error from `ERROR_LOG.md`.
+3. It diagnoses, implements a fix, and verifies the result.
+4. If the fix fails verification, it iterates until resolved.
+
+This is a structured loop, not a "fire and forget" AI feature.
+
+## 🕵️ Adversarial Verification & Zero Assumptions
+
+Two disciplines baked into the kernel:
+
+- **Misconception Detection:** Before executing, the agent checks if the user's premise is actually correct. If not, it corrects the false assumption before writing code.
+- **Evidence-Based Verification:** For complex changes, the agent cannot self-certify. It must run tests or produce real evidence that the change works. Reports use `PASS`, `FAIL`, or `PARTIAL` — never unverified claims.
+
+## 📚 Permanent History (Project Ledgers)
+
+Two immutable ledgers track your project's evolution:
+
+| Ledger | Purpose |
+|--------|---------|
+| `PROJECT_HISTORY.md` | Durable architectural decisions, milestones, and design rationale |
+| `ERROR_LOG.md` | Incidents, root causes, and applied fixes |
+
+Any new agent (or new team member) reads these ledgers and understands *why* decisions were made — without you explaining.
+
+## 💬 Concise Communications
+
+The kernel forces direct, token-efficient responses:
+
+- No robotic greetings ("Hello, I am an AI assistant...")
+- No unnecessary summaries of what the agent is about to do
+- Straight-to-the-point answers that respect your time and your token budget
+
+## 🤝 Provider Agnostic
+
+Antigravity Ultra is not tied to any AI provider. Start architecture with **Gemini**, run security audits with **Claude**, write complex logic with **Codex**. Any Markdown-aware agent reads the same `GEMINI.md` rulebook and `.agent/` state — and instantly understands your project.
+
+## 🛠️ Automatic Skill Discovery
+
+The system dynamically discovers and connects specialized skills:
+
+- **Design work?** Auto-connects the `impeccable` skill for premium UI/UX.
+- **Security audit?** Activates `ghost-scan-code` for SAST analysis.
+- **Docker issues?** Loads `docker-expert` for container troubleshooting.
+
+Skills are injected on demand — your agent gets expert-level tools instantly, without manual configuration.
+
+## 🛡️ Security First & Safe Delete
+
+Two safety layers protect your work:
+
+- **Safe Delete:** Agents never permanently delete project files. Deleted files are moved to `_DEPRECATED_TRASH`, giving you a safety net against AI accidents.
+- **Permission Tiers:** Routine, low-risk edits run automatically (`AUTO`). Critical operations — deployments, architecture shifts, external integrations — require your explicit confirmation (`CONFIRM`).
+
+## ⚡ Portable Installation (5 Files)
+
+The entire system ships as 5 files. Copy them into any project directory and run the installer. Four tiers let you choose your level of tooling:
+
+| Tier | Includes |
+|------|----------|
+| `minimal` | Core engine, live state, memory vault |
+| `recommended` | + Workflows, audit tools |
+| `complete` | + MCP templates, evaluations, telemetry, testing |
+| `custom` | Pick modules individually |
+
+Cross-platform: macOS, Linux, and Windows PowerShell. No dependencies beyond Bash 4+ or PowerShell 5+.
+]]>

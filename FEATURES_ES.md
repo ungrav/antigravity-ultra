@@ -1,38 +1,89 @@
-# Antigravity Ultra: Características y Funciones 🚀
+<![CDATA[# Antigravity Ultra: Características y Funciones 🚀
 
-### 🧠 Memoria Persistente y Estructurada
-Nunca más pierdas el progreso de tus proyectos. Antigravity Ultra implementa un sistema de memoria diseñado para ser procesado eficientemente por cualquier IA:
-- **Project DNA**: Contexto central, reglas de negocio y arquitectura inmutable de tu proyecto.
-- **Conocimiento Modular (KIs)**: La memoria de Antigravity no es un archivo gigante e ineficiente. Todo se organiza en *Knowledge Items* (KIs) pequeños y enfocados. Gracias a su estricto **Golden Path**, la IA solo lee lo que estrictamente necesita para la tarea actual, ahorrando miles de tokens por conversación.
+## 🧠 Memoria Persistente y Estructurada
 
-### 📐 Arquitecturas de Proyecto Ultra-Modulares (Cero Monolitos)
-Antigravity Ultra empuja a los agentes a adoptar las mejores prácticas de ingeniería en los proyectos que construyen. **Cero archivos monolíticos**. Los agentes estructuran tus aplicaciones en componentes pequeños y altamente enfocados. Esto genera tres beneficios masivos:
-1. Código infinitamente más escalable y mantenible.
-2. La IA edita partes específicas sin tener que sobreescribir archivos masivos.
-3. Se evita la sobresaturación del contexto, reduciendo drásticamente el gasto de tokens y previniendo "alucinaciones" al programar.
+Nunca más pierdas el progreso de tu proyecto. La memoria se organiza en **Knowledge Items (KIs)** pequeños y enfocados — archivos Markdown con frontmatter YAML estructurado.
 
-### 🔧 Skill de Autofix (Loop Eval-Driven)
-Antigravity Ultra soporta un módulo de resolución a demanda llamado **Autofix**. No es una magia autónoma que ocurre sin tu permiso; **tú tienes el control**. Cuando encuentras un bug o algo que mejorar, invocas a la IA indicándole qué arreglar. A partir de ahí, este *skill* toma el control estableciendo un ciclo iterativo guiado por evaluaciones (*eval-driven loop*). La IA lee los errores locales (`ERROR_LOG.md`), diagnostica la causa, implementa la solución y verifica los resultados hasta que el problema que le asignaste quede resuelto. Es tu asistente estructurado de debugging bajo demanda.
+- **Project DNA:** Un resumen compacto del contexto central de tu proyecto, riesgos activos y referencias clave. Limitado a 50 líneas para mantenerse lean.
+- **Golden Path (Enrutamiento Inteligente):** Los agentes no cargan todo el vault de memoria. Siguen una tabla de enrutamiento estricta — las tareas normales solo leen archivos objetivo, los bugs revisan `ERROR_LOG.md`, el trabajo de arquitectura lee `PROJECT_HISTORY.md`. Esto ahorra miles de tokens por conversación.
+- **Carga Selectiva:** Se cargan máximo 5 KIs (~1200 tokens) por tarea. El selector filtra por `tenant_domain`, `entities` y palabras clave de la tarea.
 
-### 🕵️ Verificación Adversarial y "Cero Suposiciones"
-El kernel instruye a la IA a operar bajo una estricta disciplina de "Detección de Ideas Erróneas". Antes de escribir código, la IA verifica sus premisas. Para cambios complejos, el sistema requiere **Verificación Adversarial**: la IA no confía en su propio código a ciegas, debe probarlo y verificarlo basándose en evidencia real antes de dar una tarea por terminada.
+## 📐 Arquitecturas Ultra-Modulares (Cero Monolitos)
 
-### 📚 Historial Permanente (Project Ledgers)
-Cuando trabajas con IA durante meses, a veces pierdes el rastro de *por qué* se tomó una decisión arquitectónica hace semanas. Antigravity mantiene un registro inmutable de cambios duraderos en su `PROJECT_HISTORY.md`. Cualquier nuevo agente que entre al proyecto puede leer este "libro mayor" y entender la evolución del código sin que tú tengas que explicarle nada.
+El kernel instruye a los agentes a estructurar aplicaciones en componentes pequeños y enfocados. Sin archivos monolíticos. Beneficios:
 
-### 💬 Comunicaciones Concisas (Ahorro Extremo de Tokens)
-Cada token cuesta dinero y tiempo. El kernel fuerza a la IA a mantener **comunicaciones concisas, directas y sin rodeos**. Eliminamos los saludos robóticos y los resúmenes repetitivos. Obtienes respuestas directas al grano que aceleran el desarrollo.
+1. **Código escalable** — Los cambios tocan superficies pequeñas, no archivos de 10,000 líneas.
+2. **Ediciones precisas** — Los agentes modifican componentes específicos sin sobrescribir código no relacionado.
+3. **Menor costo de tokens** — Archivos más pequeños significan menos contexto que cargar, menos alucinaciones.
 
-### 🤝 Tu IA Favorita, Sin Barreras
-Empieza tus proyectos con Antigravity. Al operar sobre la infraestructura universal de Antigravity Ultra, puedes arrancar la arquitectura base con **Gemini**, realizar una auditoría de seguridad implacable con **Claude**, y tirar líneas de código complejas con **Codex**. Cualquier agente de IA que conectes entenderá de inmediato las reglas de tu proyecto, su historial y qué hacer a continuación. 
+## 🔧 Skill de Autofix (Loop Eval-Driven)
 
-### 🛠️ Instala Superpoderes (Skills) de Forma Automática
-Al usar Antigravity Ultra, el descubrimiento e integración de superpoderes es **automático**. El sistema busca herramientas y *skills* a través de su motor `skills.sh` de forma dinámica.
-- ¿Necesitas diseño premium? El sistema autoconecta el skill `impeccable`.
-- ¿Auditoría de seguridad profunda? Detecta y utiliza `ghost-scan-code`.
-Las habilidades se inyectan bajo demanda, dándole herramientas de nivel experto a tu IA al instante.
+Un asistente de debugging bajo demanda, no magia autónoma. **Tú lo invocas, tú lo controlas.**
 
-### 🛡️ Seguridad Primero y Borrado Seguro
-Antigravity Ultra diferencia drásticamente entre código seguro y operaciones destructivas:
-- **Borrado Seguro (Safe Delete):** Los agentes nunca eliminan archivos permanentemente de tu proyecto. En su lugar, los mueven a una papelera de reciclaje (`_DEPRECATED_TRASH`), protegiendo tu trabajo.
-- **Control de Permisos:** Tú tienes el control absoluto. Los cambios críticos requerirán estrictamente de tu confirmación humana.
+1. Identificas un bug y le indicas al agente qué arreglar.
+2. El agente lee el error desde `ERROR_LOG.md`.
+3. Diagnostica, implementa la solución y verifica el resultado.
+4. Si la corrección no pasa la verificación, itera hasta resolverlo.
+
+Es un loop estructurado, no una feature de "disparar y olvidar".
+
+## 🕵️ Verificación Adversarial y Cero Suposiciones
+
+Dos disciplinas incorporadas en el kernel:
+
+- **Detección de Premisas Falsas:** Antes de ejecutar, el agente verifica si la premisa del usuario es correcta. Si no, corrige la suposición errónea antes de escribir código.
+- **Verificación Basada en Evidencia:** Para cambios complejos, el agente no puede auto-certificarse. Debe ejecutar pruebas o producir evidencia real de que el cambio funciona. Los reportes usan `PASS`, `FAIL` o `PARTIAL` — nunca afirmaciones sin verificar.
+
+## 📚 Historial Permanente (Project Ledgers)
+
+Dos registros inmutables rastrean la evolución de tu proyecto:
+
+| Registro | Propósito |
+|----------|-----------|
+| `PROJECT_HISTORY.md` | Decisiones arquitectónicas duraderas, hitos y razonamiento de diseño |
+| `ERROR_LOG.md` | Incidentes, causas raíz y correcciones aplicadas |
+
+Cualquier agente nuevo (o miembro del equipo) lee estos registros y entiende *por qué* se tomaron las decisiones — sin que tú tengas que explicar.
+
+## 💬 Comunicaciones Concisas
+
+El kernel fuerza respuestas directas y eficientes en tokens:
+
+- Sin saludos robóticos ("Hola, soy un asistente de IA...")
+- Sin resúmenes innecesarios de lo que el agente va a hacer
+- Respuestas directo al grano que respetan tu tiempo y tu presupuesto de tokens
+
+## 🤝 Agnóstico de Proveedor
+
+Antigravity Ultra no está atado a ningún proveedor de IA. Arranca la arquitectura con **Gemini**, ejecuta auditorías de seguridad con **Claude**, escribe lógica compleja con **Codex**. Cualquier agente que lea Markdown lee el mismo reglamento `GEMINI.md` o `AGENTS.md` y el estado `.agent/` — y entiende tu proyecto al instante.
+
+## 🛠️ Descubrimiento Automático de Skills
+
+El sistema descubre y conecta skills especializados dinámicamente:
+
+- **¿Trabajo de diseño?** Auto-conecta el skill `impeccable` para UI/UX premium.
+- **¿Auditoría de seguridad?** Activa `ghost-scan-code` para análisis SAST.
+- **¿Problemas con Docker?** Carga `docker-expert` para troubleshooting de contenedores.
+
+Los skills se inyectan bajo demanda — tu agente obtiene herramientas de nivel experto al instante, sin configuración manual.
+
+## 🛡️ Seguridad Primero y Borrado Seguro
+
+Dos capas de seguridad protegen tu trabajo:
+
+- **Borrado Seguro (Safe Delete):** Los agentes nunca eliminan archivos del proyecto permanentemente. Los archivos borrados se mueven a `_DEPRECATED_TRASH`, dándote una red de seguridad contra accidentes de IA.
+- **Niveles de Permiso:** Ediciones rutinarias y de bajo riesgo se ejecutan automáticamente (`AUTO`). Operaciones críticas — deploys, cambios de arquitectura, integraciones externas — requieren tu confirmación explícita (`CONFIRM`).
+
+## ⚡ Instalación Portable (5 Archivos)
+
+Todo el sistema se distribuye en 5 archivos. Cópialos en cualquier directorio de proyecto y ejecuta el instalador. Cuatro perfiles te permiten elegir tu nivel de herramientas:
+
+| Perfil | Incluye |
+|--------|---------|
+| `minimal` | Motor básico, estado en vivo, baúl de memoria |
+| `recommended` | + Workflows, herramientas de auditoría |
+| `complete` | + Plantillas MCP, evaluaciones, telemetría, testing |
+| `custom` | Elige módulos individualmente |
+
+Multiplataforma: macOS, Linux y Windows PowerShell. Sin dependencias más allá de Bash 4+ o PowerShell 5+.
+]]>
