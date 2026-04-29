@@ -12,31 +12,39 @@ Se acabaron los días de perder el contexto cada vez que inicias un chat nuevo. 
 
 ## 🌟 Por qué necesitas Antigravity Ultra
 
-### 🧠 Memoria Persistente y Eficiente
-Nunca más pierdas el progreso de tus proyectos. Antigravity Ultra implementa un sistema de memoria estructurado que tu IA aprende a leer de inmediato:
+### 🧠 Memoria Persistente y Estructurada
+Nunca más pierdas el progreso de tus proyectos. Antigravity Ultra implementa un sistema de memoria diseñado para ser procesado eficientemente por cualquier IA:
 - **Project DNA**: Contexto central, reglas de negocio y arquitectura inmutable de tu proyecto.
-- **Cero Archivos Monolíticos en tus Proyectos**: Antigravity Ultra impulsa arquitecturas modulares. Olvídate de archivos de código gigantes de 10,000 líneas; los agentes estructuran tus aplicaciones en componentes pequeños y enfocados. Esto hace tu código mucho más mantenible, optimiza la lectura por parte de la IA y reduce drásticamente el gasto de tokens al tener que editar partes específicas.
-- **Ahorro masivo de Tokens**: Evita inyectar historiales gigantescos. La IA solo consulta su "memoria" cuando realmente lo necesita. Además, el kernel fuerza **comunicaciones concisas y directas**, eliminando el palabrerío innecesario de la IA para ahorrar tokens en cada mensaje.
+- **Conocimiento Modular (KIs)**: La memoria de Antigravity no es un archivo gigante e ineficiente. Todo se organiza en *Knowledge Items* (KIs) pequeños y enfocados. Gracias a su estricto **Golden Path**, la IA solo lee lo que estrictamente necesita para la tarea actual, ahorrando miles de tokens por conversación.
+
+### 📐 Arquitecturas de Proyecto Ultra-Modulares (Cero Monolitos)
+Antigravity Ultra empuja a los agentes a adoptar las mejores prácticas de ingeniería en los proyectos que construyen. **Cero archivos monolíticos**. Los agentes estructuran tus aplicaciones en componentes pequeños y altamente enfocados. Esto genera tres beneficios masivos:
+1. Código infinitamente más escalable y mantenible.
+2. La IA edita partes específicas sin tener que sobreescribir archivos de 10,000 líneas.
+3. Se evita la sobresaturación del contexto, reduciendo drásticamente el gasto de tokens y previniendo "alucinaciones" (errores de código) al programar.
+
+### 💬 Comunicaciones Concisas (Ahorro Extremo de Tokens)
+Cada token cuesta dinero y tiempo. El kernel fuerza a la IA a mantener **comunicaciones concisas, directas y sin rodeos**. Eliminamos los saludos robóticos ("Hola, soy una IA"), las disculpas y los resúmenes repetitivos. Obtienes respuestas directas al grano que aceleran el desarrollo y maximizan la eficiencia de la API.
 
 ### 🤝 Tu IA Favorita, Sin Barreras
-Empieza tus proyectos con Antigravity. Y al operar sobre la infraestructura universal de Antigravity Ultra, puedes arrancar la arquitectura con **Gemini**, realizar una auditoría de seguridad implacable con **Claude**, y tirar líneas de código complejas con **Codex**. Cualquier agente de IA que conectes entenderá de inmediato las reglas de tu proyecto, su historial y qué hacer a continuación. 
+Empieza tus proyectos con Antigravity. Al operar sobre la infraestructura universal de Antigravity Ultra, puedes arrancar la arquitectura base con **Gemini**, realizar una auditoría de seguridad implacable con **Claude**, y tirar líneas de código complejas con **Codex**. Cualquier agente de IA que conectes entenderá de inmediato las reglas de tu proyecto, su historial y qué hacer a continuación. 
 
 ### ⚡ Automatiza lo Aburrido
-Evita quemar tokens en tareas repetitivas y ceremoniales. Antigravity Ultra te permite ejecutar flujos de trabajo (*workflows*) automatizados y pruebas (testing) para que tu agente se enfoque en tomar decisiones importantes, no en escribir comandos repetitivos.
+Evita quemar tokens en tareas repetitivas y ceremoniales. Antigravity Ultra te permite ejecutar flujos de trabajo (*workflows*) automatizados y pruebas (testing) para que tu agente se enfoque en la arquitectura y toma de decisiones importantes, en lugar de gastar contexto ejecutando comandos rutinarios.
 
 ### 🛠️ Instala Superpoderes (Skills) de Forma Automática
-No reinventes la rueda. Al usar Antigravity Ultra, el descubrimiento e integración de superpoderes es **automático**. El sistema busca herramientas y *skills* pre-entrenadas a través de su motor `skills.sh` de forma dinámica, operando con una filosofía modular inspirada en los altos estándares de la industria (citando la eficiencia del ecosistema de **Vercel**).
+No reinventes la rueda. Al usar Antigravity Ultra, el descubrimiento e integración de superpoderes es **automático**. El sistema busca herramientas y *skills* pre-entrenadas a través de su motor `skills.sh` de forma dinámica, operando con una filosofía modular inspirada en los altos estándares de la industria (como la eficiencia del ecosistema de **Vercel**).
 - ¿Necesitas diseño premium? El sistema autoconecta el skill `impeccable`.
 - ¿Auditoría de seguridad profunda? Detecta y utiliza `ghost-scan-code`.
-Las habilidades se inyectan bajo demanda, dándole herramientas de nivel experto a tu IA al instante, sin configuraciones complejas.
+Las habilidades se inyectan bajo demanda, dándole herramientas de nivel experto a tu IA al instante, sin configuraciones complejas por tu parte.
 
 ### 🛡️ Seguridad Primero y Borrado Seguro
 Antigravity Ultra diferencia drásticamente entre código seguro y operaciones destructivas:
 - **Borrado Seguro (Safe Delete):** Los agentes nunca eliminan archivos permanentemente de tu proyecto. En su lugar, los mueven a una papelera de reciclaje (`_DEPRECATED_TRASH`), protegiendo tu trabajo de accidentes causados por la IA.
-- **Control de Permisos:** Tú tienes el control absoluto. Dependiendo de los permisos que le otorgues a tus agentes, ciertas tareas repetitivas se harán en automático, pero los cambios importantes (como despliegues o comandos críticos) requerirán estrictamente de tu confirmación humana.
+- **Control de Permisos:** Tú tienes el control absoluto. Dependiendo de los permisos que le otorgues a tus agentes, ciertas tareas repetitivas se harán en automático, pero los cambios importantes (como despliegues, modificaciones de arquitectura o comandos críticos) requerirán estrictamente de tu confirmación humana.
 
 ### 🌐 Elige tu Idioma
-El sistema se adapta a ti. Puedes configurar tu perfil para que la IA se comunique contigo en tu idioma nativo (como el español), manteniendo su "razonamiento interno" en inglés para maximizar sus capacidades cognitivas.
+El sistema se adapta a ti. Puedes configurar tu perfil para que la IA se comunique contigo en tu idioma nativo (como el español), manteniendo su "razonamiento interno" en inglés para maximizar sus capacidades cognitivas lógicas sin fricción.
 
 ---
 
