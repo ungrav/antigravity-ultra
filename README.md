@@ -8,67 +8,67 @@ Se acabaron los días de perder el contexto cada vez que inicias un chat nuevo. 
 
 ---
 
-## 🌟 Características Principales
+## 🌟 Por qué necesitas Antigravity Ultra
 
 ### 🧠 Memoria Persistente y Eficiente
-Nunca más pierdas el progreso de tus proyectos. Antigravity implementa un sistema de memoria basado en Markdown (Knowledge Items o KIs) estructurado jerárquicamente:
+Nunca más pierdas el progreso de tus proyectos. Antigravity implementa un sistema de memoria estructurado que tu IA aprende a leer de inmediato:
 - **Project DNA**: Contexto central, reglas de negocio y arquitectura inmutable de tu proyecto.
-- **Golden Path**: Un contrato de lectura estricto que asegura que los agentes solo lean lo que necesitan, cuando lo necesitan.
-- **Eficiencia de Tokens**: Al evitar el inyectar historiales gigantescos y depender del estado local vivo (`current_state.md`), reduces drásticamente el gasto de tokens por cada llamada a la API.
+- **Golden Path**: Un contrato estricto que asegura que la IA vaya directo al grano y solo lea lo que necesita.
+- **Ahorro masivo de Tokens**: Evita inyectar historiales gigantescos. La IA solo consulta su "memoria" cuando realmente lo necesita.
 
-### 🤝 Compatibilidad Multi-Agente
-Antigravity es agnóstico del modelo. Puedes iniciar un proyecto con Gemini, realizar auditorías de seguridad con Claude, y refactorizar con Codex. 
-- Gracias a los adaptadores portables (como `AGENTS.md` o `CLAUDE.md`), cualquier agente que introduzcas en el entorno entenderá instantáneamente el estado del proyecto, las reglas locales y dónde retomar el trabajo.
+### 🤝 Tu IA Favorita, Sin Barreras
+Empieza un proyecto con Gemini, haz una auditoría de seguridad con Claude, y tira código con Codex. Al tener los archivos en tu carpeta, cualquier agente de IA que conectes entenderá de inmediato las reglas de tu proyecto, su historial y qué hacer a continuación. 
 
-### ⚡ Workflows y Automatización
-Evita quemar tokens en tareas repetitivas y ceremoniales. Antigravity soporta la integración de flujos de trabajo (*workflows*) automatizados que ejecutan pruebas, despliegues y análisis en segundo plano, permitiendo que el agente se dedique a la toma de decisiones críticas en lugar de escribir código de infraestructura básico repetidamente.
+### ⚡ Automatiza lo Aburrido
+Evita quemar tokens en tareas repetitivas y ceremoniales. Antigravity te permite ejecutar flujos de trabajo (*workflows*) automatizados y pruebas (testing) para que tu agente se enfoque en tomar decisiones importantes, no en escribir comandos repetitivos.
 
-### 🛠️ Ecosistema de Skills (Habilidades)
-No reinventes la rueda en cada proyecto. Antigravity permite instalar y configurar *Skills* modulares específicos:
-- ¿Necesitas diseño UI premium? Instala el skill de `impeccable`.
-- ¿Necesitas un escáner de seguridad? Conecta `ghost-scan-code`.
-- Los skills se instalan bajo demanda y exponen herramientas y patrones pre-entrenados, dando capacidades superhumanas a tu agente de IA sin sobrecargar su contexto inicial.
+### 🛠️ Instala Superpoderes (Skills)
+No reinventes la rueda. ¿Necesitas diseño premium? Instala el skill `impeccable`. ¿Auditoría de seguridad? Conecta `ghost-scan-code`. Instala *Skills* modulares según las necesidades de tu proyecto y dale habilidades de experto a tu IA al instante.
 
-### 🛡️ Seguridad y Verificación (Test-Driven)
-La ejecución libre es peligrosa. Antigravity Ultra opera bajo estrictos contratos de seguridad:
-- Diferenciación entre operaciones `AUTO` (seguras, reversibles) y `CONFIRM` (destructivas, despliegues).
-- Infraestructura de evaluación continua (*smokes* y validaciones del kernel) para garantizar que el sistema no sufra regresiones cognitivas.
+### 🛡️ Seguridad Primero
+Antigravity diferencia entre código seguro y operaciones destructivas. Tú decides qué comandos se ejecutan automáticamente y cuáles requieren tu confirmación humana.
 
 ---
 
-## 🚀 Instalación
+## 📂 ¿Qué hace cada archivo? (El Kit Portable)
 
-La instalación es portátil y funciona creando un *bootstrap* en el directorio de tu proyecto. El kernel se adapta al tipo de sistema operativo y al perfil del usuario.
+El "secreto" de Antigravity Ultra reside en solo 5 archivos clave que puedes llevar a cualquier proyecto. Es tu kit de superpoderes:
 
-### Para macOS / Linux (Zsh/Bash)
-Ejecuta el script de instalación inicial dentro de la raíz de tu proyecto:
+1. **`GEMINI.md` (El Cerebro):** Es el "Reglamento de Operaciones". Le dice a la IA quién es, cómo debe comportarse, y le marca los límites de seguridad. Cuando la IA lee esto, deja de ser un simple chatbot y se convierte en un ingeniero de software de élite.
+2. **`MEMORY.md` (El Hipocampo):** Es el manual que le enseña a la IA cómo crear, guardar y leer recuerdos estructurados de tu proyecto. Define cómo la IA debe tomar notas para nunca olvidar las decisiones arquitectónicas importantes.
+3. **`GEMINI_BLUEPRINTS.md` (El ADN y Botiquín):** Contiene las plantillas base y todo lo necesario para "revivir" o restaurar el sistema si llegas a borrar algo por accidente. Es el archivo de rescate maestro.
+4. **`portable-kernel.sh` (El Motor para Mac/Linux):** Es el instalador mágico. Solo tienes que ejecutarlo en tu terminal (si usas Mac o Linux) y él construirá toda la infraestructura, carpetas y estados iniciales en cuestión de segundos.
+5. **`portable-kernel-windows.ps1` (El Motor para Windows):** Igual que el anterior, pero diseñado específicamente para que los usuarios de Windows tengan la misma experiencia fluida y rápida usando PowerShell.
+
+---
+
+## 🚀 Instalación y Perfiles a Tu Medida
+
+La instalación se adapta exactamente a lo que necesitas. Al instalar, puedes elegir entre 4 **Perfiles de Instalación (Tiers)**, dependiendo de si quieres un entorno rápido o un ecosistema completo:
+
+1. **🌱 Minimal (Minimalista):**
+   *Ideal para proyectos pequeños o pruebas rápidas.* 
+   Instala solo el motor básico, el estado en vivo y el baúl de memoria. Lo justo y necesario para que la IA tenga contexto sin cargar herramientas extra.
+2. **⭐ Recommended (Recomendado):**
+   *El punto dulce para la mayoría de desarrolladores.*
+   Incluye todo lo del perfil Minimal, pero le suma **Workflows Avanzados** y **Herramientas de Auditoría**. Perfecto para automatizar tareas repetitivas y mantener la alta calidad del código.
+3. **🔥 Complete (Completo):**
+   *Para los usuarios "Hardcore" y proyectos masivos.*
+   Te instala el ecosistema entero. Agrega integraciones con plantillas MCP, evaluaciones de desempeño profundo, telemetría y pruebas (tests) de núcleo. Es un entorno de desarrollo de IA de nivel empresarial.
+4. **⚙️ Custom (Personalizado):**
+   *Tú tienes el control.*
+   Te permite decidir paso a paso qué módulos instalar y cuáles omitir para crear tu propio entorno perfecto.
+
+### ¿Cómo instalar?
+
+**En macOS / Linux:**
 ```bash
-bash portable-kernel.sh --profile native --init
+bash portable-kernel.sh --tier recommended --init
 ```
 
-### Para Windows (PowerShell)
-Para entornos Windows, utiliza el launcher nativo de PowerShell:
+**En Windows:**
 ```powershell
-.\portable-kernel-windows.ps1 -Profile native -Init
+.\portable-kernel-windows.ps1 -InstallTier recommended -Init
 ```
 
-> **Nota:** La bandera `--init` crea el entorno `.agent/`, inyecta el `GEMINI.md` e inicializa el primer estado vacío (`current_state.md`) para que comiences a interactuar de inmediato con tu agente.
-
----
-
-## ⚙️ Configuración y Perfiles
-
-Antigravity Ultra soporta diferentes perfiles de ejecución dependiendo de la agresividad y el contexto del usuario:
-
-1. **Perfil `native`**: Para entornos donde el agente tiene permisos completos de ejecución local (ej. tu máquina personal).
-2. **Perfil `external`**: Para agentes de navegador web que solo pueden leer archivos y sugerir comandos de copiado y pegado (restringe herramientas de sistema operativo).
-3. **Perfil de Idioma**: Modifica la cabecera del kernel para forzar al agente a comunicarse en un idioma específico (ej. `portable_profile: source_forced_es` para respuestas exclusivas en español).
-
-### Configurando un nuevo proyecto
-1. Copia los 5 archivos base (`GEMINI.md`, `MEMORY.md`, `GEMINI_BLUEPRINTS.md`, `portable-kernel.sh`, `portable-kernel-windows.ps1`) a tu carpeta.
-2. Abre tu chat de IA favorito y adjunta/referencia el archivo `GEMINI.md` o `AGENTS.md`.
-3. El agente leerá las reglas, inicializará la memoria, ¡y estarás listo para construir!
-
----
-
-*Desarrollado para quienes no tienen tiempo de repetir lo mismo dos veces.*
+> **¡Listo!** El sistema construirá la carpeta `.agent/`, inyectará el contexto y tu IA favorita estará lista para trabajar como un profesional desde el primer prompt.
