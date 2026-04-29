@@ -4,9 +4,10 @@
 # 2. Permitir el propio .gitignore
 !.gitignore
 
-# 3. Permitir estrictamente los 5 archivos portables del kernel
+# 3. Permitir estrictamente los archivos portables del kernel
 !GEMINI.md
 !MEMORY.md
 !GEMINI_BLUEPRINTS.md
 !portable-kernel.sh
 !portable-kernel-windows.ps1
+!README.md
