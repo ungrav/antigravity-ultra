@@ -4,7 +4,7 @@
 
 Antigravity Ultra es un kernel portable y ultra-ligero construido como una evolución radical sobre el ecosistema original **Antigravity de Google**. Diseñado para gestionar la identidad, memoria y capacidades operativas de agentes de IA autónomos.
 
-**Antigravity Ultra implementa** una arquitectura optimizada y reimaginada por nuestro equipo (Caplitos). Hemos documentado esta base para asegurar que cualquier *fork* o adaptación futura mantenga la eficiencia extrema que nos caracteriza.
+**Antigravity Ultra** implementa una arquitectura optimizada y reimaginada.
 
 Se acabaron los días de perder el contexto cada vez que inicias un chat nuevo. Se acabó el desperdicio masivo de tokens repitiendo las mismas instrucciones. Con Antigravity Ultra, cada uno de tus proyectos tiene una memoria única, persistente y estructurada.
 
@@ -15,11 +15,11 @@ Se acabaron los días de perder el contexto cada vez que inicias un chat nuevo. 
 ### 🧠 Memoria Persistente y Eficiente
 Nunca más pierdas el progreso de tus proyectos. Antigravity Ultra implementa un sistema de memoria estructurado que tu IA aprende a leer de inmediato:
 - **Project DNA**: Contexto central, reglas de negocio y arquitectura inmutable de tu proyecto.
-- **Golden Path**: Un contrato estricto que asegura que la IA vaya directo al grano y solo lea lo que necesita.
-- **Ahorro masivo de Tokens**: Evita inyectar historiales gigantescos. La IA solo consulta su "memoria" cuando realmente lo necesita.
+- **Cero Archivos Monolíticos**: Olvídate de tener un solo archivo gigante de 10,000 líneas que sature la memoria. El estado y el historial se dividen en archivos pequeños, enfocados y modulares (KIs).
+- **Ahorro masivo de Tokens**: Evita inyectar historiales gigantescos. La IA solo consulta su "memoria" cuando realmente lo necesita. Además, el kernel fuerza **comunicaciones concisas y directas**, eliminando el palabrerío innecesario de la IA para ahorrar tokens en cada mensaje.
 
 ### 🤝 Tu IA Favorita, Sin Barreras
-**Empieza un proyecto con Antigravity** y luego decide qué motor usar. Al operar sobre la infraestructura universal de Antigravity Ultra, puedes arrancar la arquitectura con Gemini, realizar una auditoría de seguridad implacable con Claude, y tirar líneas de código complejas con Codex. Cualquier agente de IA que conectes entenderá de inmediato las reglas de tu proyecto, su historial y qué hacer a continuación. 
+Empieza tus proyectos con Antigravity. Y al operar sobre la infraestructura universal de Antigravity Ultra, puedes arrancar la arquitectura con **Gemini**, realizar una auditoría de seguridad implacable con **Claude**, y tirar líneas de código complejas con **Codex**. Cualquier agente de IA que conectes entenderá de inmediato las reglas de tu proyecto, su historial y qué hacer a continuación. 
 
 ### ⚡ Automatiza lo Aburrido
 Evita quemar tokens en tareas repetitivas y ceremoniales. Antigravity Ultra te permite ejecutar flujos de trabajo (*workflows*) automatizados y pruebas (testing) para que tu agente se enfoque en tomar decisiones importantes, no en escribir comandos repetitivos.
@@ -30,8 +30,13 @@ No reinventes la rueda. Al usar Antigravity Ultra, el descubrimiento e integraci
 - ¿Auditoría de seguridad profunda? Detecta y utiliza `ghost-scan-code`.
 Las habilidades se inyectan bajo demanda, dándole herramientas de nivel experto a tu IA al instante, sin configuraciones complejas.
 
-### 🛡️ Seguridad Primero
-**Antigravity Ultra diferencia** drásticamente entre código seguro y operaciones destructivas. Tú tienes el control absoluto: decides qué comandos operativos se ejecutan automáticamente en segundo plano y cuáles (como borrado de bases de datos o despliegues) requieren estrictamente de tu confirmación humana.
+### 🛡️ Seguridad Primero y Borrado Seguro
+Antigravity Ultra diferencia drásticamente entre código seguro y operaciones destructivas:
+- **Borrado Seguro (Safe Delete):** Los agentes nunca eliminan archivos permanentemente de tu proyecto. En su lugar, los mueven a una papelera de reciclaje (`_DEPRECATED_TRASH`), protegiendo tu trabajo de accidentes causados por la IA.
+- **Control de Permisos:** Tú tienes el control absoluto. Dependiendo de los permisos que le otorgues a tus agentes, ciertas tareas repetitivas se harán en automático, pero los cambios importantes (como despliegues o comandos críticos) requerirán estrictamente de tu confirmación humana.
+
+### 🌐 Elige tu Idioma
+El sistema se adapta a ti. Puedes configurar tu perfil para que la IA se comunique contigo en tu idioma nativo (como el español), manteniendo su "razonamiento interno" en inglés para maximizar sus capacidades cognitivas.
 
 ---
 
