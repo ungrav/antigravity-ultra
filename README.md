@@ -2,6 +2,7 @@
 
 🌍 [🇺🇸 English](#-english) | [🇪🇸 Español](#-español)
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ---
 
 ## 🇺🇸 English
@@ -50,6 +51,10 @@ bash portable-kernel.sh --tier recommended --init
 
 > **Done!** The system will build the hidden `.agent/` folder, inject the initial context, and your favorite AI will be ready to work like a pro from the very first prompt.
 
+### ⚖️ License
+
+This project is licensed under the **GNU GPLv3 License**. See the [LICENSE](./LICENSE) file for details.
+
 ---
 
 ## 🇪🇸 Español
@@ -97,3 +102,7 @@ bash portable-kernel.sh --tier recommended --init
 ```
 
 > **¡Listo!** El sistema construirá la carpeta oculta `.agent/` y tu IA favorita estará lista para trabajar como un profesional desde el primer prompt.
+
+### ⚖️ Licencia
+
+Este proyecto está bajo la licencia **GNU GPLv3**. Revisa el archivo [LICENSE](./LICENSE) para más detalles.
