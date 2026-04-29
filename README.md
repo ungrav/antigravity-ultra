@@ -1,14 +1,18 @@
 # Antigravity Ultra 🚀
 
+🌍 [🇺🇸 English](#-english) | [🇪🇸 Español](#-español)
+
+---
+
+## 🇺🇸 English
+
 **Superpowers for your AI Agents. Change the rules of the game.**
 
 Antigravity Ultra is a portable, ultra-lightweight kernel built as a radical evolution over the original **Google Antigravity** ecosystem. It is designed to manage the identity, persistent memory, and operational capabilities of autonomous AI agents.
 
 No more losing context every time you start a new chat. No more wasting massive amounts of tokens repeating the same instructions. With Antigravity Ultra, every single project gets a unique, persistent, and highly structured memory.
 
----
-
-## 🌟 Features
+### 🌟 Features
 
 We've completely re-engineered how AI interacts with your projects. Read the full details of all Antigravity Ultra superpowers in our **[FEATURES_EN.md](./FEATURES_EN.md)** guide.
 
@@ -20,9 +24,7 @@ We've completely re-engineered how AI interacts with your projects. Read the ful
 - 📚 Permanent Project Ledgers
 - 🛠️ Automatic Skill Discovery
 
----
-
-## 📂 The Portable Kit
+### 📂 The Portable Kit
 
 The "secret" of Antigravity Ultra lies in just 5 core files:
 
@@ -32,9 +34,7 @@ The "secret" of Antigravity Ultra lies in just 5 core files:
 4. **`portable-kernel.sh`:** Smart installer for macOS/Linux.
 5. **`portable-kernel-windows.ps1`:** Smart installer for Windows PowerShell.
 
----
-
-## 🚀 Quick Install
+### 🚀 Quick Install
 
 **Forget about manually moving files.** The Antigravity Ultra engine is completely autonomous. Download the 5 portable files to your desired folder and run the installer. You can choose between 4 **Tiers**: `minimal`, `recommended`, `complete`, or `custom`.
 
@@ -50,13 +50,9 @@ bash portable-kernel.sh --tier recommended --init
 
 > **Done!** The system will build the hidden `.agent/` folder, inject the initial context, and your favorite AI will be ready to work like a pro from the very first prompt.
 
-<br>
-<br>
-
----
 ---
 
-# Antigravity Ultra 🚀
+## 🇪🇸 Español
 
 **Superpoderes para tus Agentes de IA. Cambia las reglas del juego.**
 
@@ -64,9 +60,7 @@ Antigravity Ultra es un kernel portable y ultra-ligero construido como una evolu
 
 Se acabaron los días de perder el contexto cada vez que inicias un chat nuevo. Se acabó el desperdicio masivo de tokens repitiendo las mismas instrucciones. Con Antigravity Ultra, cada uno de tus proyectos tiene una memoria única, persistente y estructurada.
 
----
-
-## 🌟 Características
+### 🌟 Características
 
 Hemos rediseñado por completo cómo la IA interactúa con tus proyectos. Lee todos los detalles de los superpoderes de Antigravity Ultra en nuestra guía **[FEATURES_ES.md](./FEATURES_ES.md)**.
 
@@ -78,9 +72,7 @@ Hemos rediseñado por completo cómo la IA interactúa con tus proyectos. Lee to
 - 📚 Historial Permanente
 - 🛠️ Instalación Automática de Skills
 
----
-
-## 📂 El Kit Portable
+### 📂 El Kit Portable
 
 El "secreto" de Antigravity Ultra reside en solo 5 archivos clave:
 
@@ -90,9 +82,7 @@ El "secreto" de Antigravity Ultra reside en solo 5 archivos clave:
 4. **`portable-kernel.sh`:** Instalador inteligente para macOS/Linux.
 5. **`portable-kernel-windows.ps1`:** Instalador inteligente para Windows.
 
----
-
-## 🚀 Instalación Rápida
+### 🚀 Instalación Rápida
 
 **Olvídate de mover archivos manualmente.** El motor es completamente autónomo. Descarga los 5 archivos portables a tu carpeta y ejecuta el instalador. Puedes elegir entre 4 **Perfiles**: `minimal`, `recommended`, `complete`, o `custom`.
 
