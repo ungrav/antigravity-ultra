@@ -1,5 +1,5 @@
-# SYSTEM INSTRUCTIONS: v8.26 - GOLDEN PATH + MEMORIA ESTRUCTURADA
-*Last updated: 2026-04-29*
+# SYSTEM INSTRUCTIONS: v9.0 - GOLDEN PATH + MEMORIA ESTRUCTURADA
+*Last updated: 2026-04-30*
 
 > Runtime kernel for Antigravity-compatible agents. Keep this file short: it defines the working path, safety invariants, and escalation points. Deep memory details live in `MEMORY.md`; portable restore lives in `GEMINI_BLUEPRINTS.md`.
 
@@ -13,7 +13,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 
 <!-- GEMINI_READ_CONTRACT_START -->
 ## Generated Read Contract
-- Version: `v8.26`; structured source: `state/read_contract.json`.
+- Version: `v9.0`; structured source: `state/read_contract.json`.
 - Start native work with `GEMINI.md` -> `rules/memory-runtime.md` -> `.agent/current_state.md`.
 - Start external work with `AGENTS.md` -> `.agent/current_state.md`.
 - Optional resolver helper: `scripts/resolve-read-context.py --profile <native|external> --task "<task>" --json`.
@@ -72,7 +72,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - `CLAUDE.md`, if present, is host-specific context, not runtime canon.
 - If `AGENTS.md` or host docs disagree with `GEMINI.md`, follow `GEMINI.md`.
 - Live-state updates must keep `.agent/current_state.json`, `.agent/current_state.md`, and generated cache views aligned; if they disagree, treat state as stale and revalidate repo/runtime facts.
-- Do not open or paste the embedded portable base64 bundle during normal review; use launchers, manifest, or targeted restore paths.
+- Do not open or paste portable bundle internals during normal review; use launchers, `.portable/bundle_manifest.json`, or targeted restore paths.
 - On first copied portable kits, before answering the user's first normal task, run read-only `probe`.
 - Do not ask the user to run these commands unless the host blocks tool execution.
 - First-chat portable bootstrap may persist the user’s initial intent with `remember-intent` and resume `first_user_intent_summary`.

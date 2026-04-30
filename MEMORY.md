@@ -1,5 +1,5 @@
-# MEMORY TECHNICAL SPEC: v8.26 - STRUCTURED MARKDOWN MEMORY
-*Last updated: 2026-04-29*
+# MEMORY TECHNICAL SPEC: v9.0 - STRUCTURED MARKDOWN MEMORY
+*Last updated: 2026-04-30*
 
 ## Purpose
 Memory exists to preserve durable project knowledge without making normal agents study the kernel. The active model is simple:
@@ -63,7 +63,7 @@ Selection should be boring and inspectable:
 - Revalidate repo/runtime facts before treating a note as current truth.
 
 ## Capture
-Prefer `scripts/capture-ki.sh` for standard/deep closeout when state-derived suggestions are useful.
+Use native Markdown when the durable lesson is already clear. Use `scripts/capture-ki.sh` for standard/deep closeout when state-derived suggestions are useful.
 
 Normal closeout:
 
