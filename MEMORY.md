@@ -145,6 +145,8 @@ Demote or expire global knowledge when it becomes project-specific, contradicted
 - regenerate `.project_dna.md`
 - consolidate when active KI count exceeds 15 for this personal kernel profile; use 30 only when operating it as a product/framework with CI coverage
 
+For this personal profile, a vault at or below 15 active KIs should usually be maintained by direct Markdown review. Do not run maintenance tooling just to satisfy ceremony.
+
 Maintenance must not create generated ranking artifacts.
 
 `inbox/` is legacy experimental-only staging. Bootstrap does not create `inbox/` during normal flow.

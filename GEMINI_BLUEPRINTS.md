@@ -54,53 +54,42 @@
 > Stable onboarding for external agents. The generated block is maintained by `scripts/render-project-agents-md.sh`.
 
 <!-- AGENTS_HUMAN_START -->
+## Hot Path Override
+- External warmup is `AGENTS.md` + `.agent/current_state.md`; inspect canon, ledgers, or KIs only when the task needs them. KI folders are layout; frontmatter carries meaning.
 <!-- AGENTS_HUMAN_END -->
 
 <!-- AGENTS_GENERATED_START -->
 ## Project Summary
-- Read `AGENTS.md` first.
-- Canonical project-local context lives in `GEMINI.md`.
-- `AGENTS.md` is onboarding only; it is not the live project state.
+- Project: <project-name>
+- Canon: GEMINI.md; live handoff: .agent/current_state.md; structured state: .agent/current_state.json.
 
 ## How To Start
-- Read the shared/exportable sections in `GEMINI.md`.
-- Read `.agent/current_state.md` for live objective and next step.
-- Read `.agent/knowledge/.project_dna.md` before opening deeper KIs.
+- Read AGENTS.md, then .agent/current_state.md; inspect target files after task classification.
+- Run bash scripts/gemini-doctor.sh --runtime after live-state or kernel-surface edits.
+- Run bash scripts/run-core-evals.sh only for broad kernel validation.
 
-## Mandatory Read Order
-1. `AGENTS.md`
-2. `GEMINI.md` shared sections only
-3. `.agent/current_state.md`
-4. `.agent/knowledge/.project_dna.md`
-5. Task-specific docs such as `PROJECT_HISTORY.md`, `ERROR_LOG.md`, or `DESIGN_SYSTEM.md`
-6. Targeted KIs from `.agent/knowledge/`
+## Golden Path
+- Version: `v9.0`; structured source: `state/read_contract.json`.
+- Start here: `AGENTS.md` -> `.agent/current_state.md`.
+- Optional helper: `scripts/resolve-read-context.py --profile external --task "<task>" --json`; if it fails, use the table and report `resolver unavailable`.
 
-## How To Read GEMINI.md
-- Read only `Shared Quickstart`, `Shared Agent Rules`, and `Shared Architecture Notes` by default.
-- Ignore runtime-only Antigravity state unless the task explicitly needs it.
-- If `AGENTS.md` and `GEMINI.md` disagree, follow `GEMINI.md`.
+## Manual Reading Table
+1. Normal/local: target files only.
+2. Bug ambiguous: target files + latest `ERROR_LOG.md` rows.
+3. Architecture/refactor: latest `PROJECT_HISTORY.md` + Project DNA if useful.
+4. Memory/kernel: `MEMORY.md` + targeted KIs.
+5. Restore/portable: `GEMINI_BLUEPRINTS.md` + launchers.
 
-## Architecture & Boundaries
-- Populate this from `Shared Architecture Notes`.
+## Local Canon
+- `GEMINI.md` is local canon, but not normal external warmup; if files disagree, follow `GEMINI.md`.
+- No shared exports; read `GEMINI.md` surgically only when needed.
 
-## Essential Working Rules
-- Populate this from `Shared Agent Rules`.
+## Memory
+- Normal tasks use no vault. If memory is relevant, read Project DNA then targeted active KIs.
+- Folders are layout; frontmatter carries meaning.
 
-## How To Read Project Memory
-- Read `.project_dna.md` first.
-- Then read targeted KIs by category and `tenant_domain`.
-- Never edit generated memory helper state manually.
-
-## How To Add Memory Safely
-- Use `scripts/capture-ki.sh` for normal KI creation; it chooses the physical family folder from `kind`.
-- Use valid frontmatter with `category`, `kind`, `tenant_domain`, `entities`, and `related_kis`.
-- Do not write inbox drafts or generated memory helper state manually.
-
-## Task-Based Reading Guide
-- UI/frontend -> `DESIGN_SYSTEM.md`
-- Bugfix/incidents -> `ERROR_LOG.md`
-- Feature/refactor/architecture -> `PROJECT_HISTORY.md`
-- Agentic/interoperability -> `llms.txt`, `server.json`, `.mcp.json`, `/.well-known/agent-card.json`, `agent-tools.js`
+## Memory Capture
+- Closeout: use native Markdown for clear durable notes; use `scripts/capture-ki.sh --suggest-from-current-state --json` when a state-derived suggestion helps.
 <!-- AGENTS_GENERATED_END -->
 <!-- END: AGENTS.md -->
 
@@ -143,7 +132,7 @@
 ~~~~json
 {
   "version": 1,
-  "generated_at": "2026-04-30T04:53:00Z",
+  "generated_at": "2026-04-30T05:15:18Z",
   "profile": "portable_minimum",
   "portable_root_files": [
     "GEMINI.md",
