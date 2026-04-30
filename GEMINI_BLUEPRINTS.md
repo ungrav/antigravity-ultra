@@ -1,7 +1,7 @@
 # 1. CORE TEMPLATES (DNA)
 
 > [!NOTE]
-> This section contains the absolute base templates for project initialization. They are lazy-loaded via `lazy-load-blueprint-workflow.md` using semantic markers.
+> This section contains the absolute base templates for project initialization. They are recoverable via `scripts/restore-blueprint-artifact.sh` and the portable bundle manifest.
 
 <!-- BEGIN: DESIGN_SYSTEM.md -->
 # Design System & UI Architecture
@@ -108,7 +108,7 @@
 |------|-------|
 | `skill` | 2 |
 | `template` | 9 |
-| `workflow` | 58 |
+| `workflow` | 27 |
 
 ### 2.2 Restore Contract
 
@@ -132,7 +132,7 @@
 ~~~~json
 {
   "version": 1,
-  "generated_at": "2026-04-30T05:15:18Z",
+  "generated_at": "2026-04-30T09:49:55Z",
   "profile": "portable_minimum",
   "portable_root_files": [
     "GEMINI.md",
@@ -163,7 +163,7 @@
       "logs/"
     ]
   },
-  "artifact_count": 138,
+  "artifact_count": 103,
   "categories": [
     {
       "category": "blueprints",
@@ -187,7 +187,7 @@
     },
     {
       "category": "scripts",
-      "count": 35
+      "count": 31
     },
     {
       "category": "skills",
@@ -203,7 +203,7 @@
     },
     {
       "category": "workflows",
-      "count": 59
+      "count": 28
     }
   ],
   "artifacts": [
@@ -388,11 +388,6 @@
       "component": "core_runtime"
     },
     {
-      "path": "scripts/grant-persistent-approval.sh",
-      "category": "scripts",
-      "component": "core_runtime"
-    },
-    {
       "path": "scripts/ingest-plan-event.sh",
       "category": "scripts",
       "component": "core_runtime"
@@ -473,16 +468,6 @@
       "component": "core_runtime"
     },
     {
-      "path": "scripts/revoke-persistent-approval.sh",
-      "category": "scripts",
-      "component": "core_runtime"
-    },
-    {
-      "path": "scripts/run-lifecycle-hook.sh",
-      "category": "scripts",
-      "component": "core_runtime"
-    },
-    {
       "path": "scripts/run-memory-maintenance.sh",
       "category": "scripts",
       "component": "core_runtime"
@@ -504,11 +489,6 @@
     },
     {
       "path": "scripts/sync-skills-registry.sh",
-      "category": "scripts",
-      "component": "core_runtime"
-    },
-    {
-      "path": "scripts/update-post-publish-dispatch-queue.sh",
       "category": "scripts",
       "component": "core_runtime"
     },
@@ -608,17 +588,7 @@
       "component": "advanced_workflows"
     },
     {
-      "path": "workflows/accessibility-audit-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
       "path": "workflows/agent-init-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/agentic-hybrid-rag-workflow.md",
       "category": "workflows",
       "component": "advanced_workflows"
     },
@@ -629,26 +599,6 @@
     },
     {
       "path": "workflows/agentic-stack-verify-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/api-versioning-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/ast-context-miner-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/ast-repository-mapper-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/auto-mocking-api-workflow.md",
       "category": "workflows",
       "component": "advanced_workflows"
     },
@@ -673,22 +623,7 @@
       "component": "advanced_workflows"
     },
     {
-      "path": "workflows/bootstrap-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
       "path": "workflows/bug-fix-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/changelog-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/cicd-pipeline-workflow.md",
       "category": "workflows",
       "component": "advanced_workflows"
     },
@@ -698,47 +633,7 @@
       "component": "advanced_workflows"
     },
     {
-      "path": "workflows/context-orchestrator-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/contextual-rules-loader-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/database-migration-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
       "path": "workflows/dependency-safety-baseline-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/dependency-update-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/docker-deployment-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/documentation-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/e2e-test-generation-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/env-management-workflow.md",
       "category": "workflows",
       "component": "advanced_workflows"
     },
@@ -758,52 +653,12 @@
       "component": "advanced_workflows"
     },
     {
-      "path": "workflows/global-knowledge-synthesis-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/graphrag-knowledge-indexer-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/i18n-audit-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/knowledge-capture-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/lazy-load-blueprint-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/license-audit-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
       "path": "workflows/memory-delta-archiver-workflow.md",
       "category": "workflows",
       "component": "advanced_workflows"
     },
     {
       "path": "workflows/micro-task-shortcut-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/monitoring-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/performance-audit-workflow.md",
       "category": "workflows",
       "component": "advanced_workflows"
     },
@@ -819,16 +674,6 @@
     },
     {
       "path": "workflows/quality-assurance-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/rollback-recovery-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/rules-audit-workflow.md",
       "category": "workflows",
       "component": "advanced_workflows"
     },
@@ -863,16 +708,6 @@
       "component": "advanced_workflows"
     },
     {
-      "path": "workflows/testing-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/time-travel-checkpoint-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
       "path": "workflows/update-skills-workflow.md",
       "category": "workflows",
       "component": "advanced_workflows"
@@ -883,17 +718,7 @@
       "component": "advanced_workflows"
     },
     {
-      "path": "workflows/visual-regression-audit-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
       "path": "workflows/web-safety-workflow.md",
-      "category": "workflows",
-      "component": "advanced_workflows"
-    },
-    {
-      "path": "workflows/workflow-lint-workflow.md",
       "category": "workflows",
       "component": "advanced_workflows"
     }
