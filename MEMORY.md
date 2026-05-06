@@ -137,13 +137,15 @@ Promote local knowledge globally only when it is reusable beyond one project:
 Demote or expire global knowledge when it becomes project-specific, contradicted, obsolete, or time-bound and expired.
 
 ## Maintenance
-`scripts/run-memory-maintenance.sh` and `workflows/memory-delta-archiver-workflow.md` are explicit tools, not normal warmup. Their active responsibilities are simple:
+`scripts/run-memory-maintenance.sh` and memory maintenance smokes are explicit tools, not normal warmup. Their active responsibilities are simple:
 
 - mark exact duplicates or superseded notes
 - promote valid inbox drafts if that workflow is explicitly used
 - archive invalid drafts
 - regenerate `.project_dna.md`
 - consolidate when active KI count exceeds 15 for this personal kernel profile; use 30 only when operating it as a product/framework with CI coverage
+
+Use `evals/checks/check-memory-maintenance-eligibility.sh` before broad maintenance to verify the vault actually qualifies.
 
 For this personal profile, a vault at or below 15 active KIs should usually be maintained by direct Markdown review. Do not run maintenance tooling just to satisfy ceremony.
 

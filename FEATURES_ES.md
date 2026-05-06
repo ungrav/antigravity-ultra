@@ -81,9 +81,9 @@ Dos capas de seguridad protegen tu trabajo:
 - **Borrado Seguro (Safe Delete):** Los agentes nunca eliminan archivos del proyecto permanentemente. Los archivos borrados se mueven a `_DEPRECATED_TRASH`, dándote una red de seguridad contra accidentes de IA.
 - **Niveles de Permiso:** Ediciones rutinarias y de bajo riesgo se ejecutan automáticamente (`AUTO`). Operaciones críticas — deploys, cambios de arquitectura, integraciones externas — requieren tu confirmación explícita (`CONFIRM`).
 
-## ⚡ Instalación Portable (5 Archivos)
+## ⚡ Instalación Portable (Exactamente 5 Archivos)
 
-Todo el sistema se distribuye en 5 archivos. Cópialos en cualquier directorio de proyecto y ejecuta el instalador. Cuatro perfiles te permiten elegir tu nivel de herramientas:
+El kit portable oficial se distribuye exactamente en 5 archivos raíz: `GEMINI.md`, `MEMORY.md`, `GEMINI_BLUEPRINTS.md`, `portable-kernel.sh` y `portable-kernel-windows.ps1`. Cópialos en cualquier directorio de proyecto y ejecuta el instalador. Cuatro perfiles te permiten elegir tu nivel de herramientas:
 
 | Perfil | Incluye |
 |--------|---------|
@@ -93,3 +93,5 @@ Todo el sistema se distribuye en 5 archivos. Cópialos en cualquier directorio d
 | `custom` | Elige módulos individualmente |
 
 Multiplataforma: macOS, Linux y Windows PowerShell. Sin dependencias más allá de Bash 4+ o PowerShell 5+.
+
+`.portable/` se genera localmente como caché/recuperación por bootstrap/recover/doctor. No es canon y no se copia como parte del kit portable.

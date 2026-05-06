@@ -282,10 +282,12 @@ function Get-PortableBundleArchive {
   }
   Extract-Marker -SourceFile (Join-Path $BaseRoot "GEMINI_BLUEPRINTS.md") -MarkerName $PortableBundleMarker -TargetFile $bundleB64
   if ((!(Test-Path $bundleB64)) -or ((Get-Item $bundleB64).Length -eq 0)) {
-    throw "Portable bundle not found. Expected .portable/minimum-kernel.bundle.tar.gz or legacy marker in GEMINI_BLUEPRINTS.md"
+    throw "Portable bundle not found. Expected generated .portable/minimum-kernel.bundle.tar.gz or embedded marker in GEMINI_BLUEPRINTS.md"
   }
   $raw = (Get-Content -Raw -Encoding UTF8 $bundleB64) -replace "\s", ""
   [System.IO.File]::WriteAllBytes($bundleTgz, [Convert]::FromBase64String($raw))
+  New-Item -ItemType Directory -Force -Path (Split-Path -Parent $externalBundle) | Out-Null
+  Copy-Item -Force $bundleTgz $externalBundle
   return $bundleTgz
 }
 

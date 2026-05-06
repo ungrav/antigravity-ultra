@@ -81,9 +81,9 @@ Two safety layers protect your work:
 - **Safe Delete:** Agents never permanently delete project files. Deleted files are moved to `_DEPRECATED_TRASH`, giving you a safety net against AI accidents.
 - **Permission Tiers:** Routine, low-risk edits run automatically (`AUTO`). Critical operations — deployments, architecture shifts, external integrations — require your explicit confirmation (`CONFIRM`).
 
-## ⚡ Portable Installation (5 Files)
+## ⚡ Portable Installation (Exactly 5 Files)
 
-The entire system ships as 5 files. Copy them into any project directory and run the installer. Four tiers let you choose your level of tooling:
+The official portable kit ships as exactly 5 root files: `GEMINI.md`, `MEMORY.md`, `GEMINI_BLUEPRINTS.md`, `portable-kernel.sh`, and `portable-kernel-windows.ps1`. Copy those into any project directory and run the installer. Four tiers let you choose your level of tooling:
 
 | Tier | Includes |
 |------|----------|
@@ -93,3 +93,5 @@ The entire system ships as 5 files. Copy them into any project directory and run
 | `custom` | Pick modules individually |
 
 Cross-platform: macOS, Linux, and Windows PowerShell. No dependencies beyond Bash 4+ or PowerShell 5+.
+
+`.portable/` is generated locally as cache/recovery output by bootstrap/recover/doctor. It is not canon and is not copied as part of the portable kit.

@@ -71,8 +71,11 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - `AGENTS.md` is renderer-managed onboarding for external agents.
 - `CLAUDE.md`, if present, is host-specific context, not runtime canon.
 - If `AGENTS.md` or host docs disagree with `GEMINI.md`, follow `GEMINI.md`.
+- Native Antigravity canon is `GEMINI.md`; external Claude/Codex canon is `AGENTS.md`; both pair with `.agent/current_state.md` as the live handoff.
 - Live-state updates must keep `.agent/current_state.json`, `.agent/current_state.md`, and generated cache views aligned; if they disagree, treat state as stale and revalidate repo/runtime facts.
-- Do not open or paste portable bundle internals during normal review; use launchers, `.portable/bundle_manifest.json`, or targeted restore paths.
+- Official portability is exactly five root files: `GEMINI.md`, `MEMORY.md`, `GEMINI_BLUEPRINTS.md`, `portable-kernel.sh`, and `portable-kernel-windows.ps1`.
+- `.portable/` is generated local cache/recovery output. It is never canon, never normal warmup, and may be deleted/regenerated.
+- Do not open or paste portable bundle internals during normal review; use launchers, generated `.portable/bundle_manifest.json`, or targeted restore paths.
 - On first copied portable kits, before answering the user's first normal task, run read-only `probe`.
 - Do not ask the user to run these commands unless the host blocks tool execution.
 - First-chat portable bootstrap may persist the user’s initial intent with `remember-intent` and resume `first_user_intent_summary`.

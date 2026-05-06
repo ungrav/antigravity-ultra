@@ -334,11 +334,13 @@ extract_portable_bundle_archive() {
   fi
   extract_marker "$root/GEMINI_BLUEPRINTS.md" "$PORTABLE_BUNDLE_MARKER" "$bundle_b64"
   if [[ ! -s "$bundle_b64" ]]; then
-    emit_error "Portable bundle not found. Expected .portable/minimum-kernel.bundle.tar.gz or legacy marker in GEMINI_BLUEPRINTS.md"
+    emit_error "Portable bundle not found. Expected generated .portable/minimum-kernel.bundle.tar.gz or embedded marker in GEMINI_BLUEPRINTS.md"
     rm -rf "$tmp_dir"
     exit 1
   fi
   decode_base64_file "$bundle_b64" "$bundle_tgz"
+  mkdir -p "$(dirname "$external_bundle")"
+  cp "$bundle_tgz" "$external_bundle"
   printf '%s\n' "$bundle_tgz"
 }
 
@@ -1345,7 +1347,7 @@ command_doctor() {
   tmp_marker="$(mktemp "${TMPDIR:-/tmp}/portable-marker.XXXXXX")"
   extract_marker "$root/GEMINI_BLUEPRINTS.md" "$PORTABLE_BUNDLE_MARKER" "$tmp_marker"
   if [[ ! -s "$external_bundle" && ! -s "$tmp_marker" ]]; then
-    emit_error "Portable minimum bundle is missing (.portable/minimum-kernel.bundle.tar.gz or legacy BLUEPRINTS marker)"
+    emit_error "Portable minimum bundle is missing (generated .portable/minimum-kernel.bundle.tar.gz or embedded BLUEPRINTS marker)"
     errors=$((errors + 1))
   fi
   rm -f "$tmp_marker"
@@ -1503,9 +1505,6 @@ command_pack() {
   cp "$root/GEMINI_BLUEPRINTS.md" "$output_dir/GEMINI_BLUEPRINTS.md"
   cp "$root/portable-kernel.sh" "$output_dir/portable-kernel.sh"
   cp "$root/portable-kernel-windows.ps1" "$output_dir/portable-kernel-windows.ps1"
-  mkdir -p "$output_dir/.portable"
-  cp "$root/.portable/minimum-kernel.bundle.tar.gz" "$output_dir/.portable/minimum-kernel.bundle.tar.gz"
-  cp "$root/.portable/bundle_manifest.json" "$output_dir/.portable/bundle_manifest.json"
 
   write_profile_block "$output_dir/GEMINI.md" "portable_ask_default_en" "ask_on_first_run" "English"
   emit_info "Portable kit exported to $output_dir"

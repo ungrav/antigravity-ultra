@@ -3,16 +3,16 @@
 🌍 [🇺🇸 English](#-english) | [🇪🇸 Español](#-español)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Version](https://img.shields.io/badge/kernel-v8.26-blueviolet)
+![Version](https://img.shields.io/badge/kernel-v9.0-blueviolet)
 ![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey)
 
 ---
 
 ## 🇺🇸 English
 
-**A portable kernel that gives AI agents persistent memory, structured workflows, and safety guardrails — across any project, any provider.**
+**A portable v9 hybrid-strict kernel that gives AI agents persistent memory, a lean daily core, and generated recovery tooling across any project, any provider.**
 
-Antigravity Ultra manages the identity, memory, and operational rules of autonomous AI agents. It works with Gemini, Claude, Codex, or any agent that reads Markdown context files. Install once, and every project gets structured memory that survives across conversations.
+Antigravity Ultra manages the identity, memory, and operational rules of autonomous AI agents. Native Antigravity starts from `GEMINI.md` + `.agent/current_state.md`; Claude, Codex, and other external agents start from `AGENTS.md` + `.agent/current_state.md`. Install once, and every project gets structured memory that survives across conversations.
 
 ### The Problem It Solves
 
@@ -61,7 +61,7 @@ Full details in **[FEATURES_EN.md](./FEATURES_EN.md)**.
 
 ### 📂 The Portable Kit
 
-The entire system lives in 5 files:
+The official portable distribution is exactly 5 root files:
 
 | File | Role |
 |------|------|
@@ -70,6 +70,8 @@ The entire system lives in 5 files:
 | `GEMINI_BLUEPRINTS.md` | Recovery templates and portable restore bundle |
 | `portable-kernel.sh` | Smart installer for macOS / Linux |
 | `portable-kernel-windows.ps1` | Smart installer for Windows PowerShell |
+
+`.portable/` is generated locally by `bootstrap`, `recover`, or `doctor` as cache/recovery output. It is not canon and is not a folder users copy by hand.
 
 ### 🚀 Quick Install
 
@@ -94,7 +96,7 @@ bash portable-kernel.sh bootstrap --tier recommended
 .\portable-kernel-windows.ps1 -InstallTier recommended
 ```
 
-> The installer creates the `.agent/` folder, injects initial context, and your AI is ready from the first prompt.
+> The installer probes the project, creates or repairs `.agent/`, generates `.portable/` cache/recovery files, runs doctor checks, and then resumes the user's original intent.
 
 ### 🚫 What This Is NOT
 
@@ -114,9 +116,9 @@ Antigravity Ultra is open source under GPLv3. Issues and PRs are welcome.
 
 ## 🇪🇸 Español
 
-**Un kernel portable que da a los agentes de IA memoria persistente, workflows estructurados y controles de seguridad — en cualquier proyecto, con cualquier proveedor.**
+**Un kernel portable v9 híbrido estricto que da a los agentes de IA memoria persistente, core diario mínimo y recuperación generada — en cualquier proyecto, con cualquier proveedor.**
 
-Antigravity Ultra gestiona la identidad, memoria y reglas operativas de agentes de IA autónomos. Funciona con Gemini, Claude, Codex o cualquier agente que lea archivos Markdown de contexto. Instálalo una vez y cada proyecto obtiene memoria estructurada que sobrevive entre conversaciones.
+Antigravity Ultra gestiona la identidad, memoria y reglas operativas de agentes de IA autónomos. Antigravity nativo empieza desde `GEMINI.md` + `.agent/current_state.md`; Claude, Codex y otros agentes externos empiezan desde `AGENTS.md` + `.agent/current_state.md`. Instálalo una vez y cada proyecto obtiene memoria estructurada que sobrevive entre conversaciones.
 
 ### El Problema que Resuelve
 
@@ -169,7 +171,7 @@ Detalles completos en **[FEATURES_ES.md](./FEATURES_ES.md)**.
 
 ### 📂 El Kit Portable
 
-Todo el sistema vive en 5 archivos:
+La distribución portable oficial son exactamente 5 archivos raíz:
 
 | Archivo | Rol |
 |---------|-----|
@@ -178,6 +180,8 @@ Todo el sistema vive en 5 archivos:
 | `GEMINI_BLUEPRINTS.md` | Templates de recuperación y bundle de restauración portable |
 | `portable-kernel.sh` | Instalador inteligente para macOS / Linux |
 | `portable-kernel-windows.ps1` | Instalador inteligente para Windows PowerShell |
+
+`.portable/` se genera localmente por `bootstrap`, `recover` o `doctor` como caché/recuperación. No es canon y no es una carpeta que el usuario deba copiar manualmente.
 
 ### 🚀 Instalación Rápida
 
@@ -202,7 +206,7 @@ bash portable-kernel.sh bootstrap --tier recommended
 .\portable-kernel-windows.ps1 -InstallTier recommended
 ```
 
-> El instalador crea la carpeta `.agent/`, inyecta el contexto inicial y tu IA está lista desde el primer prompt.
+> El instalador hace `probe`, crea o repara `.agent/`, genera la caché `.portable/`, ejecuta doctor y retoma la intención original del usuario.
 
 ### 🚫 Lo que NO Es
 
