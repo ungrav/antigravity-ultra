@@ -1399,7 +1399,9 @@ command_doctor() {
       "$root/skills-manifest.json" \
       "$root/reports/skills-curation-report.json" \
       "$root/scripts/run-core-evals.sh" \
+      "$root/scripts/run-lean-evals.sh" \
       "$root/scripts/gemini-doctor.sh" \
+      "$root/scripts/doctor" \
       "$root/scripts/__pycache__"
     do
       [[ ! -e "$forbidden" ]] || {

@@ -803,7 +803,7 @@ function Command-Doctor {
         $errors += 1
       }
     }
-    foreach ($name in @("antigravity/mcp_config.json", "evals", "skills-lock.json", "skills-manifest.json", "reports/skills-curation-report.json", "scripts/run-core-evals.sh", "scripts/gemini-doctor.sh", "scripts/__pycache__")) {
+    foreach ($name in @("antigravity/mcp_config.json", "evals", "skills-lock.json", "skills-manifest.json", "reports/skills-curation-report.json", "scripts/run-core-evals.sh", "scripts/run-lean-evals.sh", "scripts/gemini-doctor.sh", "scripts/doctor", "scripts/__pycache__")) {
       if (Test-Path (Join-Path $Root $name)) {
         Write-ErrorLine "Portable restore included source-only artifact: $name"
         $errors += 1

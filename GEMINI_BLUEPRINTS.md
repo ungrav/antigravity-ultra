@@ -132,7 +132,7 @@
 ~~~~json
 {
   "version": 1,
-  "generated_at": "2026-04-30T09:49:55Z",
+  "generated_at": "2026-05-06T14:51:35Z",
   "profile": "portable_minimum",
   "portable_root_files": [
     "GEMINI.md",
