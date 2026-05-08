@@ -1,5 +1,5 @@
-# MEMORY TECHNICAL SPEC: v9.2 - STRUCTURED MARKDOWN MEMORY
-*Last updated: 2026-05-07*
+# MEMORY TECHNICAL SPEC: v9.2.1 - STRUCTURED MARKDOWN MEMORY
+*Last updated: 2026-05-08*
 
 ## Purpose
 Memory exists to preserve durable project knowledge without making normal agents study the kernel. The active model is simple:
@@ -19,6 +19,8 @@ No derived scoring system is part of the active contract. Agents and scripts mus
 - The selector should return a small set of paths plus a plain reason.
 - If selector tooling is unavailable, use targeted grep over active Markdown notes.
 - Memory scripts are helpers for consistency and verification, not a required detour for obvious native Markdown edits.
+- Repo/runtime facts outrank KIs, chat context, and model heuristics.
+- Keep this file under 180 lines and 8,500 bytes; consolidate before expanding.
 
 ## KI Shape
 KIs are Markdown files under `.agent/knowledge/`:
@@ -60,7 +62,15 @@ Selection should be boring and inspectable:
 - Prefer `status: active`.
 - Break ties with recency and direct entity match.
 - Return at most 5 notes or about 1200 tokens.
-- Revalidate repo/runtime facts before treating a note as current truth.
+- Authority hierarchy: current repo/runtime facts > KIs > chat context > model heuristics.
+
+## Before Recommending from Memory
+A KI is a dated claim. If it names a file, function, script, flag, config, or current decision, verify the claim before recommending action.
+
+- File path claims: check the path exists or report it as historical.
+- Function/script/flag claims: search the repo/runtime before treating them as live.
+- Decision claims: if repo/runtime contradicts the KI, trust observed reality and update or retire the stale KI when the task scope includes memory.
+- Phrase uncertain memory as historical: "The KI says..." until verified.
 
 ## Capture
 Use native Markdown when the durable lesson is already clear. Use `scripts/capture-ki.sh` for standard/deep closeout when state-derived suggestions are useful.
@@ -83,14 +93,11 @@ Capture only durable decisions, reusable patterns, verified bug fixes, API/confi
 
 Do not capture:
 
-- secrets or credentials
-- raw transcripts
-- copied source code
-- hidden reasoning
-- raw tool dumps
-- ordinary task chatter
-- pure typo/docs/format changes
-- PR lists, recent activity recaps, `git status` snapshots, file inventories, and worklogs
+- secrets, credentials, tokens, personal data, hidden reasoning, or raw tool dumps
+- raw transcripts, raw logs, stack traces without a durable fix, copied source code, or full plans
+- worklogs, `git status` snapshots, file inventories, PR lists, recent-activity recaps, or session transcripts
+- ordinary task chatter, unverified guesses, preferences without project impact, typo-only edits, formatting, or rename-only changes
+- patterns derivable from the current repo, recipes already reflected in code/scripts, git history, or content already documented in canon
 
 Explicit "save this" or "remember this" requests do NOT override exclusion rules. Capture only a surprising, non-obvious, reusable lesson.
 

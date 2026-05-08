@@ -1,5 +1,5 @@
-# SYSTEM INSTRUCTIONS: v9.2 - GOLDEN PATH + MEMORIA ESTRUCTURADA
-*Last updated: 2026-05-07*
+# SYSTEM INSTRUCTIONS: v9.2.1 - GOLDEN PATH + MEMORIA ESTRUCTURADA
+*Last updated: 2026-05-08*
 
 > Runtime kernel for Antigravity-compatible agents. Keep this file short: it defines the working path, safety invariants, and escalation points. Deep memory details live in `MEMORY.md`; portable restore lives in `GEMINI_BLUEPRINTS.md`.
 
@@ -13,7 +13,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 
 <!-- GEMINI_READ_CONTRACT_START -->
 ## Generated Read Contract
-- Version: `v9.2`; structured source: `state/read_contract.json`.
+- Version: `v9.2.1`; structured source: `state/read_contract.json`.
 - Start native work with `GEMINI.md` -> `rules/memory-runtime.md` -> `.agent/current_state.md`.
 - Start external work with `AGENTS.md` -> `.agent/current_state.md`.
 - Optional resolver helper: `scripts/resolve-read-context.py --profile <native|external> --task "<task>" --json`.
@@ -64,8 +64,11 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - Memory is simple Markdown KIs with frontmatter. Folders are storage layout; frontmatter carries meaning.
 - Normal work does not read the vault.
 - Use `scripts/select-memory-context.sh` when it saves time; otherwise use targeted `rg` over active Markdown frontmatter.
+- If a KI contradicts repo/runtime facts, trust observed reality and update or retire the stale KI when the task scope includes memory.
 - Use `scripts/kernel-closeout.sh` only when state, history, capture, blueprints, and verification all need to stay in sync.
 - Use `scripts/capture-ki.sh --suggest-from-current-state --json` for capture suggestions; native KI edits are valid when the durable lesson and frontmatter are clear.
+- Closeout triggers: "cerrar sesión", "cierre", "closeout", "wrap up", "handoff", and "continuar luego".
+- On closeout, update live state, verify, evaluate durable memory capture, refresh Project DNA only for structural memory, and leave one clear next step.
 
 ## 6. Portable and Interop Boundaries
 - `AGENTS.md` is renderer-managed onboarding for external agents.

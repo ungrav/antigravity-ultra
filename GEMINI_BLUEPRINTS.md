@@ -69,7 +69,7 @@
 - Run bash scripts/run-core-evals.sh only for broad kernel validation.
 
 ## Golden Path
-- Version: `v9.2`; structured source: `state/read_contract.json`.
+- Version: `v9.2.1`; structured source: `state/read_contract.json`.
 - Start here: `AGENTS.md` -> `.agent/current_state.md`.
 - Optional helper: `scripts/resolve-read-context.py --profile external --task "<task>" --json`; if it fails, use the table and report `resolver unavailable`.
 
@@ -85,11 +85,13 @@
 - No shared exports; read `GEMINI.md` surgically only when needed.
 
 ## Memory
-- Normal tasks use no vault. If memory is relevant, read Project DNA then targeted active KIs.
+- Normal tasks use no vault. For "what did we decide", "why did we do X", prior errors, or architecture, read Project DNA then run `scripts/select-memory-context.sh --root . --query "<task>" --limit 5`.
+- Verify KI claims against repo/runtime before recommending current files, scripts, flags, or decisions.
 - Folders are layout; frontmatter carries meaning.
 
 ## Memory Capture
-- Closeout: use native Markdown for clear durable notes; use `scripts/capture-ki.sh --suggest-from-current-state --json` when a state-derived suggestion helps.
+- Closeout triggers include "cerrar sesión", "closeout", "wrap up", "handoff", and "continuar luego".
+- Closeout command: `scripts/kernel-closeout.sh --root . --close-session --session-summary "<summary>" --next-step "<next>" --verify runtime`; add `--memory-summary` only for durable memory.
 <!-- AGENTS_GENERATED_END -->
 <!-- END: AGENTS.md -->
 
@@ -122,7 +124,7 @@
 ### 2.3 Portable Minimum Bundle
 
 > [!NOTE]
-> v9.2 mantiene el kit distribuible autocontenido en 6 archivos.
+> v9.2.1 mantiene el kit distribuible autocontenido en 6 archivos.
 > `minimum-kernel.bundle.tar.gz` es el sexto archivo portable oficial y vive en la raíz del kit.
 > `.portable/` es cache generada localmente por `bootstrap`, `regen` o `pack`; no es canon ni warmup.
 > Los launchers leen primero `minimum-kernel.bundle.tar.gz` en raíz; si falta, usan `.portable/minimum-kernel.bundle.tar.gz` como cache local.
@@ -136,7 +138,7 @@
 ~~~~json
 {
   "version": 1,
-  "generated_at": "2026-05-08T01:13:40Z",
+  "generated_at": "2026-05-08T13:24:21Z",
   "profile": "portable_minimum",
   "portable_root_files": [
     "GEMINI.md",

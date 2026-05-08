@@ -60,6 +60,36 @@ The kernel forces direct, token-efficient responses:
 - No unnecessary summaries of what the agent is about to do
 - Straight-to-the-point answers that respect your time and your token budget
 
+## ⚡ Context Efficiency and Honest Comparisons
+
+Ultra's main efficiency win is not a cheaper model. It is a smaller orientation cost: agents load the context needed for the current task instead of loading the whole project memory every time.
+
+| System | Project Context | Local Memory | Multi-Agent Handoff | Estimated Overhead |
+|---|---|---|---|---|
+| Antigravity without Ultra | Manual prompt/chat context | No canonical portable memory | Depends on the user | Variable/manual |
+| Antigravity Ultra | Golden Path + live state | KIs + Project DNA | `AGENTS.md` for Claude/Codex/Gemini | Low/proportional |
+| OpenCode | Declarative project config | Limited | Partial | ~661 tokens base context |
+| Claude Code | Integrated memory + project context | Yes | Mostly Claude | ~3k+ tokens depending on memory/context |
+| Everything Claude Code | Large AGENTS/CLAUDE catalog | Manual/contextual | Claude agent catalog | ~2k tokens base context |
+
+Methodology: token counts are approximate overhead estimates, using local file measurements and the common rule of roughly 4 bytes per token. They are reproducible with `wc -l -c`, but they are not total inference cost and will vary by tokenizer, project size, and how each tool injects context.
+
+The user benefit is practical:
+
+- Less repeated explanation at the start of every chat.
+- Less lost context when switching between Antigravity, Gemini, Claude, and Codex.
+- Clear per-project state through `.agent/current_state.md`.
+- Durable local memory through KIs and Project DNA.
+- Portable recovery if `.agent/` or `.portable/` is deleted or damaged.
+
+## 🧠 When Memory Is Saved
+
+Ultra does not save memory on every turn. It captures memory at session closeout or after verified durable work.
+
+Trigger it naturally with: **"cerrar sesión"**, **"cierre"**, **"closeout"**, **"wrap up"**, **"handoff"**, or **"continuar luego"**.
+
+The agent should update live state, write a session summary, verify the project, and only save durable memory when it captures a decision, architecture change, bug fix, incident, contract, configuration, or useful handoff.
+
 ## 🤝 Provider Agnostic
 
 Antigravity Ultra is not tied to any AI provider. Start architecture with **Gemini**, run security audits with **Claude**, write complex logic with **Codex**. Any Markdown-aware agent reads the same `GEMINI.md` rulebook and `.agent/` state — and instantly understands your project.
