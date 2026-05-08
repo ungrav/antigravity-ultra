@@ -35,13 +35,13 @@ Most frameworks load their entire context on every turn. Antigravity loads conte
 
 In a 100-turn session, overhead context comparison:
 
-| System | Tokens | vs Antigravity |
-|--------|--------|---------------|
-| **Antigravity Ultra** | **~12,450** | — |
+| System | Tokens | vs Ultra |
+|--------|--------|----------|
+| **Antigravity Ultra** | **~12,450** | **baseline** |
+| Antigravity (without Ultra) | variable | manual — you repeat context each session |
 | OpenCode | ~66,100 | 5× more |
 | Everything Claude Code | ~202,400 | 16× more |
 | Claude Code | ~300,000 | 24× more |
-| Hermes Agent | ~1,112,200 | 89× more |
 
 ## 🌟 Features
 
@@ -136,13 +136,13 @@ Memoria        → Spec completa (~1,940 tokens)
 
 En una sesión de 100 turnos:
 
-| Sistema | Tokens | vs Antigravity |
-|---------|--------|---------------|
-| **Antigravity Ultra** | **~12,450** | — |
+| Sistema | Tokens | vs Ultra |
+|---------|--------|----------|
+| **Antigravity Ultra** | **~12,450** | **baseline** |
+| Antigravity (sin Ultra) | variable | manual — repites contexto cada sesión |
 | OpenCode | ~66,100 | 5× más |
 | Everything Claude Code | ~202,400 | 16× más |
 | Claude Code | ~300,000 | 24× más |
-| Hermes Agent | ~1,112,200 | 89× más |
 
 ### 🌟 Características
 
