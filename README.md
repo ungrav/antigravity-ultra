@@ -115,7 +115,9 @@ Open source under **GPLv3**. Issues and PRs are welcome.
 
 **Dale a tus agentes de IA memoria que sobrevive entre conversaciones.**
 
-Cada vez que inicias un chat nuevo, pierdes el contexto. Desperdicias tokens repitiendo instrucciones. Antigravity Ultra lo resuelve: instala 6 archivos y cualquier agente — Gemini, Claude, Codex — entiende al instante las reglas, historia y estado de tu proyecto.
+Cada vez que inicias un chat nuevo, pierdes el contexto. Desperdicias tokens repitiendo instrucciones. Diferentes agentes no comparten conocimiento sobre tu proyecto.
+
+**Antigravity Ultra lo resuelve.** Instala 6 archivos y cualquier agente — Gemini, Claude, Codex o cualquier herramienta que lea Markdown — entiende al instante las reglas, historia y estado de tu proyecto.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.sh | bash
@@ -132,9 +134,11 @@ Arquitectura   → Project DNA (~300 tokens)
 Memoria        → Spec completa (~1,940 tokens)
 ```
 
+La mayoría de los frameworks cargan todo su contexto en cada turno. Antigravity carga contexto **proporcionalmente**.
+
 ### ⚡ Eficiencia de Tokens
 
-En una sesión de 100 turnos:
+En una sesión de 100 turnos, comparación de overhead de contexto:
 
 | Sistema | Tokens | vs Ultra |
 |---------|--------|----------|
@@ -148,7 +152,7 @@ En una sesión de 100 turnos:
 
 | | Característica | Qué hace |
 |---|---------------|----------|
-| 🧠 | **Memoria Persistente** | Knowledge Items en Markdown — los agentes recuerdan decisiones, bugs y arquitectura |
+| 🧠 | **Memoria Persistente** | Knowledge Items en Markdown con frontmatter estructurado — los agentes recuerdan decisiones, bugs y arquitectura |
 | ⚡ | **Golden Path** | Enrutamiento por tarea: cero contexto del kernel para el 80% de las tareas |
 | 🤝 | **Cualquier Proveedor** | Mismas reglas para Gemini, Claude, Codex o cualquier agente Markdown |
 | 🕵️ | **Verificar, No Asumir** | Los agentes deben probar que los cambios funcionan — `PASS`, `FAIL` o `PARTIAL` |
@@ -160,7 +164,35 @@ Detalles completos → **[FEATURES_ES.md](./FEATURES_ES.md)**
 
 ### 📦 Kit Portable
 
-Todo se distribuye en **exactamente 6 archivos**. El instalador crea todo lo demás: `.agent/`, `.portable/`, configs, scripts.
+Todo se distribuye en **exactamente 6 archivos**:
+
+| Archivo | Propósito |
+|---------|-----------|
+| `GEMINI.md` | Reglamento operativo (87 líneas) |
+| `MEMORY.md` | Especificación de memoria (164 líneas) |
+| `GEMINI_BLUEPRINTS.md` | Contrato de recuperación |
+| `portable-kernel.sh` | Instalador para macOS / Linux |
+| `portable-kernel-windows.ps1` | Instalador para Windows |
+| `minimum-kernel.bundle.tar.gz` | Payload runtime |
+
+El instalador crea todo lo demás: `.agent/`, `.portable/`, configs, scripts. Solo cargas 6 archivos.
+
+### 🚀 Instalación
+
+**Un solo comando:**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.sh | bash
+```
+
+**Elige tu perfil:**
+
+| Perfil | Qué incluye |
+|--------|-------------|
+| 🌱 `minimal` | Motor base + baúl de memoria |
+| ⭐ `recommended` | + Workflows + herramientas de auditoría |
+| 🔥 `complete` | + Plantillas MCP, evals, telemetría |
+| ⚙️ `custom` | Elige módulos individualmente |
 
 ```bash
 # macOS / Linux
@@ -171,6 +203,16 @@ powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 bootstrap
 ```
 
 **Requisitos:** Bash 4+ o PowerShell 5+. Sin otras dependencias.
+
+### 🚫 Lo que NO Es
+
+- No es un modelo de IA — hace que los modelos existentes sean más inteligentes con *tu* proyecto
+- No es un chatbot — gestiona contexto y memoria, no interfaces de conversación
+- No reemplaza tu IDE — funciona dentro de las herramientas que ya usas
+
+### 🤝 Contribuir
+
+Open source bajo **GPLv3**. Issues y PRs son bienvenidos.
 
 ### ⚖️ Licencia
 
