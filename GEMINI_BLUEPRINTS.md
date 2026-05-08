@@ -4,31 +4,36 @@
 > This section contains the absolute base templates for project initialization. They are recoverable via `scripts/restore-blueprint-artifact.sh` and the portable bundle manifest.
 
 <!-- BEGIN: DESIGN_SYSTEM.md -->
-# Design System Bridge
+# Project Design Memory
 **Status:** Scaffolded
 
 ## 1. Agent Contract
-- If project root has `DESIGN.md`, read it before UI/frontend edits.
-- `DESIGN.md` follows the google-labs-code/design.md format: YAML tokens plus Markdown rationale.
-- Token values in `DESIGN.md` are normative; prose explains how and why to apply them.
-- If `DESIGN.md` is missing, use this file to create one instead of inventing visual rules.
+- `DESIGN_SYSTEM.md` is the project design memory: screenshots, references, visual decisions, component intent, UX notes, and product-specific style rules.
+- If project root has `DESIGN.md`, read it as a compatible agent-readable design standard; it does not replace this file.
+- Precedence: current user request/captures > existing product UI > `DESIGN_SYSTEM.md` > `DESIGN.md` > model taste.
+- Keep durable summaries and useful asset paths here; do not paste raw transcripts, private assets, or unrelated inspiration dumps.
 
-## 2. DESIGN.md Minimum Shape
-- YAML frontmatter: `version`, `name`, `colors`, `typography`, `spacing`, `rounded`, optional `components`.
-- Body sections, in order when present: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts.
-- Component tokens should reference existing tokens with `{path.to.token}` when possible.
+## 2. Capture & References
+- Screenshot/reference path: (TBD)
+- What to preserve: (TBD)
+- What to change: (TBD)
+- Important interaction/state notes: (TBD)
 
-## 3. Local Product Notes
+## 3. Product Design Notes
 - Brand personality: (TBD)
 - Primary color / accent: (TBD)
 - Typography: (TBD)
 - Layout density: (TBD)
 - Component library / styling strategy: (TBD)
 
-## 4. Accessibility
+## 4. Optional DESIGN.md Compatibility
+- `DESIGN.md` may follow the google-labs-code/design.md convention: Markdown design guidance with structured tokens/rationale.
+- When both files exist, use `DESIGN.md` for portable visual language and this file for local project memory, screenshots, and decisions.
+- Run `npx @google/design.md lint DESIGN.md` when Node/network policy allows it.
+
+## 5. Accessibility
 - Interactive elements need visible focus states.
 - Text and component color pairs should meet WCAG AA contrast.
-- Run `npx @google/design.md lint DESIGN.md` when Node/network policy allows it.
 <!-- END: DESIGN_SYSTEM.md -->
 
 <!-- BEGIN: PROJECT_HISTORY.md -->
@@ -79,7 +84,7 @@
 - Run bash scripts/run-core-evals.sh only for broad kernel validation.
 
 ## Golden Path
-- Version: `v9.2.3`; structured source: `state/read_contract.json`.
+- Version: `v9.2.4`; structured source: `state/read_contract.json`.
 - Start here: `AGENTS.md` -> `.agent/current_state.md`.
 - Optional helper: `scripts/resolve-read-context.py --profile external --task "<task>" --json`; if it fails, use the table and report `resolver unavailable`.
 
@@ -133,7 +138,7 @@
 ### 2.3 Portable Minimum Bundle
 
 > [!NOTE]
-> v9.2.3 mantiene el kit distribuible autocontenido en 6 archivos.
+> v9.2.4 mantiene el kit distribuible autocontenido en 6 archivos.
 > `minimum-kernel.bundle.tar.gz` es el sexto archivo portable oficial y vive en la raíz del kit.
 > `.portable/` es cache generada localmente por `bootstrap`, `regen` o `pack`; no es canon ni warmup.
 > Los launchers leen primero `minimum-kernel.bundle.tar.gz` en raíz; si falta, usan `.portable/minimum-kernel.bundle.tar.gz` como cache local.
@@ -147,7 +152,7 @@
 ~~~~json
 {
   "version": 1,
-  "generated_at": "2026-05-08T20:13:19Z",
+  "generated_at": "2026-05-08T20:23:26Z",
   "profile": "portable_minimum",
   "portable_root_files": [
     "GEMINI.md",

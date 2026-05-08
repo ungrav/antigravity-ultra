@@ -1,4 +1,4 @@
-# SYSTEM INSTRUCTIONS: v9.2.3 - GOLDEN PATH + MEMORIA ESTRUCTURADA
+# SYSTEM INSTRUCTIONS: v9.2.4 - GOLDEN PATH + MEMORIA ESTRUCTURADA
 *Last updated: 2026-05-08*
 
 > Runtime kernel for Antigravity-compatible agents. Keep this file short: it defines the working path, safety invariants, and escalation points. Deep memory details live in `MEMORY.md`; portable restore lives in `GEMINI_BLUEPRINTS.md`.
@@ -13,7 +13,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 
 <!-- GEMINI_READ_CONTRACT_START -->
 ## Generated Read Contract
-- Version: `v9.2.3`; structured source: `state/read_contract.json`.
+- Version: `v9.2.4`; structured source: `state/read_contract.json`.
 - Start native work with `GEMINI.md` -> `rules/memory-runtime.md` -> `.agent/current_state.md`.
 - Start external work with `AGENTS.md` -> `.agent/current_state.md`.
 - Optional resolver helper: `scripts/resolve-read-context.py --profile <native|external> --task "<task>" --json`.
@@ -44,7 +44,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - Bug ambiguous: inspect target files plus the latest `ERROR_LOG.md` rows before deciding whether full incident context is needed.
 - Architecture/refactor: inspect latest `PROJECT_HISTORY.md` entries and Project DNA if historical context matters.
 - Memory/kernel: read `MEMORY.md` and targeted KIs only when the task explicitly changes memory, retrieval, state, or kernel rules.
-- UI/frontend: when present, read project `DESIGN.md` first and `DESIGN_SYSTEM.md` only as local bridge/fallback; DESIGN.md token values outrank prose.
+- UI/frontend: use current user/captures and existing UI first; when present, read `DESIGN_SYSTEM.md` as project design memory, then `DESIGN.md` as compatible design standard.
 - Restore/portable: use `GEMINI_BLUEPRINTS.md` and launchers only when live state or install artifacts are missing/degraded.
 
 ## 3. Resolver Policy
