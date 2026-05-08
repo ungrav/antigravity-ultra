@@ -4,21 +4,31 @@
 > This section contains the absolute base templates for project initialization. They are recoverable via `scripts/restore-blueprint-artifact.sh` and the portable bundle manifest.
 
 <!-- BEGIN: DESIGN_SYSTEM.md -->
-# Design System & UI Architecture
+# Design System Bridge
 **Status:** Scaffolded
 
-## 1. Brand Guidelines
-- **Primary Color:** (TBD)
-- **Secondary Color:** (TBD)
-- **Typography:** (TBD)
+## 1. Agent Contract
+- If project root has `DESIGN.md`, read it before UI/frontend edits.
+- `DESIGN.md` follows the google-labs-code/design.md format: YAML tokens plus Markdown rationale.
+- Token values in `DESIGN.md` are normative; prose explains how and why to apply them.
+- If `DESIGN.md` is missing, use this file to create one instead of inventing visual rules.
 
-## 2. Component Architecture
-- **Framework:** (e.g., React, Vue, HTML/CSS)
-- **Styling Strategy:** (e.g., Tailwind, CSS Modules, Vanilla CSS)
+## 2. DESIGN.md Minimum Shape
+- YAML frontmatter: `version`, `name`, `colors`, `typography`, `spacing`, `rounded`, optional `components`.
+- Body sections, in order when present: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts.
+- Component tokens should reference existing tokens with `{path.to.token}` when possible.
 
-## 3. Accessibility (a11y)
-- All interactive elements must have focus states.
-- Contrast ratio must meet WCAG AA standards.
+## 3. Local Product Notes
+- Brand personality: (TBD)
+- Primary color / accent: (TBD)
+- Typography: (TBD)
+- Layout density: (TBD)
+- Component library / styling strategy: (TBD)
+
+## 4. Accessibility
+- Interactive elements need visible focus states.
+- Text and component color pairs should meet WCAG AA contrast.
+- Run `npx @google/design.md lint DESIGN.md` when Node/network policy allows it.
 <!-- END: DESIGN_SYSTEM.md -->
 
 <!-- BEGIN: PROJECT_HISTORY.md -->
@@ -69,7 +79,7 @@
 - Run bash scripts/run-core-evals.sh only for broad kernel validation.
 
 ## Golden Path
-- Version: `v9.2.2`; structured source: `state/read_contract.json`.
+- Version: `v9.2.3`; structured source: `state/read_contract.json`.
 - Start here: `AGENTS.md` -> `.agent/current_state.md`.
 - Optional helper: `scripts/resolve-read-context.py --profile external --task "<task>" --json`; if it fails, use the table and report `resolver unavailable`.
 
@@ -87,7 +97,6 @@
 ## Memory
 - Normal tasks use no vault. For "what did we decide", "why did we do X", prior errors, or architecture, read Project DNA then run `scripts/select-memory-context.sh --root . --query "<task>" --limit 5`.
 - Verify KI claims against repo/runtime before recommending current files, scripts, flags, or decisions.
-- Folders are layout; frontmatter carries meaning.
 
 ## Memory Capture
 - Closeout triggers include "cerrar sesión", "closeout", "wrap up", "handoff", and "continuar luego".
@@ -124,7 +133,7 @@
 ### 2.3 Portable Minimum Bundle
 
 > [!NOTE]
-> v9.2.2 mantiene el kit distribuible autocontenido en 6 archivos.
+> v9.2.3 mantiene el kit distribuible autocontenido en 6 archivos.
 > `minimum-kernel.bundle.tar.gz` es el sexto archivo portable oficial y vive en la raíz del kit.
 > `.portable/` es cache generada localmente por `bootstrap`, `regen` o `pack`; no es canon ni warmup.
 > Los launchers leen primero `minimum-kernel.bundle.tar.gz` en raíz; si falta, usan `.portable/minimum-kernel.bundle.tar.gz` como cache local.
@@ -138,7 +147,7 @@
 ~~~~json
 {
   "version": 1,
-  "generated_at": "2026-05-08T18:39:13Z",
+  "generated_at": "2026-05-08T20:13:19Z",
   "profile": "portable_minimum",
   "portable_root_files": [
     "GEMINI.md",

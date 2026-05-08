@@ -3,7 +3,7 @@
 **Give your AI agents memory that survives between conversations.**
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Version](https://img.shields.io/badge/kernel-v9.2.2-blueviolet)
+![Version](https://img.shields.io/badge/kernel-v9.2.3-blueviolet)
 ![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey)
 
 🌍 *[🇪🇸 Leer en Español](#-español)*
