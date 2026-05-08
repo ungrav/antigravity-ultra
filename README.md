@@ -3,7 +3,7 @@
 🌍 [🇺🇸 English](#-english) | [🇪🇸 Español](#-español)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Version](https://img.shields.io/badge/kernel-v9.0-blueviolet)
+![Version](https://img.shields.io/badge/kernel-v9.2-blueviolet)
 ![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey)
 
 ---
@@ -61,23 +61,48 @@ Full details in **[FEATURES_EN.md](./FEATURES_EN.md)**.
 
 ### 📂 The Portable Kit
 
-The official portable distribution is exactly 5 root files:
+The official portable distribution is exactly 6 root files:
 
 | File | Role |
 |------|------|
 | `GEMINI.md` | The operational rulebook — identity, safety boundaries, Golden Path |
 | `MEMORY.md` | Memory system specification — how to create and read Knowledge Items |
-| `GEMINI_BLUEPRINTS.md` | Recovery templates and portable restore bundle |
+| `GEMINI_BLUEPRINTS.md` | Human-readable recovery contract and manifest summary |
 | `portable-kernel.sh` | Smart installer for macOS / Linux |
 | `portable-kernel-windows.ps1` | Smart installer for Windows PowerShell |
+| `minimum-kernel.bundle.tar.gz` | Portable payload used by bootstrap/recover |
 
-`.portable/` is generated locally by `bootstrap`, `recover`, or `doctor` as cache/recovery output. It is not canon and is not a folder users copy by hand.
+`.portable/` is generated locally by `bootstrap`, `recover`, or `doctor` as cache/recovery output. It is not canon and is not a folder users copy by hand. If it is deleted, the launcher regenerates it from `minimum-kernel.bundle.tar.gz`.
+
+The public repository is intentionally minimal: root docs, the public installer, and the six portable kit files. Runtime directories such as `.agent/`, `.portable/`, `config/`, `scripts/`, and `workflows/` are created or restored by `bootstrap` from the portable payload. They are not extra files users need to understand or copy manually.
+
+Operationally, the model stays simple:
+
+- `GEMINI.md` tells Antigravity how to behave.
+- `AGENTS.md` is generated during bootstrap for Claude, Codex, and other external agents.
+- `.agent/current_state.md` is generated per project as the live handoff.
+- `minimum-kernel.bundle.tar.gz` carries the recoverable runtime pieces.
+- `.portable/` is only local cache and can be regenerated.
 
 ### 🚀 Quick Install
 
 **Prerequisites:** Bash 4+ (macOS/Linux) or PowerShell 5+ (Windows). No other dependencies.
 
-Download the 5 portable files and run the installer. Choose a tier:
+Recommended install from the latest GitHub release:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.sh | bash
+```
+
+To choose a target directory or tier:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.sh | bash -s -- --root ./my-project --tier minimal
+```
+
+The installer downloads the 6 portable files, runs `probe`, runs `bootstrap --tier recommended` by default, then runs `doctor`.
+
+You can also download the 6 portable files manually and choose a tier:
 
 | Tier | What You Get |
 |------|-------------|
@@ -93,7 +118,7 @@ bash portable-kernel.sh bootstrap --tier recommended
 
 **Windows:**
 ```powershell
-.\portable-kernel-windows.ps1 -InstallTier recommended
+powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 bootstrap -Tier recommended
 ```
 
 > The installer probes the project, creates or repairs `.agent/`, generates `.portable/` cache/recovery files, runs doctor checks, and then resumes the user's original intent.
@@ -171,23 +196,48 @@ Detalles completos en **[FEATURES_ES.md](./FEATURES_ES.md)**.
 
 ### 📂 El Kit Portable
 
-La distribución portable oficial son exactamente 5 archivos raíz:
+La distribución portable oficial son exactamente 6 archivos raíz:
 
 | Archivo | Rol |
 |---------|-----|
 | `GEMINI.md` | El reglamento operativo — identidad, límites de seguridad, Golden Path |
 | `MEMORY.md` | Especificación del sistema de memoria — cómo crear y leer Knowledge Items |
-| `GEMINI_BLUEPRINTS.md` | Templates de recuperación y bundle de restauración portable |
+| `GEMINI_BLUEPRINTS.md` | Contrato de recuperación legible y resumen del manifest |
 | `portable-kernel.sh` | Instalador inteligente para macOS / Linux |
 | `portable-kernel-windows.ps1` | Instalador inteligente para Windows PowerShell |
+| `minimum-kernel.bundle.tar.gz` | Payload portable usado por bootstrap/recover |
 
-`.portable/` se genera localmente por `bootstrap`, `recover` o `doctor` como caché/recuperación. No es canon y no es una carpeta que el usuario deba copiar manualmente.
+`.portable/` se genera localmente por `bootstrap`, `recover` o `doctor` como caché/recuperación. No es canon y no es una carpeta que el usuario deba copiar manualmente. Si se borra, el launcher la regenera desde `minimum-kernel.bundle.tar.gz`.
+
+El repositorio publico es intencionalmente minimalista: docs raíz, el instalador publico y los seis archivos del kit portable. Directorios runtime como `.agent/`, `.portable/`, `config/`, `scripts/` y `workflows/` se crean o restauran por `bootstrap` desde el payload portable. No son archivos extra que el usuario tenga que entender o copiar manualmente.
+
+Operativamente, el modelo queda simple:
+
+- `GEMINI.md` le dice a Antigravity como comportarse.
+- `AGENTS.md` se genera durante bootstrap para Claude, Codex y otros agentes externos.
+- `.agent/current_state.md` se genera por proyecto como handoff vivo.
+- `minimum-kernel.bundle.tar.gz` contiene las piezas runtime recuperables.
+- `.portable/` es solo cache local y se puede regenerar.
 
 ### 🚀 Instalación Rápida
 
 **Requisitos previos:** Bash 4+ (macOS/Linux) o PowerShell 5+ (Windows). Sin otras dependencias.
 
-Descarga los 5 archivos portables y ejecuta el instalador. Elige un perfil:
+Instalación recomendada desde el último GitHub release:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.sh | bash
+```
+
+Para elegir directorio o perfil:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.sh | bash -s -- --root ./mi-proyecto --tier minimal
+```
+
+El instalador descarga los 6 archivos portables, ejecuta `probe`, ejecuta `bootstrap --tier recommended` por defecto y luego ejecuta `doctor`.
+
+También puedes descargar los 6 archivos portables manualmente y elegir un perfil:
 
 | Perfil | Qué Incluye |
 |--------|-------------|
@@ -203,7 +253,7 @@ bash portable-kernel.sh bootstrap --tier recommended
 
 **Windows:**
 ```powershell
-.\portable-kernel-windows.ps1 -InstallTier recommended
+powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 bootstrap -Tier recommended
 ```
 
 > El instalador hace `probe`, crea o repara `.agent/`, genera la caché `.portable/`, ejecuta doctor y retoma la intención original del usuario.

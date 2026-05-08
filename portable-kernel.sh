@@ -3,7 +3,6 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEFAULT_ROOT="$SCRIPT_DIR"
-PORTABLE_BUNDLE_MARKER="portable:minimum-kernel.bundle.tar.gz.base64"
 PROFILE_MARKER_START="<!-- PORTABLE_KERNEL_PROFILE_START -->"
 PROFILE_MARKER_END="<!-- PORTABLE_KERNEL_PROFILE_END -->"
 
@@ -55,30 +54,6 @@ extract_marker() {
     $0 == end { capture = 0; exit }
     capture { print }
   ' "$source_file" > "$target_file"
-}
-
-decode_base64_file() {
-  local input_file="$1"
-  local output_file="$2"
-  if base64 --decode < "$input_file" > "$output_file" 2>/dev/null; then
-    return 0
-  fi
-  if base64 -D < "$input_file" > "$output_file" 2>/dev/null; then
-    return 0
-  fi
-  if command -v python3 >/dev/null 2>&1; then
-    python3 - "$input_file" "$output_file" <<'PY'
-import base64
-import pathlib
-import sys
-
-src = pathlib.Path(sys.argv[1]).read_text()
-pathlib.Path(sys.argv[2]).write_bytes(base64.b64decode(src))
-PY
-    return 0
-  fi
-  emit_error "Unable to decode base64 bundle. Install base64 or python3."
-  exit 1
 }
 
 profile_value() {
@@ -324,24 +299,24 @@ extract_portable_bundle_archive() {
   local root="$1"
   local tmp_dir
   tmp_dir="$(mktemp -d "${TMPDIR:-/tmp}/portable-kernel-bundle.XXXXXX")"
-  local bundle_b64="$tmp_dir/bundle.b64"
   local bundle_tgz="$tmp_dir/bundle.tar.gz"
-  local external_bundle="$root/.portable/minimum-kernel.bundle.tar.gz"
-  if [[ -s "$external_bundle" ]]; then
-    cp "$external_bundle" "$bundle_tgz"
+  local root_bundle="$root/minimum-kernel.bundle.tar.gz"
+  local cache_bundle="$root/.portable/minimum-kernel.bundle.tar.gz"
+  if [[ -s "$root_bundle" ]]; then
+    cp "$root_bundle" "$bundle_tgz"
+    mkdir -p "$(dirname "$cache_bundle")"
+    cp "$root_bundle" "$cache_bundle"
     printf '%s\n' "$bundle_tgz"
     return 0
   fi
-  extract_marker "$root/GEMINI_BLUEPRINTS.md" "$PORTABLE_BUNDLE_MARKER" "$bundle_b64"
-  if [[ ! -s "$bundle_b64" ]]; then
-    emit_error "Portable bundle not found. Expected generated .portable/minimum-kernel.bundle.tar.gz or embedded marker in GEMINI_BLUEPRINTS.md"
-    rm -rf "$tmp_dir"
-    exit 1
+  if [[ -s "$cache_bundle" ]]; then
+    cp "$cache_bundle" "$bundle_tgz"
+    printf '%s\n' "$bundle_tgz"
+    return 0
   fi
-  decode_base64_file "$bundle_b64" "$bundle_tgz"
-  mkdir -p "$(dirname "$external_bundle")"
-  cp "$bundle_tgz" "$external_bundle"
-  printf '%s\n' "$bundle_tgz"
+  emit_error "Portable bundle not found. Expected minimum-kernel.bundle.tar.gz in root or generated .portable/minimum-kernel.bundle.tar.gz cache."
+  rm -rf "$tmp_dir"
+  exit 1
 }
 
 extract_bundle_manifest_json() {
@@ -400,7 +375,7 @@ seed_current_state() {
       last_completed_task: ["Bootstrap inicial del kernel portable ejecutado correctamente."],
       status: "scaffold",
       blockers: [],
-      active_files: ["GEMINI.md","MEMORY.md","GEMINI_BLUEPRINTS.md","portable-kernel.sh","portable-kernel-windows.ps1"],
+      active_files: ["GEMINI.md","MEMORY.md","GEMINI_BLUEPRINTS.md","portable-kernel.sh","portable-kernel-windows.ps1","minimum-kernel.bundle.tar.gz"],
       resume_commands: ["bash portable-kernel.sh doctor","bash portable-kernel.sh regen","bash portable-kernel.sh contents"],
       next_step: $next_step,
       verification_status: "pending",
@@ -450,6 +425,7 @@ seed_current_state() {
 - GEMINI_BLUEPRINTS.md
 - portable-kernel.sh
 - portable-kernel-windows.ps1
+- minimum-kernel.bundle.tar.gz
 
 ## Resume Commands
 - bash portable-kernel.sh doctor
@@ -504,7 +480,8 @@ seed_project_state() {
     "MEMORY.md",
     "GEMINI_BLUEPRINTS.md",
     "portable-kernel.sh",
-    "portable-kernel-windows.ps1"
+    "portable-kernel-windows.ps1",
+    "minimum-kernel.bundle.tar.gz"
   ],
   "next_steps": [
     "Continuar el onboarding del workspace.",
@@ -517,7 +494,7 @@ seed_project_state() {
     "bash portable-kernel.sh contents"
   ],
   "notes": [
-    "Este workspace fue restaurado desde el kit portable de 5 archivos: 3 canon files + 2 platform launchers."
+    "Este workspace fue restaurado desde el kit portable de 6 archivos: 3 canon files + 2 platform launchers + 1 payload bundle."
   ],
   "memory_refs": [],
   "current_session": {
@@ -529,7 +506,8 @@ seed_project_state() {
       "MEMORY.md",
       "GEMINI_BLUEPRINTS.md",
       "portable-kernel.sh",
-      "portable-kernel-windows.ps1"
+      "portable-kernel-windows.ps1",
+      "minimum-kernel.bundle.tar.gz"
     ],
     "resume_commands": [
       "bash portable-kernel.sh doctor",
@@ -650,7 +628,7 @@ command_probe() {
   done
 
   require_cmd jq
-  local platform shell_family launcher state_file install_state_present onboarding_status restore_status portable_files_present requires_onboarding safe_to_bootstrap
+  local platform shell_family launcher state_file install_state_present onboarding_status restore_status portable_files_present portable_root_bundle_present portable_cache_bundle_present portable_bundle_present requires_onboarding safe_to_bootstrap
   platform="$(detect_platform)"
   shell_family="$(shell_family_for_platform "$platform")"
   launcher="$(launcher_for_platform "$platform")"
@@ -664,8 +642,17 @@ command_probe() {
     restore_status="$(jq -r '.restore_status // "not_started"' "$state_file" 2>/dev/null || printf 'not_started')"
   fi
 
+  portable_root_bundle_present=false
+  portable_cache_bundle_present=false
+  portable_bundle_present=false
+  [[ -s "$root/minimum-kernel.bundle.tar.gz" ]] && portable_root_bundle_present=true
+  [[ -s "$root/.portable/minimum-kernel.bundle.tar.gz" ]] && portable_cache_bundle_present=true
+  if [[ "$portable_root_bundle_present" == "true" || "$portable_cache_bundle_present" == "true" ]]; then
+    portable_bundle_present=true
+  fi
+
   portable_files_present=false
-  if [[ -f "$root/GEMINI.md" && -f "$root/MEMORY.md" && -f "$root/GEMINI_BLUEPRINTS.md" && -f "$root/portable-kernel.sh" && -f "$root/portable-kernel-windows.ps1" ]]; then
+  if [[ -f "$root/GEMINI.md" && -f "$root/MEMORY.md" && -f "$root/GEMINI_BLUEPRINTS.md" && -f "$root/portable-kernel.sh" && -f "$root/portable-kernel-windows.ps1" && "$portable_bundle_present" == "true" ]]; then
     portable_files_present=true
   fi
 
@@ -684,6 +671,9 @@ command_probe() {
       --arg restore_status "$restore_status" \
       --arg launcher "$launcher" \
       --argjson portable_files_present "$portable_files_present" \
+      --argjson portable_root_bundle_present "$portable_root_bundle_present" \
+      --argjson portable_cache_bundle_present "$portable_cache_bundle_present" \
+      --argjson portable_bundle_present "$portable_bundle_present" \
       --argjson install_state_present "$install_state_present" \
       --argjson requires_onboarding "$requires_onboarding" \
       --argjson safe_to_bootstrap "$safe_to_bootstrap" \
@@ -693,6 +683,9 @@ command_probe() {
         shell_family: $shell_family,
         root: $root,
         portable_files_present: $portable_files_present,
+        portable_root_bundle_present: $portable_root_bundle_present,
+        portable_cache_bundle_present: $portable_cache_bundle_present,
+        portable_bundle_present: $portable_bundle_present,
         install_state_present: $install_state_present,
         onboarding_status: $onboarding_status,
         restore_status: $restore_status,
@@ -1075,7 +1068,7 @@ command_contents() {
     "Portable kernel install contents:",
     "",
     "First-message bootstrap:",
-    "- Copy the 5 root files, open Antigravity, and send any first message. The agent must run probe, persist a compact original-intent summary with remember-intent, guide language/profile selection, execute the platform launcher, run doctor, and then resume the persisted request.",
+    "- Copy the 6 root files, open Antigravity, and send any first message. The agent must run probe, persist a compact original-intent summary with remember-intent, guide language/profile selection, execute the platform launcher, run doctor, and then resume the persisted request.",
     "- macOS/Linux launcher: portable-kernel.sh",
     "- Windows launcher: portable-kernel-windows.ps1",
     "",
@@ -1166,7 +1159,7 @@ command_recover() {
 
   if [[ "$target" == system:* ]]; then
     emit_error "Unsupported artifact namespace: $target"
-    emit_error "Share GEMINI.md, MEMORY.md, GEMINI_BLUEPRINTS.md, portable-kernel.sh, and portable-kernel-windows.ps1 separately."
+    emit_error "Share GEMINI.md, MEMORY.md, GEMINI_BLUEPRINTS.md, portable-kernel.sh, portable-kernel-windows.ps1, and minimum-kernel.bundle.tar.gz separately."
     exit 1
   fi
 
@@ -1230,7 +1223,7 @@ command_recover() {
       rm -rf "$bundle_tmp"
     fi
     [[ -s "$tmp_extract" ]] || {
-      emit_error "Failed to extract artifact $target from BLUEPRINTS marker or embedded bundle."
+      emit_error "Failed to extract artifact $target from BLUEPRINTS marker or portable bundle."
       exit 1
     }
     local actual_sha
@@ -1342,15 +1335,13 @@ command_doctor() {
     errors=$((errors + 1))
   fi
 
-  local tmp_marker external_bundle
-  external_bundle="$root/.portable/minimum-kernel.bundle.tar.gz"
-  tmp_marker="$(mktemp "${TMPDIR:-/tmp}/portable-marker.XXXXXX")"
-  extract_marker "$root/GEMINI_BLUEPRINTS.md" "$PORTABLE_BUNDLE_MARKER" "$tmp_marker"
-  if [[ ! -s "$external_bundle" && ! -s "$tmp_marker" ]]; then
-    emit_error "Portable minimum bundle is missing (generated .portable/minimum-kernel.bundle.tar.gz or embedded BLUEPRINTS marker)"
+  local root_bundle cache_bundle
+  root_bundle="$root/minimum-kernel.bundle.tar.gz"
+  cache_bundle="$root/.portable/minimum-kernel.bundle.tar.gz"
+  if [[ ! -s "$root_bundle" && ! -s "$cache_bundle" ]]; then
+    emit_error "Portable minimum bundle is missing (minimum-kernel.bundle.tar.gz or generated .portable/minimum-kernel.bundle.tar.gz cache)"
     errors=$((errors + 1))
   fi
-  rm -f "$tmp_marker"
 
   local state_file
   state_file="$(install_state_path "$root")"
@@ -1505,6 +1496,8 @@ command_pack() {
   cp "$root/GEMINI_BLUEPRINTS.md" "$output_dir/GEMINI_BLUEPRINTS.md"
   cp "$root/portable-kernel.sh" "$output_dir/portable-kernel.sh"
   cp "$root/portable-kernel-windows.ps1" "$output_dir/portable-kernel-windows.ps1"
+  cp "$root/minimum-kernel.bundle.tar.gz" "$output_dir/minimum-kernel.bundle.tar.gz"
+  rm -rf "$output_dir/.portable"
 
   write_profile_block "$output_dir/GEMINI.md" "portable_ask_default_en" "ask_on_first_run" "English"
   emit_info "Portable kit exported to $output_dir"

@@ -1,5 +1,5 @@
-# MEMORY TECHNICAL SPEC: v9.0 - STRUCTURED MARKDOWN MEMORY
-*Last updated: 2026-04-30*
+# MEMORY TECHNICAL SPEC: v9.2 - STRUCTURED MARKDOWN MEMORY
+*Last updated: 2026-05-07*
 
 ## Purpose
 Memory exists to preserve durable project knowledge without making normal agents study the kernel. The active model is simple:

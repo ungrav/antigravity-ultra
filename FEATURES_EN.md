@@ -81,9 +81,15 @@ Two safety layers protect your work:
 - **Safe Delete:** Agents never permanently delete project files. Deleted files are moved to `_DEPRECATED_TRASH`, giving you a safety net against AI accidents.
 - **Permission Tiers:** Routine, low-risk edits run automatically (`AUTO`). Critical operations — deployments, architecture shifts, external integrations — require your explicit confirmation (`CONFIRM`).
 
-## ⚡ Portable Installation (Exactly 5 Files)
+## ⚡ Portable Installation (Exactly 6 Files)
 
-The official portable kit ships as exactly 5 root files: `GEMINI.md`, `MEMORY.md`, `GEMINI_BLUEPRINTS.md`, `portable-kernel.sh`, and `portable-kernel-windows.ps1`. Copy those into any project directory and run the installer. Four tiers let you choose your level of tooling:
+The official portable kit ships as exactly 6 root files: `GEMINI.md`, `MEMORY.md`, `GEMINI_BLUEPRINTS.md`, `portable-kernel.sh`, `portable-kernel-windows.ps1`, and `minimum-kernel.bundle.tar.gz`. Install from the latest GitHub release with:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.sh | bash
+```
+
+Four tiers let you choose your level of tooling:
 
 | Tier | Includes |
 |------|----------|
@@ -94,4 +100,4 @@ The official portable kit ships as exactly 5 root files: `GEMINI.md`, `MEMORY.md
 
 Cross-platform: macOS, Linux, and Windows PowerShell. No dependencies beyond Bash 4+ or PowerShell 5+.
 
-`.portable/` is generated locally as cache/recovery output by bootstrap/recover/doctor. It is not canon and is not copied as part of the portable kit.
+`minimum-kernel.bundle.tar.gz` is the portable payload; `GEMINI_BLUEPRINTS.md` stays human-readable. `.portable/` is generated locally as cache/recovery output by bootstrap/recover/doctor. It is not canon and is not copied as a folder.

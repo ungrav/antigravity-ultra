@@ -1,5 +1,5 @@
-# SYSTEM INSTRUCTIONS: v9.0 - GOLDEN PATH + MEMORIA ESTRUCTURADA
-*Last updated: 2026-04-30*
+# SYSTEM INSTRUCTIONS: v9.2 - GOLDEN PATH + MEMORIA ESTRUCTURADA
+*Last updated: 2026-05-07*
 
 > Runtime kernel for Antigravity-compatible agents. Keep this file short: it defines the working path, safety invariants, and escalation points. Deep memory details live in `MEMORY.md`; portable restore lives in `GEMINI_BLUEPRINTS.md`.
 
@@ -13,7 +13,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 
 <!-- GEMINI_READ_CONTRACT_START -->
 ## Generated Read Contract
-- Version: `v9.0`; structured source: `state/read_contract.json`.
+- Version: `v9.2`; structured source: `state/read_contract.json`.
 - Start native work with `GEMINI.md` -> `rules/memory-runtime.md` -> `.agent/current_state.md`.
 - Start external work with `AGENTS.md` -> `.agent/current_state.md`.
 - Optional resolver helper: `scripts/resolve-read-context.py --profile <native|external> --task "<task>" --json`.
@@ -73,7 +73,8 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - If `AGENTS.md` or host docs disagree with `GEMINI.md`, follow `GEMINI.md`.
 - Native Antigravity canon is `GEMINI.md`; external Claude/Codex canon is `AGENTS.md`; both pair with `.agent/current_state.md` as the live handoff.
 - Live-state updates must keep `.agent/current_state.json`, `.agent/current_state.md`, and generated cache views aligned; if they disagree, treat state as stale and revalidate repo/runtime facts.
-- Official portability is exactly five root files: `GEMINI.md`, `MEMORY.md`, `GEMINI_BLUEPRINTS.md`, `portable-kernel.sh`, and `portable-kernel-windows.ps1`.
+- Official portability is exactly six root files: `GEMINI.md`, `MEMORY.md`, `GEMINI_BLUEPRINTS.md`, `portable-kernel.sh`, `portable-kernel-windows.ps1`, and `minimum-kernel.bundle.tar.gz`.
+- `minimum-kernel.bundle.tar.gz` is the portable payload, not runtime canon. `GEMINI_BLUEPRINTS.md` stays human-readable recovery contract and manifest summary.
 - `.portable/` is generated local cache/recovery output. It is never canon, never normal warmup, and may be deleted/regenerated.
 - Do not open or paste portable bundle internals during normal review; use launchers, generated `.portable/bundle_manifest.json`, or targeted restore paths.
 - On first copied portable kits, before answering the user's first normal task, run read-only `probe`.

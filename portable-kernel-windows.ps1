@@ -16,7 +16,6 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$PortableBundleMarker = "portable:minimum-kernel.bundle.tar.gz.base64"
 $ProfileMarkerStart = "<!-- PORTABLE_KERNEL_PROFILE_START -->"
 $ProfileMarkerEnd = "<!-- PORTABLE_KERNEL_PROFILE_END -->"
 
@@ -273,22 +272,20 @@ function Get-PortableBundleArchive {
   param([string]$BaseRoot)
   $tmpDir = Join-Path ([System.IO.Path]::GetTempPath()) "portable-kernel-bundle-$([guid]::NewGuid())"
   New-Item -ItemType Directory -Force -Path $tmpDir | Out-Null
-  $bundleB64 = Join-Path $tmpDir "bundle.b64"
   $bundleTgz = Join-Path $tmpDir "bundle.tar.gz"
-  $externalBundle = Join-Path (Join-Path $BaseRoot ".portable") "minimum-kernel.bundle.tar.gz"
-  if ((Test-Path $externalBundle) -and ((Get-Item $externalBundle).Length -gt 0)) {
-    Copy-Item -Force $externalBundle $bundleTgz
+  $rootBundle = Join-Path $BaseRoot "minimum-kernel.bundle.tar.gz"
+  $cacheBundle = Join-Path (Join-Path $BaseRoot ".portable") "minimum-kernel.bundle.tar.gz"
+  if ((Test-Path $rootBundle) -and ((Get-Item $rootBundle).Length -gt 0)) {
+    Copy-Item -Force $rootBundle $bundleTgz
+    New-Item -ItemType Directory -Force -Path (Split-Path -Parent $cacheBundle) | Out-Null
+    Copy-Item -Force $rootBundle $cacheBundle
     return $bundleTgz
   }
-  Extract-Marker -SourceFile (Join-Path $BaseRoot "GEMINI_BLUEPRINTS.md") -MarkerName $PortableBundleMarker -TargetFile $bundleB64
-  if ((!(Test-Path $bundleB64)) -or ((Get-Item $bundleB64).Length -eq 0)) {
-    throw "Portable bundle not found. Expected generated .portable/minimum-kernel.bundle.tar.gz or embedded marker in GEMINI_BLUEPRINTS.md"
+  if ((Test-Path $cacheBundle) -and ((Get-Item $cacheBundle).Length -gt 0)) {
+    Copy-Item -Force $cacheBundle $bundleTgz
+    return $bundleTgz
   }
-  $raw = (Get-Content -Raw -Encoding UTF8 $bundleB64) -replace "\s", ""
-  [System.IO.File]::WriteAllBytes($bundleTgz, [Convert]::FromBase64String($raw))
-  New-Item -ItemType Directory -Force -Path (Split-Path -Parent $externalBundle) | Out-Null
-  Copy-Item -Force $bundleTgz $externalBundle
-  return $bundleTgz
+  throw "Portable bundle not found. Expected minimum-kernel.bundle.tar.gz in root or generated .portable/minimum-kernel.bundle.tar.gz cache."
 }
 
 function Expand-PortableBundle {
@@ -371,7 +368,7 @@ function Seed-CurrentState {
     last_completed_task = @("Bootstrap inicial del kernel portable ejecutado correctamente.")
     status = "scaffold"
     blockers = @()
-    active_files = @("GEMINI.md", "MEMORY.md", "GEMINI_BLUEPRINTS.md", "portable-kernel.sh", "portable-kernel-windows.ps1")
+    active_files = @("GEMINI.md", "MEMORY.md", "GEMINI_BLUEPRINTS.md", "portable-kernel.sh", "portable-kernel-windows.ps1", "minimum-kernel.bundle.tar.gz")
     resume_commands = @("powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 doctor", "powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 contents")
     next_step = $nextStep
     verification_status = "pending"
@@ -416,6 +413,7 @@ function Seed-CurrentState {
 - `GEMINI_BLUEPRINTS.md`
 - `portable-kernel.sh`
 - `portable-kernel-windows.ps1`
+- `minimum-kernel.bundle.tar.gz`
 
 ## Active Kernel Features
 - platform: $($state.platform)
@@ -540,7 +538,7 @@ function Seed-ProjectState {
     current_task = "Bootstrap inicial completado por portable-kernel-windows.ps1."
     status = "scaffold"
     blockers = @()
-    active_files = @("GEMINI.md", "MEMORY.md", "GEMINI_BLUEPRINTS.md", "portable-kernel.sh", "portable-kernel-windows.ps1")
+    active_files = @("GEMINI.md", "MEMORY.md", "GEMINI_BLUEPRINTS.md", "portable-kernel.sh", "portable-kernel-windows.ps1", "minimum-kernel.bundle.tar.gz")
     next_steps = @("Retomar la solicitud original del primer mensaje.")
     key_commands = @("powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 doctor")
     notes = @("Cache regenerable creado durante bootstrap portable de Windows.")
@@ -556,7 +554,7 @@ function Seed-ProjectState {
       objective = "Operar el kernel portable restaurado en este workspace."
       last_completed_task = "Bootstrap inicial completado."
       blockers = @()
-      active_files = @("GEMINI.md", "MEMORY.md", "GEMINI_BLUEPRINTS.md", "portable-kernel.sh", "portable-kernel-windows.ps1")
+      active_files = @("GEMINI.md", "MEMORY.md", "GEMINI_BLUEPRINTS.md", "portable-kernel.sh", "portable-kernel-windows.ps1", "minimum-kernel.bundle.tar.gz")
       resume_commands = @("powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 doctor")
       resume_brief = "Kernel portable restaurado. El siguiente paso es retomar la solicitud original."
       next_step = "Retomar la solicitud original del primer mensaje."
@@ -597,11 +595,17 @@ function Command-Probe {
     $onboarding = $state.onboarding_status
     $restore = $state.restore_status
   }
+  $rootBundle = Join-Path $Root "minimum-kernel.bundle.tar.gz"
+  $cacheBundle = Join-Path (Join-Path $Root ".portable") "minimum-kernel.bundle.tar.gz"
+  $portableRootBundlePresent = (Test-Path $rootBundle) -and ((Get-Item $rootBundle).Length -gt 0)
+  $portableCacheBundlePresent = (Test-Path $cacheBundle) -and ((Get-Item $cacheBundle).Length -gt 0)
+  $portableBundlePresent = $portableRootBundlePresent -or $portableCacheBundlePresent
   $portableFilesPresent = (Test-Path (Join-Path $Root "GEMINI.md")) -and
     (Test-Path (Join-Path $Root "MEMORY.md")) -and
     (Test-Path (Join-Path $Root "GEMINI_BLUEPRINTS.md")) -and
     (Test-Path (Join-Path $Root "portable-kernel.sh")) -and
-    (Test-Path (Join-Path $Root "portable-kernel-windows.ps1"))
+    (Test-Path (Join-Path $Root "portable-kernel-windows.ps1")) -and
+    $portableBundlePresent
   $requires = !(($onboarding -in @("completed", "restored")) -and $restore -eq "restored")
   $probe = [ordered]@{
     schema_version = 1
@@ -609,6 +613,9 @@ function Command-Probe {
     shell_family = Get-ShellFamily -Platform $platform
     root = $Root
     portable_files_present = [bool]$portableFilesPresent
+    portable_root_bundle_present = [bool]$portableRootBundlePresent
+    portable_cache_bundle_present = [bool]$portableCacheBundlePresent
+    portable_bundle_present = [bool]$portableBundlePresent
     install_state_present = [bool]$installStatePresent
     onboarding_status = $onboarding
     restore_status = $restore
@@ -754,7 +761,7 @@ function Command-Contents {
   Write-Output "Portable kernel install contents:"
   Write-Output ""
   Write-Output "First-message bootstrap:"
-  Write-Output "- Copy the 5 root files, open Antigravity, send any first message, persist a compact intent summary with remember-intent, then bootstrap."
+  Write-Output "- Copy the 6 root files, open Antigravity, send any first message, persist a compact intent summary with remember-intent, then bootstrap."
   Write-Output "- Windows launcher: portable-kernel-windows.ps1"
   Write-Output "- macOS/Linux launcher: portable-kernel.sh"
   Write-Output ""
@@ -781,6 +788,13 @@ function Command-Doctor {
       Write-ErrorLine "Missing required portable file: $name"
       $errors += 1
     }
+  }
+  $rootBundle = Join-Path $Root "minimum-kernel.bundle.tar.gz"
+  $cacheBundle = Join-Path (Join-Path $Root ".portable") "minimum-kernel.bundle.tar.gz"
+  $bundlePresent = ((Test-Path $rootBundle) -and ((Get-Item $rootBundle).Length -gt 0)) -or ((Test-Path $cacheBundle) -and ((Get-Item $cacheBundle).Length -gt 0))
+  if (-not $bundlePresent) {
+    Write-ErrorLine "Portable minimum bundle is missing (minimum-kernel.bundle.tar.gz or generated .portable/minimum-kernel.bundle.tar.gz cache)"
+    $errors += 1
   }
   $statePath = Get-InstallStatePath -BaseRoot $Root
   $state = Read-JsonFile -Path $statePath
