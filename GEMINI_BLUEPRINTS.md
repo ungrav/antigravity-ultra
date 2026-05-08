@@ -69,7 +69,7 @@
 - Run bash scripts/run-core-evals.sh only for broad kernel validation.
 
 ## Golden Path
-- Version: `v9.2.1`; structured source: `state/read_contract.json`.
+- Version: `v9.2.2`; structured source: `state/read_contract.json`.
 - Start here: `AGENTS.md` -> `.agent/current_state.md`.
 - Optional helper: `scripts/resolve-read-context.py --profile external --task "<task>" --json`; if it fails, use the table and report `resolver unavailable`.
 
@@ -124,7 +124,7 @@
 ### 2.3 Portable Minimum Bundle
 
 > [!NOTE]
-> v9.2.1 mantiene el kit distribuible autocontenido en 6 archivos.
+> v9.2.2 mantiene el kit distribuible autocontenido en 6 archivos.
 > `minimum-kernel.bundle.tar.gz` es el sexto archivo portable oficial y vive en la raíz del kit.
 > `.portable/` es cache generada localmente por `bootstrap`, `regen` o `pack`; no es canon ni warmup.
 > Los launchers leen primero `minimum-kernel.bundle.tar.gz` en raíz; si falta, usan `.portable/minimum-kernel.bundle.tar.gz` como cache local.
@@ -138,7 +138,7 @@
 ~~~~json
 {
   "version": 1,
-  "generated_at": "2026-05-08T13:24:21Z",
+  "generated_at": "2026-05-08T18:39:13Z",
   "profile": "portable_minimum",
   "portable_root_files": [
     "GEMINI.md",

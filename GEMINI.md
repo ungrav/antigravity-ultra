@@ -1,4 +1,4 @@
-# SYSTEM INSTRUCTIONS: v9.2.1 - GOLDEN PATH + MEMORIA ESTRUCTURADA
+# SYSTEM INSTRUCTIONS: v9.2.2 - GOLDEN PATH + MEMORIA ESTRUCTURADA
 *Last updated: 2026-05-08*
 
 > Runtime kernel for Antigravity-compatible agents. Keep this file short: it defines the working path, safety invariants, and escalation points. Deep memory details live in `MEMORY.md`; portable restore lives in `GEMINI_BLUEPRINTS.md`.
@@ -13,7 +13,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 
 <!-- GEMINI_READ_CONTRACT_START -->
 ## Generated Read Contract
-- Version: `v9.2.1`; structured source: `state/read_contract.json`.
+- Version: `v9.2.2`; structured source: `state/read_contract.json`.
 - Start native work with `GEMINI.md` -> `rules/memory-runtime.md` -> `.agent/current_state.md`.
 - Start external work with `AGENTS.md` -> `.agent/current_state.md`.
 - Optional resolver helper: `scripts/resolve-read-context.py --profile <native|external> --task "<task>" --json`.
@@ -40,7 +40,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - Never store secrets, raw transcripts, hidden reasoning, raw tool dumps, or copied source code in memory.
 
 ## 2. Golden Path
-- Normal work: read the hot path, inspect only target files, edit minimally, verify with evidence.
+- Normal work: read the hot path, inspect only target files, edit minimally, verify with evidence. Enforce modularity: avoid monoliths, extract repeated logic, and keep components small and focused.
 - Bug ambiguous: inspect target files plus the latest `ERROR_LOG.md` rows before deciding whether full incident context is needed.
 - Architecture/refactor: inspect latest `PROJECT_HISTORY.md` entries and Project DNA if historical context matters.
 - Memory/kernel: read `MEMORY.md` and targeted KIs only when the task explicitly changes memory, retrieval, state, or kernel rules.
@@ -56,6 +56,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 ## 4. Safety and Mutation
 - `AUTO`: bounded, low-risk, reversible edits.
 - `CONFIRM`: installs, deletes/moves, architecture shifts, critical Git, deploy/release, sensitive config, external integrations, breaking changes, or unclear high-impact work.
+- If install/build output reports `high severity` or `critical` vulnerabilities, escalate to `CONFIRM` with a mitigation plan before continuing.
 - Preserve user changes; patch the needed surface only.
 - Do not claim `PASS` without executed evidence. Use `PASS`, `FAIL`, or `PARTIAL` honestly.
 - Complex changes require adversarial verification, not only code reading.
