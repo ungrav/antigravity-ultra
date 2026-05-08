@@ -23,25 +23,47 @@ curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/insta
 Agents follow a **Golden Path** — they load only what the current task needs:
 
 ```
-Normal coding → read only target files (0 extra tokens)
+Normal coding → read only target files (0 extra context)
 Bug fix       → 10 lines from ERROR_LOG.md (~125 tokens)
 Architecture  → Project DNA digest (~300 tokens)
-Memory work   → Full spec loaded (~1,940 tokens)
+Memory work   → Full memory spec (~1,940 tokens)
 ```
 
-Most frameworks load their entire context on every turn. Antigravity loads context **proportionally**.
+## ⚡ Why Ultra Saves Tokens
 
-## ⚡ Token Efficiency
+Every agent framework injects context per turn. Ultra's advantage isn't a smaller system prompt — it's **what agents don't need to do** because the project is already documented:
 
-In a 100-turn session, overhead context comparison:
+| Without Ultra | With Ultra |
+|---------------|------------|
+| Re-explain project context every session | Agent reads `current_state.md` and continues |
+| Manually repeat architecture decisions | Agent checks `PROJECT_HISTORY.md` |
+| Describe past bugs and fixes | Agent reads `ERROR_LOG.md` |
+| Re-read the entire codebase to orient | Agent reads `Project DNA` (50 lines) |
+| Lose knowledge when switching agents | All agents share the same `.agent/` state |
 
-| System | Tokens | vs Ultra |
-|--------|--------|----------|
-| **Antigravity Ultra** | **~12,450** | **baseline** |
-| Antigravity (without Ultra) | variable | manual — you repeat context each session |
+The Golden Path also controls **additional** context per task — normal coding loads zero extra files, bugs load only the error log, architecture loads only the project digest. Other frameworks load everything on every turn regardless of task type.
+
+### How It Adds Up
+
+The extra context an agent loads **beyond the system prompt** per task type:
+
+| System | Normal task | Bug task | Architecture | Memory work |
+|--------|------------|----------|-------------|-------------|
+| **Antigravity Ultra** | **+0** | **+125** | **+300** | **+1,940** |
+| OpenCode | +661 | +661 | +661 | +661 |
+| Everything Claude Code | +2,024 | +2,024 | +2,024 | +2,024 |
+| Claude Code | +3,000 | +3,000 | +3,000 | +3,000 |
+
+Over 100 turns (80 normal, 10 bugs, 5 architecture, 5 memory), that extra context totals:
+
+| System | Extra context loaded | vs Ultra |
+|--------|---------------------|----------|
+| **Antigravity Ultra** | **~12,450** | — |
 | OpenCode | ~66,100 | 5× more |
 | Everything Claude Code | ~202,400 | 16× more |
 | Claude Code | ~300,000 | 24× more |
+
+But the biggest saving is **across sessions**: with per-project memory, session 2 starts where session 1 ended. Without it, you start from zero every time.
 
 ## 🌟 Features
 
@@ -128,25 +150,47 @@ curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/insta
 Los agentes siguen un **Golden Path** — cargan solo lo que la tarea necesita:
 
 ```
-Coding normal  → solo archivos objetivo (0 tokens extra)
+Coding normal  → solo archivos objetivo (0 contexto extra)
 Bug fix        → 10 líneas de ERROR_LOG.md (~125 tokens)
 Arquitectura   → Project DNA (~300 tokens)
-Memoria        → Spec completa (~1,940 tokens)
+Memoria        → Spec completa de memoria (~1,940 tokens)
 ```
 
-La mayoría de los frameworks cargan todo su contexto en cada turno. Antigravity carga contexto **proporcionalmente**.
+### ⚡ Por Qué Ultra Ahorra Tokens
 
-### ⚡ Eficiencia de Tokens
+Todos los frameworks inyectan contexto por turno. La ventaja de Ultra no es un system prompt más pequeño — es **lo que los agentes no necesitan hacer** porque el proyecto ya está documentado:
 
-En una sesión de 100 turnos, comparación de overhead de contexto:
+| Sin Ultra | Con Ultra |
+|-----------|----------|
+| Re-explicar contexto cada sesión | El agente lee `current_state.md` y continúa |
+| Repetir decisiones de arquitectura | El agente consulta `PROJECT_HISTORY.md` |
+| Describir bugs pasados | El agente lee `ERROR_LOG.md` |
+| Re-leer todo el código para orientarse | El agente lee `Project DNA` (50 líneas) |
+| Perder conocimiento al cambiar de agente | Todos comparten el mismo estado `.agent/` |
 
-| Sistema | Tokens | vs Ultra |
-|---------|--------|----------|
-| **Antigravity Ultra** | **~12,450** | **baseline** |
-| Antigravity (sin Ultra) | variable | manual — repites contexto cada sesión |
+El Golden Path también controla el contexto **adicional** por tarea — coding normal carga cero archivos extra, bugs cargan solo el error log, arquitectura solo el digest del proyecto. Otros frameworks cargan todo en cada turno sin importar el tipo de tarea.
+
+#### Cómo se Acumula
+
+El contexto extra que un agente carga **más allá del system prompt** por tipo de tarea:
+
+| Sistema | Tarea normal | Bug | Arquitectura | Memoria |
+|---------|-------------|-----|-------------|--------|
+| **Antigravity Ultra** | **+0** | **+125** | **+300** | **+1,940** |
+| OpenCode | +661 | +661 | +661 | +661 |
+| Everything Claude Code | +2,024 | +2,024 | +2,024 | +2,024 |
+| Claude Code | +3,000 | +3,000 | +3,000 | +3,000 |
+
+En 100 turnos (80 normales, 10 bugs, 5 arquitectura, 5 memoria), ese contexto extra suma:
+
+| Sistema | Contexto extra cargado | vs Ultra |
+|---------|----------------------|----------|
+| **Antigravity Ultra** | **~12,450** | — |
 | OpenCode | ~66,100 | 5× más |
 | Everything Claude Code | ~202,400 | 16× más |
 | Claude Code | ~300,000 | 24× más |
+
+Pero el mayor ahorro es **entre sesiones**: con memoria por proyecto, la sesión 2 empieza donde terminó la sesión 1. Sin ella, empiezas de cero cada vez.
 
 ### 🌟 Características
 
