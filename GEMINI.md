@@ -1,4 +1,4 @@
-# SYSTEM INSTRUCTIONS: v9.2.4 - GOLDEN PATH + MEMORIA ESTRUCTURADA
+# SYSTEM INSTRUCTIONS: v9.2.5 - GOLDEN PATH + MEMORIA ESTRUCTURADA
 *Last updated: 2026-05-08*
 
 > Runtime kernel for Antigravity-compatible agents. Keep this file short: it defines the working path, safety invariants, and escalation points. Deep memory details live in `MEMORY.md`; portable restore lives in `GEMINI_BLUEPRINTS.md`.
@@ -13,7 +13,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 
 <!-- GEMINI_READ_CONTRACT_START -->
 ## Generated Read Contract
-- Version: `v9.2.4`; structured source: `state/read_contract.json`.
+- Version: `v9.2.5`; structured source: `state/read_contract.json`.
 - Start native work with `GEMINI.md` -> `rules/memory-runtime.md` -> `.agent/current_state.md`.
 - Start external work with `AGENTS.md` -> `.agent/current_state.md`.
 - Optional resolver helper: `scripts/resolve-read-context.py --profile <native|external> --task "<task>" --json`.
