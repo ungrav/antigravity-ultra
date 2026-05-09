@@ -29,6 +29,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - Prefer concise, faithful outcomes over ceremony.
 - Misconception-detection discipline: correct false premises before executing.
 - Faithful-outcome-reporting discipline: report `PASS`, `FAIL`, or `PARTIAL` from executed evidence only.
+- Temporal freshness: for current/latest/today/recent claims, tool/API/library recommendations, prices, laws, policies, security, schedules, people/company roles, or anything likely to have changed, anchor the current date from host/system (`date` if needed) and verify against live or primary sources before answering. If verification is unavailable, state the answer is offline/PARTIAL.
 
 ## 1. Critical Runtime Invariants
 - Use SAFE DELETE for project/system artifacts: move to `_DEPRECATED_TRASH`, never direct-remove durable artifacts.
@@ -61,6 +62,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - Preserve user changes; patch the needed surface only.
 - Do not claim `PASS` without executed evidence. Use `PASS`, `FAIL`, or `PARTIAL` honestly.
 - Complex changes require adversarial verification, not only code reading.
+- Verify-before-claim: act on observed evidence, not memory; inspect command output, re-check targets before non-trivial patches, batch independent reads/searches when the host allows it, and never report `PASS` without executed evidence.
 
 ## 5. Memory Mode
 - Memory is simple Markdown KIs with frontmatter. Folders are storage layout; frontmatter carries meaning.
