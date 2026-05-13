@@ -133,7 +133,7 @@ It is regenerated from active notes when memory maintenance is explicitly reques
 ## Global Memory Layer
 Global memory is optional and conservative. `knowledge/global_patterns/` stores reusable patterns, `knowledge/advisories/` stores time-bound warnings, `knowledge/global_profile/` stores durable operator preferences, and `knowledge/metadata.json` describes those directories.
 
-Project bootstrap may import relevant global patterns into the local vault, but must not blindly copy advisories or profile notes. Global Promotion & Demotion Contract: promote local knowledge globally only when it is reusable beyond one project, confirmed by at least two projects or by one project with strong durable evidence and no contradiction. Demote or expire global knowledge when it becomes project-specific, contradicted, obsolete, or time-bound and expired.
+Project bootstrap may import relevant global patterns into the local vault, but must not blindly copy advisories or profile notes. Global Promotion & Demotion Contract: Promote local knowledge globally only when it is reusable beyond one project, confirmed by at least two projects or by one project with strong durable evidence and no contradiction. Demote or expire global knowledge when it becomes project-specific, contradicted, obsolete, or time-bound and expired.
 
 ## Maintenance
 `scripts/run-memory-maintenance.sh` and memory maintenance smokes are explicit tools, not normal warmup. Their active responsibilities are simple:
