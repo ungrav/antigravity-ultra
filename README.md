@@ -1,6 +1,6 @@
 # Antigravity Ultra 🚀
 
-**Give your AI agents memory that survives between conversations.**
+**A cross-platform memory kernel for AI coding agents. Install it on macOS, Linux, or Windows and keep project context alive across conversations.**
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Version](https://img.shields.io/badge/kernel-v9.2.5-blueviolet)
@@ -12,11 +12,30 @@
 
 Every time you start a new AI chat, you lose context. You waste tokens repeating instructions. Different agents don't share knowledge about your project.
 
-**Antigravity Ultra fixes this.** Install 6 files, and every AI agent — Gemini, Claude, Codex, or any Markdown-aware tool — instantly knows your project's rules, history, and current state.
+**Antigravity Ultra fixes this.** Install 6 portable files, and every AI agent — Gemini, Claude, Codex, or any Markdown-aware tool — instantly knows your project's rules, history, and current state.
 
 ```bash
+# macOS / Linux
 curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.sh | bash
 ```
+
+```powershell
+# Windows PowerShell
+iwr https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.ps1 -OutFile install.ps1
+powershell -ExecutionPolicy Bypass -File .\install.ps1
+```
+
+## Cross-Platform Product
+
+Antigravity Ultra is distributed like a small portable app, not a framework you have to assemble manually.
+
+| Platform | Entry point | Notes |
+|---|---|---|
+| macOS | `install.sh` or `portable-kernel.sh` | Bash installer, local bootstrap, portable recovery |
+| Linux | `install.sh` or `portable-kernel.sh` | Same 6-file kit and Bash bootstrap |
+| Windows | `install.ps1` or `portable-kernel-windows.ps1` | Native PowerShell install and bootstrap |
+
+GitHub Releases carry the official 6-file product kit. The `main` branch is the source of truth; the latest release is the install channel used by `install.sh` and `install.ps1`.
 
 ## How It Works
 
@@ -85,8 +104,8 @@ Everything ships as **exactly 6 files**:
 
 | File | Purpose |
 |------|---------|
-| `GEMINI.md` | Operational rulebook (87 lines) |
-| `MEMORY.md` | Memory system spec (164 lines) |
+| `GEMINI.md` | Operational rulebook (85 lines) |
+| `MEMORY.md` | Memory system spec (156 lines) |
 | `GEMINI_BLUEPRINTS.md` | Recovery contract |
 | `portable-kernel.sh` | Installer for macOS / Linux |
 | `portable-kernel-windows.ps1` | Installer for Windows |
@@ -135,15 +154,34 @@ Open source under **GPLv3**. Issues and PRs are welcome.
 
 ## 🇪🇸 Español
 
-**Dale a tus agentes de IA memoria que sobrevive entre conversaciones.**
+**Un kernel de memoria multiplataforma para agentes de programación con IA. Instálalo en macOS, Linux o Windows y conserva el contexto del proyecto entre conversaciones.**
 
 Cada vez que inicias un chat nuevo, pierdes el contexto. Desperdicias tokens repitiendo instrucciones. Diferentes agentes no comparten conocimiento sobre tu proyecto.
 
-**Antigravity Ultra lo resuelve.** Instala 6 archivos y cualquier agente — Gemini, Claude, Codex o cualquier herramienta que lea Markdown — entiende al instante las reglas, historia y estado de tu proyecto.
+**Antigravity Ultra lo resuelve.** Instala 6 archivos portables y cualquier agente — Gemini, Claude, Codex o cualquier herramienta que lea Markdown — entiende al instante las reglas, historia y estado de tu proyecto.
 
 ```bash
+# macOS / Linux
 curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.sh | bash
 ```
+
+```powershell
+# Windows PowerShell
+iwr https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/install.ps1 -OutFile install.ps1
+powershell -ExecutionPolicy Bypass -File .\install.ps1
+```
+
+### Producto Multiplataforma
+
+Antigravity Ultra se distribuye como una app portable pequeña, no como un framework que tengas que ensamblar manualmente.
+
+| Plataforma | Entrada | Notas |
+|---|---|---|
+| macOS | `install.sh` o `portable-kernel.sh` | Instalador Bash, bootstrap local y recuperación portable |
+| Linux | `install.sh` o `portable-kernel.sh` | El mismo kit de 6 archivos y bootstrap Bash |
+| Windows | `install.ps1` o `portable-kernel-windows.ps1` | Instalación y bootstrap nativos con PowerShell |
+
+GitHub Releases contiene el kit oficial de 6 archivos. La rama `main` es la fuente de verdad; el último release es el canal de instalación usado por `install.sh` e `install.ps1`.
 
 ### Cómo Funciona
 
@@ -212,8 +250,8 @@ Todo se distribuye en **exactamente 6 archivos**:
 
 | Archivo | Propósito |
 |---------|-----------|
-| `GEMINI.md` | Reglamento operativo (87 líneas) |
-| `MEMORY.md` | Especificación de memoria (164 líneas) |
+| `GEMINI.md` | Reglamento operativo (85 líneas) |
+| `MEMORY.md` | Especificación de memoria (156 líneas) |
 | `GEMINI_BLUEPRINTS.md` | Contrato de recuperación |
 | `portable-kernel.sh` | Instalador para macOS / Linux |
 | `portable-kernel-windows.ps1` | Instalador para Windows |

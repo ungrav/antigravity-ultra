@@ -1,5 +1,5 @@
 # MEMORY TECHNICAL SPEC: v9.2.5 - STRUCTURED MARKDOWN MEMORY
-*Last updated: 2026-05-08*
+*Last updated: 2026-05-13*
 
 ## Purpose
 Memory exists to preserve durable project knowledge without making normal agents study the kernel. The active model is simple:
@@ -21,6 +21,17 @@ No derived scoring system is part of the active contract. Agents and scripts mus
 - Memory scripts are helpers for consistency and verification, not a required detour for obvious native Markdown edits.
 - Repo/runtime facts outrank KIs, chat context, and model heuristics.
 - Keep this file under 180 lines and 8,500 bytes; consolidate before expanding.
+
+## How To Audit This Kernel
+Use this section only for kernel audits, critiques, architecture changes, or portability work. It is not normal warmup.
+
+- External agents start with `AGENTS.md` -> `.agent/current_state.md`; native Antigravity starts with `GEMINI.md` -> `rules/memory-runtime.md` -> `.agent/current_state.md`.
+- `GEMINI.md` is the runtime canon, not a history document. If it conflicts with projections, generated views, chat, or memory, follow current repo/runtime facts and `GEMINI.md`.
+- `AGENTS.md` is generated onboarding for external agents, not a second source of truth. Its job is interoperability.
+- `.agent/current_state.md` is the live handoff. It does not replace canon, memory, ledgers, or KIs.
+- `MEMORY.md` defines the memory contract. The memory itself is small Markdown KIs with frontmatter; folders are layout, frontmatter carries meaning.
+- `scripts/`, `evals/`, `rules/`, registries, caches, and trash are local runtime surfaces. Do not judge portable complexity by raw directory size without separating active contract, generated cache, deprecated trash, and ignored local tooling.
+- Official portability for other users is the root kit plus bundle, not copying the entire `.gemini` directory.
 
 ## KI Shape
 KIs are Markdown files under `.agent/knowledge/`:
@@ -113,35 +124,16 @@ Limits:
 
 It is regenerated from active notes when memory maintenance is explicitly requested. It is not a transcript and does not replace live state.
 
-## Live State Boundary
-- `.agent/current_state.json` is the structured source used by renderers.
-- `.agent/current_state.md` is the operational view agents read first.
-- `.agent/project_state.json` is generated cache.
-- If these views disagree, treat live state as stale, revalidate repo/runtime facts, update the structured state, and rerender the Markdown/cache views.
+## State and Plan Boundaries
+- `.agent/current_state.json` is the structured source, `.agent/current_state.md` is the operational view, and `.agent/project_state.json` is generated cache.
+- If live-state views disagree, revalidate repo/runtime facts, update the structured state, and rerender generated views.
 - `context_state` KIs are durable handoff summaries only; they do not replace live state.
-
-## Implementation Plan Persistence Boundary
-- Plan bodies stay in the host/session.
-- Disk stores only normalized `plan_state` fields in `.agent/current_state.json` and generated cache views.
-- `producer_agent`, `approval_source`, `next_action`, and `receipt_ref` are receipt metadata, not the plan body.
+- Implementation Plan Persistence Boundary: full plan bodies stay in the host/session. Disk stores only normalized `plan_state` receipts such as `producer_agent`, `approval_source`, `next_action`, and `receipt_ref`.
 
 ## Global Memory Layer
-Global memory is optional and conservative:
+Global memory is optional and conservative. `knowledge/global_patterns/` stores reusable patterns, `knowledge/advisories/` stores time-bound warnings, `knowledge/global_profile/` stores durable operator preferences, and `knowledge/metadata.json` describes those directories.
 
-- `knowledge/global_patterns/`: reusable durable patterns.
-- `knowledge/advisories/`: time-bound warnings.
-- `knowledge/global_profile/`: durable user/operator preferences.
-- `knowledge/metadata.json`: describes the global memory directories.
-
-Project bootstrap may import relevant global patterns into the local vault. It must not blindly copy advisories or global profile notes.
-
-## Global Promotion & Demotion Contract
-Promote local knowledge globally only when it is reusable beyond one project:
-
-- at least two projects confirm it, or
-- one project confirms it with strong durable evidence and no contradiction.
-
-Demote or expire global knowledge when it becomes project-specific, contradicted, obsolete, or time-bound and expired.
+Project bootstrap may import relevant global patterns into the local vault, but must not blindly copy advisories or profile notes. Global Promotion & Demotion Contract: promote local knowledge globally only when it is reusable beyond one project, confirmed by at least two projects or by one project with strong durable evidence and no contradiction. Demote or expire global knowledge when it becomes project-specific, contradicted, obsolete, or time-bound and expired.
 
 ## Maintenance
 `scripts/run-memory-maintenance.sh` and memory maintenance smokes are explicit tools, not normal warmup. Their active responsibilities are simple:

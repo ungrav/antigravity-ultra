@@ -12,6 +12,7 @@
 !portable-kernel-windows.ps1
 !minimum-kernel.bundle.tar.gz
 !install.sh
+!install.ps1
 !README.md
 !FEATURES_EN.md
 !FEATURES_ES.md
