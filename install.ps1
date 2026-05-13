@@ -48,6 +48,22 @@ function PowerShellExe() {
   Fail "Missing PowerShell executable: powershell or pwsh"
 }
 
+function DownloadFileWithRetry([string]$Url, [string]$OutFile) {
+  $LastError = $null
+  for ($Attempt = 1; $Attempt -le 3; $Attempt++) {
+    try {
+      Invoke-WebRequest -Uri $Url -OutFile $OutFile
+      return
+    } catch {
+      $LastError = $_
+      if ($Attempt -lt 3) {
+        Start-Sleep -Seconds $Attempt
+      }
+    }
+  }
+  throw $LastError
+}
+
 $Root = [System.IO.Path]::GetFullPath($Root)
 New-Item -ItemType Directory -Force -Path $Root | Out-Null
 $TempDir = Join-Path ([System.IO.Path]::GetTempPath()) ("antigravity-ultra-install-" + [System.Guid]::NewGuid().ToString("N"))
@@ -70,7 +86,7 @@ try {
       $Url = ReleaseUrl $Name
       $OutFile = Join-Path $TempDir $Name
       Info "Downloading $Name"
-      Invoke-WebRequest -Uri $Url -OutFile $OutFile
+      DownloadFileWithRetry -Url $Url -OutFile $OutFile
       if (!(Test-Path $OutFile) -or ((Get-Item $OutFile).Length -le 0)) {
         Fail "Downloaded empty portable file: $Name"
       }

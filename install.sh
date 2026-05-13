@@ -141,9 +141,9 @@ download_release_files() {
     url="$(release_url_for "$name")"
     info "Downloading $name"
     if [[ "$downloader" == "curl" ]]; then
-      curl -fsSL "$url" -o "$TMP_DIR/$name"
+      curl -fsSL --retry 3 --retry-all-errors --retry-delay 1 --connect-timeout 20 "$url" -o "$TMP_DIR/$name"
     else
-      wget -q "$url" -O "$TMP_DIR/$name"
+      wget -q --tries=3 --timeout=20 "$url" -O "$TMP_DIR/$name"
     fi
     [[ -s "$TMP_DIR/$name" ]] || {
       error "Downloaded empty portable file: $name"
