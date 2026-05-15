@@ -59,6 +59,8 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - `AUTO`: bounded, low-risk, reversible edits.
 - `CONFIRM`: installs, deletes/moves, architecture shifts, critical Git, deploy/release, sensitive config, external integrations, breaking changes, or unclear high-impact work.
 - If install/build output reports `high severity` or `critical` vulnerabilities, escalate to `CONFIRM` with a mitigation plan before continuing.
+- Remote package execution for MCPs, skills, or CLIs must go through the dependency-safety adapter or an equivalent detected host guard: exact versions only, no `@latest`, 24h minimum package age, and 72h preferred for agent/runtime tools.
+- Before creating a new skill, run local registry resolution and the skills.sh `find-skills` flow through `scripts/skill-trust-gate.sh`; install project-local only after audit and trust approval.
 - Preserve user changes; patch the needed surface only.
 - Do not claim `PASS` without executed evidence. Use `PASS`, `FAIL`, or `PARTIAL` honestly.
 - Complex changes require adversarial verification, not only code reading.

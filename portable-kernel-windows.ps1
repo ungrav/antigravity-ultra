@@ -665,6 +665,11 @@ function Command-Bootstrap {
   Write-JsonAtomic -Path $statePath -Value $state
 
   Expand-PortableBundle -BaseRoot $Root
+  $adapterJs = Join-Path (Join-Path $Root "scripts") "dependency-safety-adapter.js"
+  $nodeCmd = Get-Command node -ErrorAction SilentlyContinue
+  if ((Test-Path $adapterJs) -and ($null -ne $nodeCmd)) {
+    & $nodeCmd.Source $adapterJs --root $Root install-guard | Out-Null
+  }
   if ($featureMap.project_ledgers) {
     Seed-TemplatesIfMissing -BaseRoot $Root
   }
@@ -828,6 +833,18 @@ function Command-Doctor {
     $sourceOnlyScripts = Get-ChildItem -Path (Join-Path $Root "scripts") -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "check-*" -or $_.Name -like "evaluate-*" }
     if ($sourceOnlyScripts.Count -gt 0) {
       Write-ErrorLine "Portable restore included source-only check/evaluate scripts."
+      $errors += 1
+    }
+    $adapterJs = Join-Path (Join-Path $Root "scripts") "dependency-safety-adapter.js"
+    $nodeCmd = Get-Command node -ErrorAction SilentlyContinue
+    if ((Test-Path $adapterJs) -and ($null -ne $nodeCmd)) {
+      & $nodeCmd.Source $adapterJs --root $Root doctor --json | Out-Null
+      if ($LASTEXITCODE -ne 0) {
+        Write-ErrorLine "Dependency safety adapter is not healthy; run node scripts/dependency-safety-adapter.js --root <root> install-guard"
+        $errors += 1
+      }
+    } else {
+      Write-ErrorLine "Missing node or dependency safety adapter in restored portable runtime"
       $errors += 1
     }
   }

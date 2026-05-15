@@ -837,6 +837,10 @@ command_bootstrap() {
   tar -xzf "$bundle_tgz" -C "$root"
   rm -rf "$bundle_tmp"
 
+  if [[ -x "$root/scripts/dependency-safety-adapter.sh" ]]; then
+    bash "$root/scripts/dependency-safety-adapter.sh" --root "$root" install-guard >/dev/null
+  fi
+
   if [[ "$(install_state_feature_value "$root" "project_ledgers")" == "true" ]]; then
     seed_templates_if_missing "$root"
   fi
@@ -1429,6 +1433,15 @@ command_doctor() {
         emit_error "Missing restored Project DNA: $root/.agent/knowledge/.project_dna.md"
         errors=$((errors + 1))
       }
+    fi
+    if [[ -x "$root/scripts/dependency-safety-adapter.sh" ]]; then
+      if ! bash "$root/scripts/dependency-safety-adapter.sh" --root "$root" doctor --json >/dev/null 2>&1; then
+        emit_error "Dependency safety adapter is not healthy; run scripts/dependency-safety-adapter.sh --root \"$root\" install-guard"
+        errors=$((errors + 1))
+      fi
+    else
+      emit_error "Missing dependency safety adapter in restored portable runtime"
+      errors=$((errors + 1))
     fi
   fi
 
