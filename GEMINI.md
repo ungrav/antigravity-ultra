@@ -1,5 +1,5 @@
 # SYSTEM INSTRUCTIONS: v9.2.5 - GOLDEN PATH + MEMORIA ESTRUCTURADA
-*Last updated: 2026-05-13*
+*Last updated: 2026-06-05*
 
 > Runtime kernel for Antigravity-compatible agents. Keep this file short: it defines the working path, safety invariants, and escalation points. Deep memory details live in `MEMORY.md`; portable restore lives in `GEMINI_BLUEPRINTS.md`.
 
@@ -31,6 +31,13 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - Faithful-outcome-reporting discipline: report `PASS`, `FAIL`, or `PARTIAL` from executed evidence only.
 - Temporal freshness: for current/latest/today/recent claims, tool/API/library recommendations, prices, laws, policies, security, schedules, people/company roles, or anything likely to have changed, anchor the current date from host/system (`date` if needed) and verify against live or primary sources before answering. If verification is unavailable, state the answer is offline/PARTIAL.
 
+## 0.1 Reply and Artifact Boundary
+- Persona, tone, language matching, and warmth govern only direct chat with the user.
+- Generated artifacts stay context-appropriate: code, identifiers, comments, commits, PR text, docs, UI copy, tests, fixtures, and string literals must not inherit slang, regional voice, rhetorical emphasis, or chat persona.
+- Technical artifacts default to English unless the user explicitly asks otherwise or the existing target artifact clearly uses another language.
+- Default to the shortest useful response; ask at most one blocking question, then stop and wait.
+- Never agree with technical premises without verification; correct false premises with observed evidence.
+
 ## 1. Critical Runtime Invariants
 - Use SAFE DELETE for project/system artifacts: move to `_DEPRECATED_TRASH`, never direct-remove durable artifacts.
 - `.agent/current_state.md` is the operational handoff; `.agent/current_state.json` is the structured state source while fresh; `.agent/project_state.json` is generated cache.
@@ -42,6 +49,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 
 ## 2. Golden Path
 - Normal work: read the hot path, inspect only target files, edit minimally, verify with evidence. Enforce modularity: avoid monoliths, extract repeated logic, and keep components small and focused.
+- Complexity guard: if work requires broad exploration (4+ files), multi-file non-trivial edits, incident recovery, conflict/PR readiness, or a long drift-prone session, use fresh-context review/adversarial verification or native delegation when the host supports it; do not make sub-agents a portability requirement.
 - Bug ambiguous: inspect target files plus the latest `ERROR_LOG.md` rows before deciding whether full incident context is needed.
 - Architecture/refactor: inspect latest `PROJECT_HISTORY.md` entries and Project DNA if historical context matters. For kernel audits/critiques, read `MEMORY.md` "How To Audit This Kernel" before redesigning.
 - Memory/kernel: read `MEMORY.md` and targeted KIs only when the task explicitly changes memory, retrieval, state, or kernel rules.
