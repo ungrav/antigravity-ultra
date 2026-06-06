@@ -123,11 +123,11 @@ Cuatro perfiles te permiten elegir tu nivel de herramientas:
 
 | Perfil | Incluye |
 |--------|---------|
-| `minimal` | Motor básico, estado en vivo, baúl de memoria |
-| `recommended` | + Workflows, herramientas de auditoría |
-| `complete` | + Plantillas MCP, evaluaciones, telemetría, testing |
+| `minimal` | Motor, estado, memoria portable y Context7 base |
+| `recommended` | + Workflows, auditoría y recomendaciones de capacidades opcionales |
+| `complete` | + Telemetría y todas las capacidades relevantes ofrecidas |
 | `custom` | Elige módulos individualmente |
 
-Multiplataforma: macOS, Linux y Windows PowerShell. Sin dependencias más allá de Bash 4+ o PowerShell 5+.
+Multiplataforma: macOS, Linux y Windows PowerShell. Las herramientas de terceros nunca se incluyen; las opcionales se instalan desde fuentes oficiales y con consentimiento.
 
 `minimum-kernel.bundle.tar.gz` es el payload portable; `GEMINI_BLUEPRINTS.md` queda legible para humanos. `.portable/` se genera localmente como caché/recuperación por bootstrap/recover/doctor. No es canon y no se copia como carpeta.

@@ -123,11 +123,11 @@ Four tiers let you choose your level of tooling:
 
 | Tier | Includes |
 |------|----------|
-| `minimal` | Core engine, live state, memory vault |
-| `recommended` | + Workflows, audit tools |
-| `complete` | + MCP templates, evaluations, telemetry, testing |
+| `minimal` | Core engine, live state, portable memory, Context7 foundation |
+| `recommended` | + Workflows, audit tools, optional capability recommendations |
+| `complete` | + Telemetry and all relevant capability offers |
 | `custom` | Pick modules individually |
 
-Cross-platform: macOS, Linux, and Windows PowerShell. No dependencies beyond Bash 4+ or PowerShell 5+.
+Cross-platform: macOS, Linux, and Windows PowerShell. Third-party tools are never embedded; optional tools are installed from official sources only with user consent.
 
 `minimum-kernel.bundle.tar.gz` is the portable payload; `GEMINI_BLUEPRINTS.md` stays human-readable. `.portable/` is generated locally as cache/recovery output by bootstrap/recover/doctor. It is not canon and is not copied as a folder.

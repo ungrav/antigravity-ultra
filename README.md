@@ -125,9 +125,9 @@ curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/insta
 
 | Tier | What You Get |
 |------|-------------|
-| 🌱 `minimal` | Core engine + memory vault |
-| ⭐ `recommended` | + Workflows + audit tools |
-| 🔥 `complete` | + MCP templates, evals, telemetry |
+| 🌱 `minimal` | Core + portable memory + Context7 foundation |
+| ⭐ `recommended` | + Workflows, audit tools, optional capability recommendations |
+| 🔥 `complete` | + Telemetry and all relevant capability offers |
 | ⚙️ `custom` | Pick modules individually |
 
 ```bash
@@ -271,9 +271,9 @@ curl -fsSL https://raw.githubusercontent.com/ungrav/antigravity-ultra/main/insta
 
 | Perfil | Qué incluye |
 |--------|-------------|
-| 🌱 `minimal` | Motor base + baúl de memoria |
-| ⭐ `recommended` | + Workflows + herramientas de auditoría |
-| 🔥 `complete` | + Plantillas MCP, evals, telemetría |
+| 🌱 `minimal` | Motor + memoria portable + Context7 base |
+| ⭐ `recommended` | + Workflows, auditoría y recomendaciones de capacidades opcionales |
+| 🔥 `complete` | + Telemetría y todas las capacidades relevantes ofrecidas |
 | ⚙️ `custom` | Elige módulos individualmente |
 
 ```bash

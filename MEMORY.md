@@ -55,6 +55,7 @@ status: "active"
 timestamp: 1775200000
 tenant_domain: "kernel"
 entities: ["resolver", "memory"]
+aliases: []
 related_kis: []
 ---
 ```
@@ -70,6 +71,8 @@ Selection should be boring and inspectable:
 
 - Start from `.project_dna.md` for memory-heavy work.
 - Prefer notes matching the task's `tenant_domain`, entities, and keywords.
+- Prefer exact `ki_id`, path, title, and optional alias matches before fuzzy term matches.
+- Follow `related_kis` for one hop when a directly matched KI points to relevant supporting context.
 - Prefer `status: active`.
 - Break ties with recency and direct entity match.
 - Return at most 5 notes or about 1200 tokens.

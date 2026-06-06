@@ -11,6 +11,8 @@ param(
   [string]$Source = "default",
   [string]$Trigger = "",
   [string]$Summary = "",
+  [string]$Task = "",
+  [string]$Capability = "",
   [switch]$Json,
   [switch]$NonInteractive
 )
@@ -124,16 +126,15 @@ function Get-FeatureDefaults {
     core_tests = $false
     full_evals = $false
     audit_tooling = $true
-    mcp_templates = $false
+    capability_catalog = $true
+    context7_foundation = $true
     advanced_workflows = $true
     strict_plan_gate = $true
     telemetry_tooling = $false
   }
   if ($tierValue -eq "minimal") {
-    $features.memory_vault = $false
     $features.project_ledgers = $false
     $features.audit_tooling = $false
-    $features.mcp_templates = $false
     $features.advanced_workflows = $false
     $features.strict_plan_gate = $false
   }
@@ -313,7 +314,11 @@ function Extract-BundleManifest {
 
 function Seed-TemplatesIfMissing {
   param([string]$BaseRoot)
-  foreach ($name in @("PROJECT_HISTORY.md", "ERROR_LOG.md", "AGENTS.md")) {
+  $names = @("AGENTS.md")
+  if (Get-KernelFeatureValue -BaseRoot $BaseRoot -FeatureName "project_ledgers") {
+    $names += @("PROJECT_HISTORY.md", "ERROR_LOG.md")
+  }
+  foreach ($name in $names) {
     $target = Join-Path $BaseRoot $name
     if (!(Test-Path $target)) {
       Extract-Marker -SourceFile (Join-Path $BaseRoot "GEMINI_BLUEPRINTS.md") -MarkerName $name -TargetFile $target
@@ -423,7 +428,8 @@ function Seed-CurrentState {
 - memory_vault: $($feature.memory_vault)
 - core_tests: $($feature.core_tests)
 - audit_tooling: $($feature.audit_tooling)
-- mcp_templates: $($feature.mcp_templates)
+- capability_catalog: $($feature.capability_catalog)
+- context7_foundation: $($feature.context7_foundation)
 - telemetry_tooling: $($feature.telemetry_tooling)
 
 ## Next Step
@@ -670,13 +676,23 @@ function Command-Bootstrap {
   if ((Test-Path $adapterJs) -and ($null -ne $nodeCmd)) {
     & $nodeCmd.Source $adapterJs --root $Root install-guard | Out-Null
   }
-  if ($featureMap.project_ledgers) {
-    Seed-TemplatesIfMissing -BaseRoot $Root
-  }
+  Seed-TemplatesIfMissing -BaseRoot $Root
   Seed-CurrentState -BaseRoot $Root
   Seed-ProjectState -BaseRoot $Root
   if ($featureMap.memory_vault) {
     Seed-KnowledgeBaseline -BaseRoot $Root
+  }
+  if ($featureMap.context7_foundation) {
+    $manager = Join-Path (Join-Path $Root "scripts") "manage-capabilities.js"
+    if ((Test-Path $manager) -and ($null -ne $nodeCmd)) {
+      & $nodeCmd.Source $manager configure-context7 --root $Root | Out-Null
+      if ($LASTEXITCODE -ne 0) {
+        Write-Info "Context7 configuration is degraded; bootstrap will continue."
+      }
+      & $nodeCmd.Source $manager scan --root $Root | Out-Null
+    } else {
+      Write-Info "Context7 capability manager is unavailable; bootstrap will continue in degraded mode."
+    }
   }
   New-Item -ItemType Directory -Force -Path (Join-Path (Join-Path $Root "state") "traces") | Out-Null
   $trace = Join-Path (Join-Path (Join-Path $Root "state") "traces") "portable-bootstrap.jsonl"
@@ -771,13 +787,14 @@ function Command-Contents {
   Write-Output "- macOS/Linux launcher: portable-kernel.sh"
   Write-Output ""
   Write-Output "Install profiles:"
-  Write-Output "- recommended: memory, audits, and advanced workflows enabled; MCP and tests are user-local/source-only."
-  Write-Output "- minimal: live state and cache only; memory vault, ledgers, MCP templates, tests, and telemetry off."
-  Write-Output "- complete: full runtime tooling enabled; MCP and tests remain source-repo/user-local only."
+  Write-Output "- minimal: live state, portable project memory, AGENTS onboarding, capability catalog, and Context7 foundation."
+  Write-Output "- recommended: minimal plus ledgers, audits, advanced workflows, and optional capability recommendations."
+  Write-Output "- complete: recommended plus telemetry and all relevant capability offers; third-party tools remain user-local."
   Write-Output "- custom"
   Write-Output ""
   Write-Output "Security notes:"
-  Write-Output "- No MCP runtime template is included."
+  Write-Output "- No local MCP configuration, third-party package, binary, or launcher is included."
+  Write-Output "- Context7 metadata is included; bootstrap configures the official remote endpoint and tolerates offline degradation."
   Write-Output "- Tests/evals are source-repo only and are not installed by the portable bundle."
   Write-Output ""
   Write-Output "Categories:"
@@ -914,6 +931,31 @@ function Command-StateCtl {
   throw "Unsupported statectl subcommand: $Subcommand"
 }
 
+function Command-Capabilities {
+  if ([string]::IsNullOrWhiteSpace($Subcommand)) {
+    throw "capabilities requires scan, doctor, recommend, or guide"
+  }
+  $manager = Join-Path (Join-Path $Root "scripts") "manage-capabilities.js"
+  $nodeCmd = Get-Command node -ErrorAction SilentlyContinue
+  if (!(Test-Path $manager) -or $null -eq $nodeCmd) {
+    throw "Capability manager requires Node.js and scripts/manage-capabilities.js"
+  }
+  $args = @($manager, $Subcommand, "--root", $Root)
+  if (![string]::IsNullOrWhiteSpace($Capability)) {
+    $args = @($manager, $Subcommand, $Capability, "--root", $Root)
+  }
+  if (![string]::IsNullOrWhiteSpace($Task)) {
+    $args += @("--task", $Task)
+  }
+  if ($Json) {
+    $args += "--json"
+  }
+  & $nodeCmd.Source @args
+  if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+  }
+}
+
 switch ($Command) {
   "probe" { Command-Probe }
   "bootstrap" { Command-Bootstrap }
@@ -921,6 +963,7 @@ switch ($Command) {
   "contents" { Command-Contents }
   "feature-enabled" { Command-FeatureEnabled }
   "statectl" { Command-StateCtl }
+  "capabilities" { Command-Capabilities }
   "set-language" { Command-SetLanguage }
   "set-tier" { Command-SetTier }
   "configure-features" { Command-ConfigureFeatures }
@@ -933,6 +976,7 @@ switch ($Command) {
     Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 remember-intent -Summary `"Crear app de tareas`""
     Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 feature-enabled memory_vault"
     Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 statectl check"
+    Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 capabilities scan -Json"
     Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 doctor"
   }
   default {

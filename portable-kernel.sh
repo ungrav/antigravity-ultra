@@ -17,6 +17,7 @@ Usage:
   bash portable-kernel.sh pack [--root PATH] [--output DIR]
   bash portable-kernel.sh contents [--root PATH]
   bash portable-kernel.sh remember-intent [--root PATH] --summary TEXT
+  bash portable-kernel.sh capabilities scan|doctor|recommend|guide [capability] [--root PATH] [--task TEXT] [--json]
 
 Internal onboarding helpers:
   bash portable-kernel.sh set-language [--root PATH] --language VALUE --source preset|custom|default
@@ -162,17 +163,17 @@ feature_defaults_json() {
   case "$tier" in
     minimal)
       cat <<'JSON'
-{"live_state":true,"project_state_cache":true,"memory_vault":false,"project_ledgers":false,"core_tests":false,"full_evals":false,"audit_tooling":false,"mcp_templates":false,"advanced_workflows":false,"strict_plan_gate":false,"telemetry_tooling":false}
+{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":false,"core_tests":false,"full_evals":false,"audit_tooling":false,"capability_catalog":true,"context7_foundation":true,"advanced_workflows":false,"strict_plan_gate":false,"telemetry_tooling":false}
 JSON
       ;;
     complete)
       cat <<'JSON'
-{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":true,"core_tests":false,"full_evals":false,"audit_tooling":true,"mcp_templates":false,"advanced_workflows":true,"strict_plan_gate":true,"telemetry_tooling":true}
+{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":true,"core_tests":false,"full_evals":false,"audit_tooling":true,"capability_catalog":true,"context7_foundation":true,"advanced_workflows":true,"strict_plan_gate":true,"telemetry_tooling":true}
 JSON
       ;;
     custom|recommended)
       cat <<'JSON'
-{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":true,"core_tests":false,"full_evals":false,"audit_tooling":true,"mcp_templates":false,"advanced_workflows":true,"strict_plan_gate":true,"telemetry_tooling":false}
+{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":true,"core_tests":false,"full_evals":false,"audit_tooling":true,"capability_catalog":true,"context7_foundation":true,"advanced_workflows":true,"strict_plan_gate":true,"telemetry_tooling":false}
 JSON
       ;;
   esac
@@ -400,11 +401,12 @@ seed_current_state() {
         receipt_ref: null
       }
     }')"
-  local memory_vault core_tests audit_tooling mcp_templates telemetry_tooling
+  local memory_vault core_tests audit_tooling capability_catalog context7_foundation telemetry_tooling
   memory_vault="$(install_state_feature_value "$root" "memory_vault")"
   core_tests="$(install_state_feature_value "$root" "core_tests")"
   audit_tooling="$(install_state_feature_value "$root" "audit_tooling")"
-  mcp_templates="$(install_state_feature_value "$root" "mcp_templates")"
+  capability_catalog="$(install_state_feature_value "$root" "capability_catalog")"
+  context7_foundation="$(install_state_feature_value "$root" "context7_foundation")"
   telemetry_tooling="$(install_state_feature_value "$root" "telemetry_tooling")"
   printf '%s\n' "$state_json" > "$json_file"
   cat > "$md_file" <<EOF
@@ -440,7 +442,8 @@ seed_current_state() {
 - memory_vault: $memory_vault
 - core_tests: $core_tests
 - audit_tooling: $audit_tooling
-- mcp_templates: $mcp_templates
+- capability_catalog: $capability_catalog
+- context7_foundation: $context7_foundation
 - telemetry_tooling: $telemetry_tooling
 
 ## Next Step
@@ -595,11 +598,13 @@ EOF
 seed_templates_if_missing() {
   local root="$1"
   mkdir -p "$root"
-  if [[ ! -f "$root/PROJECT_HISTORY.md" ]]; then
-    extract_marker "$root/GEMINI_BLUEPRINTS.md" "PROJECT_HISTORY.md" "$root/PROJECT_HISTORY.md"
-  fi
-  if [[ ! -f "$root/ERROR_LOG.md" ]]; then
-    extract_marker "$root/GEMINI_BLUEPRINTS.md" "ERROR_LOG.md" "$root/ERROR_LOG.md"
+  if [[ "$(install_state_feature_value "$root" "project_ledgers")" == "true" ]]; then
+    if [[ ! -f "$root/PROJECT_HISTORY.md" ]]; then
+      extract_marker "$root/GEMINI_BLUEPRINTS.md" "PROJECT_HISTORY.md" "$root/PROJECT_HISTORY.md"
+    fi
+    if [[ ! -f "$root/ERROR_LOG.md" ]]; then
+      extract_marker "$root/GEMINI_BLUEPRINTS.md" "ERROR_LOG.md" "$root/ERROR_LOG.md"
+    fi
   fi
   if [[ ! -f "$root/AGENTS.md" ]]; then
     extract_marker "$root/GEMINI_BLUEPRINTS.md" "AGENTS.md" "$root/AGENTS.md"
@@ -841,13 +846,17 @@ command_bootstrap() {
     bash "$root/scripts/dependency-safety-adapter.sh" --root "$root" install-guard >/dev/null
   fi
 
-  if [[ "$(install_state_feature_value "$root" "project_ledgers")" == "true" ]]; then
-    seed_templates_if_missing "$root"
-  fi
+  seed_templates_if_missing "$root"
   seed_current_state "$root"
   seed_project_state "$root"
   if [[ "$(install_state_feature_value "$root" "memory_vault")" == "true" ]]; then
     seed_knowledge_baseline "$root"
+  fi
+  if [[ "$(install_state_feature_value "$root" "context7_foundation")" == "true" && -x "$root/scripts/manage-capabilities.sh" ]]; then
+    if ! bash "$root/scripts/manage-capabilities.sh" configure-context7 --root "$root" >/dev/null; then
+      emit_info "Context7 configuration is degraded; bootstrap will continue."
+    fi
+    bash "$root/scripts/manage-capabilities.sh" scan --root "$root" >/dev/null || true
   fi
   mkdir -p "$root/state/traces"
   [[ -f "$root/state/traces/portable-bootstrap.jsonl" ]] || : > "$root/state/traces/portable-bootstrap.jsonl"
@@ -1077,16 +1086,17 @@ command_contents() {
     "- Windows launcher: portable-kernel-windows.ps1",
     "",
     "Install profiles:",
-    "- recommended: default for most users; memory, audits, and advanced workflows enabled; MCP and tests are user-local/source-only.",
-    "- minimal: live state and cache only; memory vault, ledgers, MCP templates, tests, and telemetry off.",
-    "- complete: full runtime tooling enabled; MCP and tests remain source-repo/user-local only.",
+    "- minimal: live state, portable project memory, AGENTS onboarding, capability catalog, and Context7 foundation.",
+    "- recommended: minimal plus ledgers, audits, advanced workflows, and optional capability recommendations.",
+    "- complete: recommended plus telemetry and all relevant capability offers; third-party tools remain user-local.",
     "- custom: explicit feature flags selected by the user in chat.",
     "",
     "Categories:",
     (.categories[] | "- \(.category): \(.count) artifact(s)"),
     "",
     "Security notes:",
-    "- No MCP runtime template is included.",
+    "- No local MCP configuration, third-party package, binary, or launcher is included.",
+    "- Context7 metadata is included; bootstrap configures the official remote endpoint and tolerates offline degradation.",
     "- Tests/evals are source-repo only and are not installed by the portable bundle.",
     "",
     "Artifacts:",
@@ -1391,6 +1401,10 @@ command_doctor() {
     fi
     for forbidden in \
       "$root/antigravity/mcp_config.json" \
+      "$root/config/mcp_config.json" \
+      "$root/config/projects" \
+      "$root/config/runtime-adapters.json" \
+      "$root/config/hooks.json" \
       "$root/evals" \
       "$root/skills-lock.json" \
       "$root/skills-manifest.json" \
@@ -1398,6 +1412,7 @@ command_doctor() {
       "$root/scripts/run-core-evals.sh" \
       "$root/scripts/run-lean-evals.sh" \
       "$root/scripts/gemini-doctor.sh" \
+      "$root/scripts/graphify-mcp-launch.sh" \
       "$root/scripts/doctor" \
       "$root/scripts/__pycache__"
     do
@@ -1516,6 +1531,15 @@ command_pack() {
   emit_info "Portable kit exported to $output_dir"
 }
 
+command_capabilities() {
+  local manager="$DEFAULT_ROOT/scripts/manage-capabilities.sh"
+  [[ -x "$manager" ]] || {
+    emit_error "Capability manager is unavailable: $manager"
+    exit 1
+  }
+  bash "$manager" "$@"
+}
+
 main() {
   local command="${1:-}"
   if [[ -z "$command" ]]; then
@@ -1548,6 +1572,9 @@ main() {
       ;;
     remember-intent)
       command_remember_intent "$@"
+      ;;
+    capabilities)
+      command_capabilities "$@"
       ;;
     set-language)
       command_set_language "$@"

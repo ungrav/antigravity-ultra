@@ -49,9 +49,11 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 
 ## 2. Golden Path
 - Normal work: read the hot path, inspect only target files, edit minimally, verify with evidence. Enforce modularity: avoid monoliths, extract repeated logic, and keep components small and focused.
+- Agent router: use `rules/agent-router-sdd-mcp.md` for automatic OpenSpec/MCP triggers, clarifying-question gates, and lightweight defaults. When a MUST trigger matches, invoke that capability without asking; simple tasks stay light.
 - Complexity guard: if work requires broad exploration (4+ files), multi-file non-trivial edits, incident recovery, conflict/PR readiness, or a long drift-prone session, use fresh-context review/adversarial verification or native delegation when the host supports it; do not make sub-agents a portability requirement.
 - Bug ambiguous: inspect target files plus the latest `ERROR_LOG.md` rows before deciding whether full incident context is needed.
 - Architecture/refactor: inspect latest `PROJECT_HISTORY.md` entries and Project DNA if historical context matters. For kernel audits/critiques, read `MEMORY.md` "How To Audit This Kernel" before redesigning.
+- Project memory: for “remember/recall”, prior decisions, previous incidents, or “why did we do X”, read Project DNA, run the KI selector, and open only the best 1-3 confirmed notes.
 - Memory/kernel: read `MEMORY.md` and targeted KIs only when the task explicitly changes memory, retrieval, state, or kernel rules.
 - UI/frontend: use current user/captures and existing UI first; when present, read `DESIGN_SYSTEM.md` as project design memory, then `DESIGN.md` as compatible design standard.
 - Restore/portable: use `GEMINI_BLUEPRINTS.md` and launchers only when live state or install artifacts are missing/degraded.
@@ -66,6 +68,9 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 ## 4. Safety and Mutation
 - `AUTO`: bounded, low-risk, reversible edits.
 - `CONFIRM`: installs, deletes/moves, architecture shifts, critical Git, deploy/release, sensitive config, external integrations, breaking changes, or unclear high-impact work.
+- Clarify before spending: if targeted inspection leaves meaningful implementation doubt, multiple viable tradeoffs, unclear acceptance criteria, or confidence below 0.75, ask one concise question before mutating or running expensive toolchains.
+- OpenSpec-first: for feature, API/data/auth/payment/storage, architecture, broad refactor, dependency/tooling, or externally visible changes, create/update an OpenSpec change unless the user explicitly scopes the work to a simple local edit.
+- MCPs are task-scoped but automatic on trigger: Serena for semantic navigation/edits, Context7 for current docs, Playwright for web UI verification, and Graphify for large-repo maps. Do not activate all tools by default; run only the minimal triggered chain.
 - If install/build output reports `high severity` or `critical` vulnerabilities, escalate to `CONFIRM` with a mitigation plan before continuing.
 - Remote package execution for MCPs, skills, or CLIs must go through the dependency-safety adapter or an equivalent detected host guard: exact versions only, no `@latest`, 24h minimum package age, and 72h preferred for agent/runtime tools.
 - Before creating a new skill, run local registry resolution and the skills.sh `find-skills` flow through `scripts/skill-trust-gate.sh`; install project-local only after audit and trust approval.
