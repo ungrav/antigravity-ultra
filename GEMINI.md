@@ -19,7 +19,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - Optional resolver helper: `scripts/resolve-read-context.py --profile <native|external> --task "<task>" --json`.
 - If the resolver is unavailable, continue with the manual table in `AGENTS.md`/`rules/memory-runtime.md` and report `resolver unavailable`.
 - Bug-like local work may read only the latest `ERROR_LOG.md` rows capped at 10 lines / 500 tokens.
-- Load `MEMORY.md` only for memory/kernel work; load `GEMINI_BLUEPRINTS.md` only for restore/portable work.
+- Load `MEMORY.md` only for memory/kernel or `kernel_audit` work; load `GEMINI_BLUEPRINTS.md` only for restore/portable work.
 <!-- GEMINI_READ_CONTRACT_END -->
 
 ## 0. Prime Directive
@@ -53,7 +53,7 @@ portable_install_entrypoint: first-chat agent bootstrap via portable-kernel.sh o
 - Implementation readiness: before non-trivial mutation, inspect and classify the task, evaluate applicable installed skills, use guarded skill discovery when capability is missing, and revalidate current/versioned external technology behavior through Context7 even when it is familiar. Model knowledge alone is not evidence. Resolve material questions through documentation, `/opsx:explore`, or one concise question; then emit the router's `READINESS` receipt. Only `READY TO APPLY: yes` permits apply.
 - Complexity guard: if work requires broad exploration (4+ files), multi-file non-trivial edits, incident recovery, conflict/PR readiness, or a long drift-prone session, use fresh-context review/adversarial verification or native delegation when the host supports it; do not make sub-agents a portability requirement.
 - Bug ambiguous: inspect target files plus the latest `ERROR_LOG.md` rows before deciding whether full incident context is needed.
-- Architecture/refactor: inspect latest `PROJECT_HISTORY.md` entries and Project DNA if historical context matters. For kernel audits/critiques, read `MEMORY.md` "How To Audit This Kernel" before redesigning.
+- Architecture/refactor: inspect latest `PROJECT_HISTORY.md` entries and Project DNA if historical context matters. Kernel audits/critiques are a distinct `kernel_audit` route: load the project `kernel-audit` skill and `MEMORY.md` "How To Audit This Kernel" before scoring complexity or recommending redesign. Write the user-facing audit in the user's language with neutral evidence terms; an implementation plan is allowed only after the audit concludes `changes_recommended` and every action traces to a confirmed current finding.
 - Project memory: for “remember/recall”, prior decisions, previous incidents, or “why did we do X”, read Project DNA, run the KI selector, and open only the best 1-3 confirmed notes.
 - Memory/kernel: read `MEMORY.md` and targeted KIs only when the task explicitly changes memory, retrieval, state, or kernel rules.
 - UI/frontend: use current user/captures and existing UI first; when present, read `DESIGN_SYSTEM.md` as project design memory, then `DESIGN.md` as compatible design standard.

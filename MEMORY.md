@@ -25,13 +25,18 @@ No derived scoring system is part of the active contract. Agents and scripts mus
 ## How To Audit This Kernel
 Use this section only for kernel audits, critiques, architecture changes, or portability work. It is not normal warmup.
 
-- External agents start with `AGENTS.md` -> `.agent/current_state.md`; native Antigravity starts with `GEMINI.md` -> `rules/memory-runtime.md` -> `.agent/current_state.md`.
-- `GEMINI.md` is the runtime canon, not a history document. If it conflicts with projections, generated views, chat, or memory, follow current repo/runtime facts and `GEMINI.md`.
-- `AGENTS.md` is generated onboarding for external agents, not a second source of truth. Its job is interoperability.
-- `.agent/current_state.md` is the live handoff. It does not replace canon, memory, ledgers, or KIs.
-- `MEMORY.md` defines the memory contract. The memory itself is small Markdown KIs with frontmatter; folders are layout, frontmatter carries meaning.
-- `scripts/`, `evals/`, `rules/`, registries, caches, and trash are local runtime surfaces. Do not judge portable complexity by raw directory size without separating active contract, generated cache, deprecated trash, and ignored local tooling.
-- Official portability for other users is the root kit plus bundle, not copying the entire `.gemini` directory.
+| Audit question | Read/verify | Do not infer |
+| --- | --- | --- |
+| Native authority | `GEMINI.md` -> `rules/memory-runtime.md` -> `.agent/current_state.md`; current repo/runtime facts win. | `AGENTS.md` is external onboarding, not native baseline or a second canon. |
+| State source | `.agent/current_state.json` is structured source; `current_state.md` is its operational view; `project_state.json` is generated cache. | Do not treat generated Markdown/cache as independent manual sources. |
+| Portable product | Root kit, `.portable/bundle_manifest.json`, and `minimum-kernel.bundle.tar.gz`. | Do not use the size or file count of the machine-local `.gemini` directory as portable complexity. |
+| Runtime complexity | Active contracts, manifest-selected evals, measured commands, and current capability state. | File count does not equal executed pipeline size or performance cost. |
+| Incidents | Reproduce current behavior or verify present status in current tests/runtime. | Resolved or mitigated ledger entries are historical, not current defects. |
+| Planning gate | Verify the current planning contract, including `fast_local` and `standard_low`. | Do not claim all mutations require the full lifecycle. |
+| Memory health | Count active KIs and compare with the current maintenance threshold. | Do not recommend autonomous GC when direct Markdown maintenance remains within policy. |
+| Redesign proposal | Explain why the mechanism exists, its protected invariant, and measured deficiency. | Do not substitute architecture from inference, host artifacts, or stale KIs. |
+
+Use the project `kernel-audit` skill and `state/kernel-audit-rubric.json`. An audit may validly conclude that no change is recommended or that evidence is insufficient.
 
 ## KI Shape
 KIs are Markdown files under `.agent/knowledge/`:
