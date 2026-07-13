@@ -41,6 +41,7 @@ Dos disciplinas incorporadas en el kernel:
 - **Detección de Premisas Falsas:** Antes de ejecutar, el agente verifica si la premisa del usuario es correcta. Si no, corrige la suposición errónea antes de escribir código.
 - **Verificación Basada en Evidencia:** Para cambios complejos, el agente no puede auto-certificarse. Debe ejecutar pruebas o producir evidencia real de que el cambio funciona. Los reportes usan `PASS`, `FAIL` o `PARTIAL` — nunca afirmaciones sin verificar.
 - **Delegación Verificable:** El trabajo delegado complejo tiene una condición de pase observable y el coordinador reabre evidencia de alto impacto en vez de confiar en el reporte como hecho.
+- **Descubrimiento Portable de Backends:** Los motores, APIs de modelos y CLIs de agentes opcionales se detectan por equipo. La delegación permanece apagada hasta que el usuario consiente, y la mera presencia de un modelo nunca lo vuelve elegible.
 - **Reinicio Diagnóstico:** Los bugs no obvios comparan causas plausibles y buscan evidencia que las desconfirme; dos fixes fallidos obligan a volver al diagnóstico.
 - **Bloqueo por Findings Abiertos:** Un finding confirmado `high` o `critical`, abierto o bloqueado y dentro del alcance, impide declarar `PASS`.
 - **Entrega Completa:** Canon, implementación, tests, artefactos generados o portables, documentación pública y Git quedan reconciliados o marcados explícitamente como no afectados.

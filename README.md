@@ -62,6 +62,10 @@ Every agent framework injects context per turn. Ultra's advantage isn't a smalle
 
 The Golden Path also controls **additional** context per task — normal coding loads zero extra files, bugs load only the error log, architecture loads only the project digest. Other frameworks load everything on every turn regardless of task type.
 
+For project source, `portable-kernel.sh project-context resolve --project-root <path> --task "<task>"` maintains a local incremental filename/fingerprint index and returns a bounded read plan. Unchanged files are not rehashed, source contents and secrets are never stored, and large cross-cutting tasks are escalated to Graphify instead of repeatedly scanning every folder with the model.
+
+Optional execution backends are discovered per machine with `portable-kernel.sh backends discover`. Discovery never enables delegation: the user must grant consent, and routes require current task-specific evidence. Local LM Studio and oMLX models can be benchmarked serially with explicit `--allow-load`; the runner preserves preloaded state, unloads only models it introduced, and persists scores and response hashes rather than prompts or response text.
+
 ### How It Adds Up
 
 The extra context an agent loads **beyond the system prompt** per task type:
@@ -92,6 +96,7 @@ But the biggest saving is **across sessions**: with per-project memory, session 
 | ⚡ | **Golden Path** | Task-based routing: agents load zero kernel context for 80% of tasks |
 | 🤝 | **Any Provider** | Same rules for Gemini, Claude, Codex, or any Markdown-aware agent |
 | 🕵️ | **Verify, Don't Assume** | Agents recheck delegated evidence, reset failed diagnoses, block `PASS` on open high-impact findings, and reconcile every delivery surface |
+| 🧭 | **Portable Backend Router** | Discovers optional engines and agent CLIs per machine, asks before delegation, and routes only qualified candidates |
 | 📚 | **Project Ledgers** | Immutable `PROJECT_HISTORY.md` + `ERROR_LOG.md` — any new agent reads them and catches up |
 | 🛡️ | **Safe Delete** | Files go to `_DEPRECATED_TRASH`, never permanently deleted |
 | 📐 | **Zero Monoliths** | Agents patch only the needed surface — no giant rewrites |
@@ -208,6 +213,10 @@ Todos los frameworks inyectan contexto por turno. La ventaja de Ultra no es un s
 
 El Golden Path también controla el contexto **adicional** por tarea — coding normal carga cero archivos extra, bugs cargan solo el error log, arquitectura solo el digest del proyecto. Otros frameworks cargan todo en cada turno sin importar el tipo de tarea.
 
+Para el código del proyecto, `portable-kernel.sh project-context resolve --project-root <ruta> --task "<tarea>"` mantiene un índice local incremental de nombres y huellas, y devuelve un plan de lectura acotado. Los archivos sin cambios no se recalculan, nunca se guardan contenidos ni secretos, y las tareas grandes o transversales escalan a Graphify en vez de volver a recorrer todas las carpetas con el modelo.
+
+Los backends opcionales se descubren por equipo con `portable-kernel.sh backends discover`. Descubrirlos nunca activa la delegación: el usuario debe consentir y cada ruta exige evidencia vigente para la tarea. Los modelos locales de LM Studio y oMLX pueden evaluarse en serie con `--allow-load` explícito; el runner preserva modelos ya cargados, descarga solo los que él introdujo y guarda puntajes y hashes de respuesta, no prompts ni respuestas.
+
 #### Cómo se Acumula
 
 El contexto extra que un agente carga **más allá del system prompt** por tipo de tarea:
@@ -238,6 +247,7 @@ Pero el mayor ahorro es **entre sesiones**: con memoria por proyecto, la sesión
 | ⚡ | **Golden Path** | Enrutamiento por tarea: cero contexto del kernel para el 80% de las tareas |
 | 🤝 | **Cualquier Proveedor** | Mismas reglas para Gemini, Claude, Codex o cualquier agente Markdown |
 | 🕵️ | **Verificar, No Asumir** | Los agentes corroboran evidencia delegada, reinician diagnósticos fallidos, bloquean `PASS` por findings graves y reconcilian toda la entrega |
+| 🧭 | **Router Portable de Backends** | Descubre motores y CLIs de agentes disponibles en cada equipo, pide permiso antes de delegar y sólo enruta candidatos calificados |
 | 📚 | **Historial Permanente** | `PROJECT_HISTORY.md` + `ERROR_LOG.md` inmutables — cualquier agente nuevo se pone al día |
 | 🛡️ | **Borrado Seguro** | Los archivos van a `_DEPRECATED_TRASH`, nunca se eliminan permanentemente |
 | 📐 | **Cero Monolitos** | Los agentes parchean solo la superficie necesaria |

@@ -18,6 +18,8 @@ Usage:
   bash portable-kernel.sh contents [--root PATH]
   bash portable-kernel.sh remember-intent [--root PATH] --summary TEXT
   bash portable-kernel.sh capabilities scan|doctor|recommend|guide [capability] [--root PATH] [--task TEXT] [--json]
+  bash portable-kernel.sh project-context scan|resolve|status [--project-root PATH] [--task TEXT] [--refresh]
+  bash portable-kernel.sh backends discover|status|consent|record|route|probe|benchmark [arguments]
 
 Internal onboarding helpers:
   bash portable-kernel.sh set-language [--root PATH] --language VALUE --source preset|custom|default
@@ -163,17 +165,17 @@ feature_defaults_json() {
   case "$tier" in
     minimal)
       cat <<'JSON'
-{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":false,"core_tests":false,"full_evals":false,"audit_tooling":false,"capability_catalog":true,"context7_foundation":true,"advanced_workflows":false,"strict_plan_gate":false,"telemetry_tooling":false}
+{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":false,"core_tests":false,"full_evals":false,"audit_tooling":false,"capability_catalog":true,"context7_foundation":true,"execution_backend_discovery":false,"advanced_workflows":false,"strict_plan_gate":false,"telemetry_tooling":false}
 JSON
       ;;
     complete)
       cat <<'JSON'
-{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":true,"core_tests":false,"full_evals":false,"audit_tooling":true,"capability_catalog":true,"context7_foundation":true,"advanced_workflows":true,"strict_plan_gate":true,"telemetry_tooling":true}
+{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":true,"core_tests":false,"full_evals":false,"audit_tooling":true,"capability_catalog":true,"context7_foundation":true,"execution_backend_discovery":true,"advanced_workflows":true,"strict_plan_gate":true,"telemetry_tooling":true}
 JSON
       ;;
     custom|recommended)
       cat <<'JSON'
-{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":true,"core_tests":false,"full_evals":false,"audit_tooling":true,"capability_catalog":true,"context7_foundation":true,"advanced_workflows":true,"strict_plan_gate":true,"telemetry_tooling":false}
+{"live_state":true,"project_state_cache":true,"memory_vault":true,"project_ledgers":true,"core_tests":false,"full_evals":false,"audit_tooling":true,"capability_catalog":true,"context7_foundation":true,"execution_backend_discovery":true,"advanced_workflows":true,"strict_plan_gate":true,"telemetry_tooling":false}
 JSON
       ;;
   esac
@@ -858,6 +860,10 @@ command_bootstrap() {
     fi
     bash "$root/scripts/manage-capabilities.sh" scan --root "$root" >/dev/null || true
   fi
+  if [[ "$(install_state_feature_value "$root" "execution_backend_discovery")" == "true" && -f "$root/scripts/manage-execution-backends.py" ]] && command -v python3 >/dev/null 2>&1; then
+    python3 "$root/scripts/manage-execution-backends.py" status --kernel-root "$root" --root "$root" >/dev/null \
+      || emit_info "Execution backend policy initialization is degraded; bootstrap will continue."
+  fi
   mkdir -p "$root/state/traces"
   [[ -f "$root/state/traces/portable-bootstrap.jsonl" ]] || : > "$root/state/traces/portable-bootstrap.jsonl"
 
@@ -1097,6 +1103,7 @@ command_contents() {
     "Security notes:",
     "- No local MCP configuration, third-party package, binary, or launcher is included.",
     "- Context7 metadata is included; bootstrap configures the official remote endpoint and tolerates offline degradation.",
+    "- Backend adapter contracts are included, but delegation is disabled until local discovery, explicit consent, and qualification.",
     "- Tests/evals are source-repo only and are not installed by the portable bundle.",
     "",
     "Artifacts:",
@@ -1449,6 +1456,20 @@ command_doctor() {
         errors=$((errors + 1))
       }
     fi
+    if jq -e '.features.execution_backend_discovery == true' "$state_file" >/dev/null 2>&1; then
+      for file in "$root/scripts/manage-execution-backends.py" "$root/config/execution-backends.defaults.json" "$root/.kernel/delegation-policy.local.json"; do
+        [[ -f "$file" ]] || {
+          emit_error "Missing execution backend contract: $file"
+          errors=$((errors + 1))
+        }
+      done
+      if [[ -f "$root/.kernel/delegation-policy.local.json" ]]; then
+        jq -e '(.enabled | type == "boolean") and (.consent | type == "string") and (.allow_unqualified | type == "boolean")' "$root/.kernel/delegation-policy.local.json" >/dev/null || {
+          emit_error "Invalid local delegation policy contract"
+          errors=$((errors + 1))
+        }
+      fi
+    fi
     if [[ -x "$root/scripts/dependency-safety-adapter.sh" ]]; then
       if ! bash "$root/scripts/dependency-safety-adapter.sh" --root "$root" doctor --json >/dev/null 2>&1; then
         emit_error "Dependency safety adapter is not healthy; run scripts/dependency-safety-adapter.sh --root \"$root\" install-guard"
@@ -1540,6 +1561,26 @@ command_capabilities() {
   bash "$manager" "$@"
 }
 
+command_project_context() {
+  local manager="$DEFAULT_ROOT/scripts/project-context.py"
+  [[ -f "$manager" ]] || {
+    emit_error "Project context resolver is unavailable: $manager"
+    exit 1
+  }
+  require_cmd python3
+  python3 "$manager" "$@" --kernel-root "$DEFAULT_ROOT"
+}
+
+command_backends() {
+  local manager="$DEFAULT_ROOT/scripts/manage-execution-backends.py"
+  [[ -f "$manager" ]] || {
+    emit_error "Execution backend manager is unavailable: $manager"
+    exit 1
+  }
+  require_cmd python3
+  python3 "$manager" "$@" --kernel-root "$DEFAULT_ROOT" --root "$DEFAULT_ROOT"
+}
+
 main() {
   local command="${1:-}"
   if [[ -z "$command" ]]; then
@@ -1575,6 +1616,12 @@ main() {
       ;;
     capabilities)
       command_capabilities "$@"
+      ;;
+    project-context)
+      command_project_context "$@"
+      ;;
+    backends)
+      command_backends "$@"
       ;;
     set-language)
       command_set_language "$@"

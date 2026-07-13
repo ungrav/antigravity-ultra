@@ -13,6 +13,15 @@ param(
   [string]$Summary = "",
   [string]$Task = "",
   [string]$Capability = "",
+  [string]$ProjectRoot = "",
+  [string]$Action = "",
+  [string]$Backend = "",
+  [string]$Model = "",
+  [string]$Models = "",
+  [string]$TaskClass = "connectivity",
+  [string]$Risk = "low",
+  [switch]$AllowLoad,
+  [switch]$Refresh,
   [switch]$Json,
   [switch]$NonInteractive
 )
@@ -128,6 +137,7 @@ function Get-FeatureDefaults {
     audit_tooling = $true
     capability_catalog = $true
     context7_foundation = $true
+    execution_backend_discovery = $true
     advanced_workflows = $true
     strict_plan_gate = $true
     telemetry_tooling = $false
@@ -137,6 +147,7 @@ function Get-FeatureDefaults {
     $features.audit_tooling = $false
     $features.advanced_workflows = $false
     $features.strict_plan_gate = $false
+    $features.execution_backend_discovery = $false
   }
   if ($tierValue -eq "complete") {
     $features.full_evals = $false
@@ -694,6 +705,18 @@ function Command-Bootstrap {
       Write-Info "Context7 capability manager is unavailable; bootstrap will continue in degraded mode."
     }
   }
+  if ($featureMap.execution_backend_discovery) {
+    $backendManager = Join-Path (Join-Path $Root "scripts") "manage-execution-backends.py"
+    $pythonCmd = Get-Command python3 -ErrorAction SilentlyContinue
+    if ($null -eq $pythonCmd) {
+      $pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+    }
+    if ((Test-Path $backendManager) -and ($null -ne $pythonCmd)) {
+      & $pythonCmd.Source $backendManager status --kernel-root $Root --root $Root | Out-Null
+    } else {
+      Write-Info "Execution backend policy initialization is degraded; bootstrap will continue."
+    }
+  }
   New-Item -ItemType Directory -Force -Path (Join-Path (Join-Path $Root "state") "traces") | Out-Null
   $trace = Join-Path (Join-Path (Join-Path $Root "state") "traces") "portable-bootstrap.jsonl"
   if (!(Test-Path $trace)) {
@@ -795,6 +818,7 @@ function Command-Contents {
   Write-Output "Security notes:"
   Write-Output "- No local MCP configuration, third-party package, binary, or launcher is included."
   Write-Output "- Context7 metadata is included; bootstrap configures the official remote endpoint and tolerates offline degradation."
+  Write-Output "- Backend adapter contracts are included, but delegation is disabled until local discovery, explicit consent, and qualification."
   Write-Output "- Tests/evals are source-repo only and are not installed by the portable bundle."
   Write-Output ""
   Write-Output "Categories:"
@@ -839,6 +863,14 @@ function Command-Doctor {
       if (!(Test-Path (Join-Path $Root ".agent/knowledge/.project_dna.md"))) {
         Write-ErrorLine "Missing restored Project DNA"
         $errors += 1
+      }
+    }
+    if ($state.features.execution_backend_discovery) {
+      foreach ($name in @("scripts/manage-execution-backends.py", "config/execution-backends.defaults.json", ".kernel/delegation-policy.local.json")) {
+        if (!(Test-Path (Join-Path $Root $name))) {
+          Write-ErrorLine "Missing execution backend contract: $name"
+          $errors += 1
+        }
       }
     }
     foreach ($name in @("antigravity/mcp_config.json", "evals", "skills-lock.json", "skills-manifest.json", "reports/skills-curation-report.json", "scripts/run-core-evals.sh", "scripts/run-lean-evals.sh", "scripts/gemini-doctor.sh", "scripts/doctor", "scripts/__pycache__")) {
@@ -956,6 +988,58 @@ function Command-Capabilities {
   }
 }
 
+function Command-ProjectContext {
+  if ([string]::IsNullOrWhiteSpace($Subcommand) -or @("scan", "resolve", "status") -notcontains $Subcommand) {
+    throw "project-context requires scan, resolve, or status"
+  }
+  $manager = Join-Path (Join-Path $Root "scripts") "project-context.py"
+  $pythonCmd = Get-Command python3 -ErrorAction SilentlyContinue
+  if ($null -eq $pythonCmd) {
+    $pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+  }
+  if (!(Test-Path $manager) -or $null -eq $pythonCmd) {
+    throw "Project context resolver requires Python and scripts/project-context.py"
+  }
+  $targetRoot = $ProjectRoot
+  if ([string]::IsNullOrWhiteSpace($targetRoot)) {
+    $targetRoot = $Root
+  }
+  $args = @($manager, $Subcommand, "--kernel-root", $Root, "--project-root", $targetRoot)
+  if (![string]::IsNullOrWhiteSpace($Task)) {
+    $args += @("--task", $Task)
+  }
+  if ($Refresh) {
+    $args += "--refresh"
+  }
+  & $pythonCmd.Source @args
+  if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+  }
+}
+
+function Command-Backends {
+  if ([string]::IsNullOrWhiteSpace($Subcommand) -or @("discover", "status", "consent", "record", "route", "probe", "benchmark") -notcontains $Subcommand) {
+    throw "backends requires discover, status, consent, record, route, probe, or benchmark"
+  }
+  $manager = Join-Path (Join-Path $Root "scripts") "manage-execution-backends.py"
+  $pythonCmd = Get-Command python3 -ErrorAction SilentlyContinue
+  if ($null -eq $pythonCmd) {
+    $pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+  }
+  if (!(Test-Path $manager) -or $null -eq $pythonCmd) {
+    throw "Execution backend manager requires Python and scripts/manage-execution-backends.py"
+  }
+  $args = @($manager, $Subcommand)
+  if (![string]::IsNullOrWhiteSpace($Action)) { $args += $Action }
+  $args += @("--kernel-root", $Root, "--root", $Root, "--task-class", $TaskClass, "--risk", $Risk)
+  if (![string]::IsNullOrWhiteSpace($Backend)) { $args += @("--backend", $Backend) }
+  if (![string]::IsNullOrWhiteSpace($Model)) { $args += @("--model", $Model) }
+  if (![string]::IsNullOrWhiteSpace($Models)) { $args += @("--models", $Models) }
+  if ($AllowLoad) { $args += "--allow-load" }
+  & $pythonCmd.Source @args
+  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+}
+
 switch ($Command) {
   "probe" { Command-Probe }
   "bootstrap" { Command-Bootstrap }
@@ -964,6 +1048,8 @@ switch ($Command) {
   "feature-enabled" { Command-FeatureEnabled }
   "statectl" { Command-StateCtl }
   "capabilities" { Command-Capabilities }
+  "project-context" { Command-ProjectContext }
+  "backends" { Command-Backends }
   "set-language" { Command-SetLanguage }
   "set-tier" { Command-SetTier }
   "configure-features" { Command-ConfigureFeatures }
@@ -977,6 +1063,8 @@ switch ($Command) {
     Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 feature-enabled memory_vault"
     Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 statectl check"
     Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 capabilities scan -Json"
+    Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 project-context resolve -ProjectRoot . -Task `"fix auth bug`""
+    Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 backends discover"
     Write-Output "  powershell -ExecutionPolicy Bypass -File .\portable-kernel-windows.ps1 doctor"
   }
   default {
