@@ -91,7 +91,7 @@ But the biggest saving is **across sessions**: with per-project memory, session 
 | 🧠 | **Persistent Memory** | Markdown Knowledge Items with structured frontmatter — agents remember decisions, bugs, and architecture |
 | ⚡ | **Golden Path** | Task-based routing: agents load zero kernel context for 80% of tasks |
 | 🤝 | **Any Provider** | Same rules for Gemini, Claude, Codex, or any Markdown-aware agent |
-| 🕵️ | **Verify, Don't Assume** | Agents must prove changes work with evidence — `PASS`, `FAIL`, or `PARTIAL` |
+| 🕵️ | **Verify, Don't Assume** | Agents recheck delegated evidence, reset failed diagnoses, block `PASS` on open high-impact findings, and reconcile every delivery surface |
 | 📚 | **Project Ledgers** | Immutable `PROJECT_HISTORY.md` + `ERROR_LOG.md` — any new agent reads them and catches up |
 | 🛡️ | **Safe Delete** | Files go to `_DEPRECATED_TRASH`, never permanently deleted |
 | 📐 | **Zero Monoliths** | Agents patch only the needed surface — no giant rewrites |
@@ -237,7 +237,7 @@ Pero el mayor ahorro es **entre sesiones**: con memoria por proyecto, la sesión
 | 🧠 | **Memoria Persistente** | Knowledge Items en Markdown con frontmatter estructurado — los agentes recuerdan decisiones, bugs y arquitectura |
 | ⚡ | **Golden Path** | Enrutamiento por tarea: cero contexto del kernel para el 80% de las tareas |
 | 🤝 | **Cualquier Proveedor** | Mismas reglas para Gemini, Claude, Codex o cualquier agente Markdown |
-| 🕵️ | **Verificar, No Asumir** | Los agentes deben probar que los cambios funcionan — `PASS`, `FAIL` o `PARTIAL` |
+| 🕵️ | **Verificar, No Asumir** | Los agentes corroboran evidencia delegada, reinician diagnósticos fallidos, bloquean `PASS` por findings graves y reconcilian toda la entrega |
 | 📚 | **Historial Permanente** | `PROJECT_HISTORY.md` + `ERROR_LOG.md` inmutables — cualquier agente nuevo se pone al día |
 | 🛡️ | **Borrado Seguro** | Los archivos van a `_DEPRECATED_TRASH`, nunca se eliminan permanentemente |
 | 📐 | **Cero Monolitos** | Los agentes parchean solo la superficie necesaria |

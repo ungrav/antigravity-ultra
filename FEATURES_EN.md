@@ -40,6 +40,10 @@ Two disciplines baked into the kernel:
 
 - **Misconception Detection:** Before executing, the agent checks if the user's premise is actually correct. If not, it corrects the false assumption before writing code.
 - **Evidence-Based Verification:** For complex changes, the agent cannot self-certify. It must run tests or produce real evidence that the change works. Reports use `PASS`, `FAIL`, or `PARTIAL` — never unverified claims.
+- **Verifiable Delegation:** Complex delegated work has an observable pass condition, and the coordinator reopens high-impact evidence instead of trusting a report as fact.
+- **Diagnostic Reset:** Non-obvious bugs compare plausible causes and seek disconfirming evidence; two failed fixes force a return to diagnosis.
+- **Open-Finding Gate:** Confirmed in-scope `high` or `critical` findings that remain open or blocked prevent `PASS`.
+- **Complete Delivery:** Canon, implementation, tests, generated or portable artifacts, public documentation, and Git are reconciled or explicitly marked unaffected.
 
 ## 📚 Permanent History (Project Ledgers)
 
